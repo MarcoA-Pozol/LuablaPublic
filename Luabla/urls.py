@@ -11,10 +11,9 @@ urlpatterns = [
     path('community/', include('Community.urls')),
     path('profile/', include('Profile.urls')),
     #Languages
-    path('CN/', include('Languages.Chinese.urls')),
-    path('EN/', include('Languages.English.urls')),
+    path('chinese/', include('Languages.Chinese.urls')),
     # API (Internal Luabla API)
-    path('API/', include('Luabla_API.urls')),
+    path('API/', include('API.urls')),
 ]
 
 # This is to enable Django project to serve media files during development stage.

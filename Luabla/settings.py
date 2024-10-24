@@ -38,9 +38,8 @@ INSTALLED_APPS = [
     'Welcome',
     # Languages apps
     'Languages.Chinese',
-    'Languages.English',
     # Internal API
-    'Luabla_API',
+    'API',
 ]
 
 # API Settings
