@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ChineseConfig(AppConfig):
+class ApplicationConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'Languages.Chinese'
+    name = 'Application'

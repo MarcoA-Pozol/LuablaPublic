@@ -36,8 +36,8 @@ INSTALLED_APPS = [
     'Community',
     'Profile',
     'Welcome',
-    # Languages apps
-    'Languages.Chinese',
+    # App
+    'Application',
     # Internal API
     'API',
 ]

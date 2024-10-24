@@ -11,7 +11,7 @@ urlpatterns = [
     path('community/', include('Community.urls')),
     path('profile/', include('Profile.urls')),
     #Languages
-    path('chinese/', include('Languages.Chinese.urls')),
+    path('application/', include('Application.urls')),
     # API (Internal Luabla API)
     path('API/', include('API.urls')),
 ]

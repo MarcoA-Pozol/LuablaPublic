@@ -13,7 +13,7 @@ from . serializers import CnCardSerializer, CnDeckSerializer
 # User model
 from Authentication.models import User
 # Languages models
-from Languages.Chinese.models import CN_Deck, CN_Card
+from Application.models import CN_Deck, CN_Card
 
 # Chinese API Views    
 class CnDeck_ListCreate(generics.ListCreateAPIView):

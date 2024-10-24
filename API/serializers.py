@@ -1,4 +1,4 @@
-from Languages.Chinese.models import CN_Deck, CN_Card
+from Application.models import CN_Deck, CN_Card
 from rest_framework import serializers
 
 # Chinese Cards Serializers
