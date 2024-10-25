@@ -1,12 +1,12 @@
-{% extends 'layouts/chinese_base.html' %}
+{% extends 'layouts/application_base.html' %}
 
 {% block content %}
     {% load static %}
 
-    <link rel="stylesheet" href="{% static 'css/chinese_discover.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/discover.css' %}"></link>
 
     <!-- Search Form -->
-    <form id="filter-form" method="GET" action="{% url 'chinese-discover' %}">
+    <form id="filter-form" method="GET" action="{% url 'discover' %}">
         {% csrf_token %}
         <div id="filter-by-container">
             <label for="filter-by">Filter By:</label>

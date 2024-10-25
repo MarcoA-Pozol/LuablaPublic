@@ -1,8 +1,8 @@
-{% extends 'layouts/chinese_base.html' %}
+{% extends 'layouts/application_base.html' %}
 
 {% block content %}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/chinese_create_card.css' %}">
+    <link rel="stylesheet" href="{% static 'css/create_card.css' %}">
 
     <form method="POST">
         {% csrf_token %}

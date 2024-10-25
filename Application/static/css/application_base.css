@@ -11,7 +11,7 @@ h2{
     color: white;
 }
 
-.chinese_base_top_bar{
+.base_top_bar{
     position: fixed;
     top: 1;
     width: 100%;
@@ -36,20 +36,20 @@ h2{
     width: 20%;
 }
 
-.chinese_base_top_bar #language_container{
+.base_top_bar #language_container{
     display: inline-flex;
     width: 30%;
     margin-left: 15%;
 }
-.chinese_base_top_bar #language_container h2{
+.base_top_bar #language_container h2{
     width: 50%;
 }
-.chinese_base_top_bar #language_container a{
+.base_top_bar #language_container a{
     border-bottom-left-radius: 10px;
     width: 50%;
     align-content: center;
 }
-.chinese_base_top_bar img{
+.base_top_bar img{
     height: 50px;
     width: 50%;
     margin-left: 40%;
@@ -81,7 +81,7 @@ h2{
 
 
 /*Changeable content block*/
-#chinese_content{
+#content{
     overflow-y: auto;
     overflow-x: hidden;
     position: fixed;

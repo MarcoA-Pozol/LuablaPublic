@@ -7,21 +7,37 @@
         <title>Luabla - Chinese</title>
         <meta name="description" content="Chinese">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{% static 'css/chinese_base.css' %}">
-        <script src="{% static 'js/chinese_base.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'css/application_base.css' %}">
     </head>
 
     <body>
-        <nav class="chinese_base_top_bar">
+        <nav class="base_top_bar">
             <div class="logo-container">
                 <img src="{% static 'images/panda-logo-1.png' %}" alt="Panda Logo">
                 <h2>Luabla</h2>
             </div>
             <div id="language_container">
-                <a href={% url 'languages-selection' %}>
-                    <img src={% static 'images/china-flag.png' %}></img>
-                </a>
-                <h2>中文 - Chinese</h2>
+                {% if selected_language == "English" %}
+                    <a href={% url 'languages-selection' %}>
+                        <img src={% static 'images/usa-flag.png' %}></img>
+                    </a>
+                    <h2>English</h2>
+                {% elif selected_language == "Chinese" %}
+                    <a href={% url 'languages-selection' %}>
+                        <img src={% static 'images/china-flag.png' %}></img>
+                    </a>
+                    <h2>中文 - Chinese</h2>
+                {% elif selected_language == "German" %}
+                    <a href={% url 'languages-selection' %}>
+                        <img src={% static 'images/germany-flag.png' %}></img>
+                    </a>
+                    <h2>German</h2>
+                {% else %}
+                    <a href={% url 'languages-selection' %}>
+                        <img src={% static 'images/usa-flag.png' %}></img>
+                    </a>
+                    <h2>English</h2>
+                {% endif %}
             </div>
             <div class="profile_container">
                 {% if request.user.profile_picture %}
@@ -33,7 +49,7 @@
             </div>
         </nav>
 
-        <div id="chinese_content">
+        <div id="content">
             {% block content %}
                 <!--Changeable content-->
             {% endblock %}
@@ -41,27 +57,27 @@
 
 
         <div class="bottom-options-bar">
-            <a href="{% url 'chinese-home' %}">
+            <a href="{% url 'application-home' %}">
                 <li>
                     <h4>Home</h4>
                 </li>
             </a>
             
-            <a href="{% url 'chinese-study' %}">
+            <a href="{% url 'study' %}">
                 <li>
                     <h4>Study</h4>
                 </li>
             </a>
             
             
-            <a href="{% url 'chinese-discover' %}">
+            <a href="{% url 'discover' %}">
                 <li>
                     <h4>Library</h4>
                 </li>
             </a>
             
             
-            <a href="{% url 'chinese-create' %}">
+            <a href="{% url 'create' %}">
                 <li>
                     <h4>Create</h4>
                 </li>

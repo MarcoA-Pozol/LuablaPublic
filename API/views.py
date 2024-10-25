@@ -9,27 +9,27 @@ from django.db.models import F
 # Generic API views
 from rest_framework import generics
 # Serializers
-from . serializers import CnCardSerializer, CnDeckSerializer
+from . serializers import CardSerializer, DeckSerializer
 # User model
 from Authentication.models import User
 # Languages models
-from Application.models import CN_Deck, CN_Card
+from Application.models import Deck, Card
 
-# Chinese API Views    
-class CnDeck_ListCreate(generics.ListCreateAPIView):
+# API Views    
+class Deck_ListCreate(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
-    serializer_class = CnDeckSerializer
-    queryset = CN_Deck.objects.all()
+    serializer_class = DeckSerializer
+    queryset = Deck.objects.all()
     
-class CnDeck_RetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+class Deck_RetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
-    serializer_class = CnDeckSerializer
-    queryset = CN_Deck.objects.all()
+    serializer_class = DeckSerializer
+    queryset = Deck.objects.all()
 
-class CnCard_ListCreate(generics.ListCreateAPIView):
+class Card_ListCreate(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
-    serializer_class = CnCardSerializer
-    queryset = CN_Card.objects.all()
+    serializer_class = CardSerializer
+    queryset = Card.objects.all()
 
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -51,7 +51,7 @@ class CnCard_ListCreate(generics.ListCreateAPIView):
 
                         # Increase the number of cards in the related deck
                         deck_id = item['deck']
-                        CN_Deck.objects.filter(id=deck_id).update(cards_cuantity=F('cards_cuantity') + 1)
+                        Deck.objects.filter(id=deck_id).update(cards_cuantity=F('cards_cuantity') + 1)
                     else:
                         errors.append(serializer.errors)
 
@@ -67,7 +67,7 @@ class CnCard_ListCreate(generics.ListCreateAPIView):
             return super().create(request, *args, **kwargs)
 
     
-class CnCard_RetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+class Card_RetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
-    serializer_class = CnCardSerializer
-    queryset = CN_Card.objects.all()
+    serializer_class = CardSerializer
+    queryset = Card.objects.all()

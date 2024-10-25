@@ -4,16 +4,11 @@ from . import views
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
-    #CN_Cards
-    path('cn_deck/', views.CnDeck_ListCreate.as_view(), name="CnDeck-ListCreate"),
-    path('cn_deck/<int:pk>/', views.CnDeck_RetrieveUpdateDestroy.as_view(), name="CnDeck-RetrieveUpdateDestroy"),
-    path('cn_card/', views.CnCard_ListCreate.as_view(), name="CnCard-ListCreate"),
-    path('cn_card/<int:pk>/', views.CnCard_RetrieveUpdateDestroy.as_view(), name="CnCard-RetrieveUpdateDestroy"),
-
-    
-    #En_Cards
-    #....Implement English cards app urls....#
-    
+    #Cards
+    path('deck/', views.Deck_ListCreate.as_view(), name="Deck-ListCreate"),
+    path('deck/<int:pk>/', views.Deck_RetrieveUpdateDestroy.as_view(), name="Deck-RetrieveUpdateDestroy"),
+    path('card/', views.Card_ListCreate.as_view(), name="Card-ListCreate"),
+    path('card/<int:pk>/', views.Card_RetrieveUpdateDestroy.as_view(), name="Card-RetrieveUpdateDestroy"),
     
     # JWT management urls for the Token
     path("token/get/", TokenObtainPairView.as_view(), name="token-obtain"),

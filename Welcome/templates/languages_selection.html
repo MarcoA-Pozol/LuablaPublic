@@ -5,50 +5,17 @@
     <link rel="stylesheet" href="{% static 'css/languages_selection.css' %}">
     
     <div id="languages-selection-content">
-        <div class="languages-selection-background-image">
-            <img src={% static 'images/languages_selection_background.png' %}>
-        </div>
 
-        <div class="languages-selection-choices">
-            <h4>Choice a Language</h4>
-            <ul>
-                <a href="{% url 'chinese-home' %}">
-                    <li>
-                        <img src="{% static 'images/usa-flag.png' %}"></img>
-                        <h5>English</h5>
-                    </li>
-                </a>
-                <a>
-                    <li>
-                        <img src="{% static 'images/japan-flag.png' %}"></img>
-                        <h5>Japanese</h5>
-                    </li>
-                </a>
-                <a href="{% url 'chinese-home' %}">
-                    <li>
-                        <img src="{% static 'images/china-flag.png' %}"></img>
-                        <h5>Chinese</h5>
-                    </li>
-                </a>
-                <a>
-                    <li>
-                        <img src="{% static 'images/germany-flag.png' %}"></img>
-                        <h5>German</h5>
-                    </li>
-                </a>
-                <a>
-                    <li>
-                        <img src="{% static 'images/france-flag.png' %}"></img>
-                        <h5>French</h5>
-                    </li>
-                </a>
-                <a>
-                    <li>
-                        <img src="{% static 'images/italy-flag.png' %}"></img>
-                        <h5>Italian</h5>
-                    </li>
-                </a>
-            </ul>
-        </div>
+        <form method="POST" action="{% url 'ACTION-select-language' %}">
+            {% csrf_token %}
+            <label for="language">Select Language:</label>
+            <select name="language" id="language">
+                <option value="English">English</option>
+                <option value="Chinese">Chinese</option>
+                <option value="German">German</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>        
+
     </div>
 {% endblock %}

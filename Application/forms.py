@@ -1,19 +1,19 @@
 from django import forms
-from . models import CN_Card, CN_Deck
+from . models import Card, Deck
 from . datasets import HSK_LEVELS
 
-class ChineseCardForm(forms.ModelForm):
+class CardForm(forms.ModelForm):
     example_phrase = forms.CharField(required=False)
     
     class Meta:
-        model = CN_Card
+        model = Card
         fields = {'hanzi', 'pinyin', 'meaning', 'example_phrase', 'deck'}
     
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
         if user:
-            self.fields['deck'].queryset = CN_Deck.objects.filter(author=user)
+            self.fields['deck'].queryset = Deck.objects.filter(author=user)
 
             
     def save(self, author, commit=True):
@@ -29,12 +29,12 @@ class ChineseCardForm(forms.ModelForm):
             card.save(author)
         return card
     
-class ChineseDeckForm(forms.ModelForm):
+class DeckForm(forms.ModelForm):
     hsk_level = forms.ChoiceField(choices=HSK_LEVELS, required=False)
     image = forms.ImageField(required=False)
     
     class Meta:
-        model = CN_Deck
+        model = Deck
         fields = {'title', 'description', 'hsk_level', 'is_shareable', 'image'}
         
     def __init__(self, *args, **kwargs):
@@ -46,7 +46,7 @@ class ChineseDeckForm(forms.ModelForm):
         title = cleaned_data.get('title')
         author = self.author
 
-        if CN_Deck.objects.filter(title=title, author=author).exists():
+        if Deck.objects.filter(title=title, author=author).exists():
             raise forms.ValidationError(f'A deck with the title "{title}" by this author "{author}" already exists.')
             print(f'A deck with the title "{title}" by this author "{author}" already exists.')
 

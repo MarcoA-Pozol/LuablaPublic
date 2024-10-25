@@ -1,15 +1,15 @@
-from Application.models import CN_Deck, CN_Card
+from Application.models import Deck, Card
 from rest_framework import serializers
 
 # Chinese Cards Serializers
-class CnDeckSerializer(serializers.ModelSerializer):
+class DeckSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CN_Deck
+        model = Deck
         fields = ['id', 'title', 'description', 'hsk_level', 'author', 'is_shareable', 'image']
 
-class CnCardSerializer(serializers.ModelSerializer):
+class CardSerializer(serializers.ModelSerializer):
     class Meta:
-        model = CN_Card
+        model = Card
         fields = ['id', 'hanzi', 'pinyin', 'meaning', 'example_phrase', 'author', 'deck']
         
 # English Cards Serializers
