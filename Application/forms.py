@@ -1,25 +1,30 @@
 from django import forms
 from . models import Card, Deck
-from . datasets import HSK_LEVELS
+from . datasets import HSK_LEVELS, CEFR_LEVELS
 
 class CardForm(forms.ModelForm):
     example_phrase = forms.CharField(required=False)
     
     class Meta:
         model = Card
-        fields = {'hanzi', 'pinyin', 'meaning', 'example_phrase', 'deck'}
+        fields = {'word', 'meaning', 'example_phrase', 'deck'}
     
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
+        selected_language = kwargs.pop('language', None)
         super().__init__(*args, **kwargs)
+        
+        if selected_language == 'Chinese':
+            self.fields['hanzi'] = forms.CharField(max_length=255, required=True)
+            self.fields['pinyin'] = forms.CharField(max_length=255, required=True)
+        
         if user:
             self.fields['deck'].queryset = Deck.objects.filter(author=user)
 
             
     def save(self, author, commit=True):
         card = super().save(commit=False)
-        card.hanzi = self.cleaned_data['hanzi']   
-        card.pinyin = self.cleaned_data['pinyin']
+        card.word = self.cleaned_data['word']
         card.meaning = self.cleaned_data['meaning']
         card.example_phrase = self.cleaned_data['example_phrase']
         card.deck = self.cleaned_data['deck'] 
@@ -30,16 +35,20 @@ class CardForm(forms.ModelForm):
         return card
     
 class DeckForm(forms.ModelForm):
-    hsk_level = forms.ChoiceField(choices=HSK_LEVELS, required=False)
+    cefr_level = forms.ChoiceField(choices=CEFR_LEVELS, required=True)
     image = forms.ImageField(required=False)
     
     class Meta:
         model = Deck
-        fields = {'title', 'description', 'hsk_level', 'is_shareable', 'image'}
+        fields = {'title', 'description', 'cefr_level', 'is_shareable', 'image'}
         
     def __init__(self, *args, **kwargs):
         self.author = kwargs.pop('author', None)
+        selected_language = kwargs.pop('language', None)
         super().__init__(*args, **kwargs)
+        
+        if selected_language == 'Chinese':
+            self.fields['hanzi'] = forms.ChoiceField(choices=HSK_LEVELS, required=True)
         
     def clean(self):
         cleaned_data = super().clean()
@@ -52,14 +61,15 @@ class DeckForm(forms.ModelForm):
 
         return cleaned_data
         
-    def save(self, commit=True):
+    def save(self, language, commit=True):
         deck = super().save(commit=False)
         deck.title=self.cleaned_data['title']
         deck.description = self.cleaned_data['description']
-        deck.hsk_level = self.cleaned_data['hsk_level']
+        deck.cefr_level = self.cleaned_data['cefr_level']
         deck.is_shareable = self.cleaned_data['is_shareable']
         deck.image = self.cleaned_data['image']
         deck.author = self.author
+        deck.language = language
         
         if commit:
             deck.save(author=deck.author)

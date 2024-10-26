@@ -8,12 +8,20 @@
     <div id="deck-container">
         <div id="card-container">
             <div class="card-front">
-                <h2 class="hanzi">Loading...</h2>
-                <h3 class="pinyin">Loading...</h3>
+                {% if language == "Chinese" %}
+                    <h2 class="hanzi">Loading...</h2>
+                    <h3 class="pinyin">Loading...</h3>
+                {% else %}
+                    <h2 class="word">Loading...</h2>
+                {% endif %}
             </div>
             <div class="card-back" style="display:none;">
-                <h2 class="hanzi">Loading...</h2>
-                <h3 class="pinyin">Loading...</h3>
+                {% if language == "Chinese" %}
+                    <h2 class="hanzi">Loading...</h2>
+                    <h3 class="pinyin">Loading...</h3>
+                {% else %}
+                    <h2 class="word">Loading...</h2>
+                {% endif %}
                 <h2 id="meaning"></h2>
                 <p id="example_phrase"></p>
                 <button id="next-card">Next Card</button>
@@ -26,8 +34,8 @@
         <h3>Finished</h3>
         <h4 id="finished_deck_message"></h4>
         <div class="finished_deck_options">
-            <a id="continue" href="{% url 'chinese-study' %}">Continue</a>
-            <a id="again" href="{% url 'cn-action-study-deck' deck.id %}">↻</a>
+            <a id="continue" href="{% url 'study' %}">Continue</a>
+            <a id="again" href="{% url 'action-study-deck' deck.id %}">↻</a>
         </div>
     </div>
 
@@ -64,12 +72,13 @@
                     $("#finished_deck_message").text(randomMessage).show();
 
                     /* setTimeout(function() {
-                        window.location.href = "{% url 'chinese-study' %}";
+                        window.location.href = "{% url 'study' %}";
                     }, 4000); */
                 }
             });
 
             function loadCard(index) {
+                $('.word').text(deck_cards[index].word);
                 $('.hanzi').text(deck_cards[index].hanzi);
                 $('.pinyin').text(deck_cards[index].pinyin);
                 $('#meaning').text(deck_cards[index].meaning);
@@ -77,8 +86,6 @@
 
                 // Index of card that is being studied
                 $('#card_index').text(`${index + 1} of ${deck_cards.length}`);
-                
-                $('#hanzi').text(deck_cards[index].hanzi);
 
                 // Reset the card view to show front and hide back
                 $('.card-front').show();

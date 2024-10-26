@@ -10,8 +10,9 @@ from django.template.loader import render_to_string
 
 @login_required
 def application_home(request):
+    selected_language = request.session.get('selected_language')
     user = request.user 
-    context = {'user':user}
+    context = {'user':user, 'selected_language':selected_language}
     return render(request, 'application_home.html', context)
 
 
@@ -33,9 +34,15 @@ def ACTION_Study_Deck(request, deck_identifier):
     """Gets the id of the Deck the User wants to study and renders a template with the related Cards."""
     deck = Deck.objects.get(id=deck_identifier)
     deck_cards = Card.objects.filter(deck=deck).values('hanzi', 'pinyin', 'meaning', 'example_phrase')
-
+    language = request.session.get("selected_language")
+    if language == "Chinese":
+        deck_cards = Card.objects.filter(deck=deck).values('hanzi', 'pinyin', 'meaning', 'example_phrase')
+    else:
+        deck_cards = Card.objects.filter(deck=deck).values('word', 'meaning', 'example_phrase')
+    
     context = {
         'deck': deck,
+        'language': language,
         'deck_cards_json': json.dumps(list(deck_cards)),  # Convert the list of dictionaries to a JSON string
     }
     return render(request, "study_deck.html", context)
@@ -127,7 +134,7 @@ def create(request):
 @login_required
 def create_card(request):
     if request.method == "POST":
-        form = CardForm(request.POST, user=request.user)
+        form = CardForm(request.POST, user=request.user, language=request.session.get('selected_language'))
         if form.is_valid():
             card = form.save(commit=False, author=request.user)
             deck_identifier = form.cleaned_data['deck']
@@ -147,9 +154,9 @@ def create_card(request):
 def create_deck(request):
     if request.method == "POST":
         author = request.user
-        form = DeckForm(request.POST, request.FILES, author=author)
+        form = DeckForm(request.POST, request.FILES, author=author, language=request.session.get('selected_language'))
         if form.is_valid():
-            deck = form.save(commit=False)
+            deck = form.save(commit=False, language=request.session.get('selected_language'))
             deck.save() 
             return redirect('create-deck')
     else:

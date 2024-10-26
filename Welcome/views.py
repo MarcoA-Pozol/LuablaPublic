@@ -13,5 +13,5 @@ def ACTION_select_language(request):
     if request.method == 'POST':
         selected_language = request.POST.get('language')
         request.session['selected_language'] = selected_language
-        return redirect('discover') 
-    return redirect('home')
+        return redirect('application-home') 
+    return redirect('application-home')

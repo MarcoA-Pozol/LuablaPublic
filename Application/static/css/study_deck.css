@@ -29,6 +29,14 @@
     font-size: 18px;
 }
 
+/* Word (For many majority of languages) */
+.word {
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: #87d4f3; 
+    margin-bottom: 0;
+}
+
 /* Hanzi (Chinese character) styling */
 .hanzi {
     font-size: 2.4rem;

@@ -21,7 +21,7 @@
                         <h4 id="hsk_level">{{ author_deck.hsk_level }}</h4>
                         <h4 id="cards_cuantity">❐ {{ author_deck.cards_cuantity }}</h4>
                     </div>
-                    <form class="study_deck" method="GET" action="{% url 'cn-action-study-deck' author_deck.id %}">
+                    <form class="study_deck" method="GET" action="{% url 'action-study-deck' author_deck.id %}">
                         {% csrf_token %}
                         <button type="submit">Study</button>
                     </form>
@@ -42,7 +42,7 @@
                         <h4 id="hsk_level">{{ deck.hsk_level }}</h4>
                         <h4 id="cards_cuantity">❐ {{ deck.cards_cuantity }} cards</h4>
                     </div>
-                    <form class="study_deck" method="GET" action="{% url 'cn-action-study-deck' deck.id %}">
+                    <form class="study_deck" method="GET" action="{% url 'action-study-deck' deck.id %}">
                         {% csrf_token %}
                         <button type="submit">Study</button>
                     </form>
