@@ -7,31 +7,41 @@ class CardForm(forms.ModelForm):
     
     class Meta:
         model = Card
-        fields = {'word', 'meaning', 'example_phrase', 'deck'}
-    
+        fields = ['word', 'hanzi', 'pinyin', 'meaning', 'example_phrase', 'deck']
+        
     def __init__(self, *args, **kwargs):
-        user = kwargs.pop('user', None)
+        self.author = kwargs.pop('author', None)
         selected_language = kwargs.pop('language', None)
         super().__init__(*args, **kwargs)
         
         if selected_language == 'Chinese':
             self.fields['hanzi'] = forms.CharField(max_length=255, required=True)
             self.fields['pinyin'] = forms.CharField(max_length=255, required=True)
-        
-        if user:
-            self.fields['deck'].queryset = Deck.objects.filter(author=user)
+            self.fields.pop('word', None)
+        else:
+            self.fields['word'] = forms.CharField(max_length=255, required=True)
+            self.fields.pop('hanzi', None)
+            self.fields.pop('pinyin', None)
+            
+        if self.author:
+            self.fields['deck'].queryset = Deck.objects.filter(author=self.author)
 
             
-    def save(self, author, commit=True):
+    def save(self, language, author, commit=True):
         card = super().save(commit=False)
-        card.word = self.cleaned_data['word']
         card.meaning = self.cleaned_data['meaning']
         card.example_phrase = self.cleaned_data['example_phrase']
         card.deck = self.cleaned_data['deck'] 
         card.author = author
         
+        if language == "Chinese":
+            card.hanzi = self.cleaned_data.get('hanzi')
+            card.pinyin = self.cleaned_data.get('pinyin')
+        else:
+            card.word = self.cleaned_data.get('word')
+        
         if commit:
-            card.save(author)
+            card.save()
         return card
     
 class DeckForm(forms.ModelForm):
@@ -50,7 +60,7 @@ class DeckForm(forms.ModelForm):
             self.fields['hsk_level'] = forms.ChoiceField(choices=HSK_LEVELS, required=True)
             self.fields.pop('cefr_level', None)  # Remove cefr_level for Chinese decks
         else:
-            self.fields['cefr_level'].required = forms.ChoiceField(choices=CEFR_LEVELS, required=True)
+            self.fields['cefr_level'] = forms.ChoiceField(choices=CEFR_LEVELS, required=True)
             self.fields.pop('hsk_level', None)  # Remove hsk_level for other languages
 
     def clean(self):
@@ -63,13 +73,13 @@ class DeckForm(forms.ModelForm):
 
         return cleaned_data
 
-    def save(self, language, commit=True):
+    def save(self, language, author, commit=True):
         deck = super().save(commit=False)
         deck.title = self.cleaned_data['title']
         deck.description = self.cleaned_data['description']
         deck.is_shareable = self.cleaned_data['is_shareable']
         deck.image = self.cleaned_data['image']
-        deck.author = self.author
+        deck.author = author
         deck.language = language
 
         if language == "Chinese":
@@ -78,5 +88,5 @@ class DeckForm(forms.ModelForm):
             deck.cefr_level = self.cleaned_data.get('cefr_level')
 
         if commit:
-            deck.save(author=deck.author)
+            deck.save()
         return deck

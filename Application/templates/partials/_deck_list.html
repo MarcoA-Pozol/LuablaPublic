@@ -19,7 +19,7 @@
                 <b id="starts_rating">☆ 5</b> | 
                 <b id="cards_cuantity">❐ {{ deck.cards_cuantity }} cards</b>
             </h4>
-            <form method="GET" action="{% url 'cn-action-get-deck' deck.id %}">
+            <form method="GET" action="{% url 'action-get-deck' deck.id %}">
                 {% csrf_token %}
                 <button type="submit">Add</button>
             </form>

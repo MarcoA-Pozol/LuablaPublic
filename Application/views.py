@@ -23,7 +23,8 @@ def application_home(request):
 @login_required
 def study(request):
     user = request.user
-    decks = Deck.objects.filter(owners=user)
+    language = request.session.get('selected_language')
+    decks = Deck.objects.filter(owners=user, language=language)
     author_decks = Deck.objects.filter(author=user)
     cards = list(Card.objects.values('hanzi', 'pinyin', 'meaning', 'example_phrase'))
     context = {'decks':decks, 'author_decks':author_decks,'cards_json': json.dumps(cards) }
@@ -58,7 +59,8 @@ def ACTION_Study_Deck(request, deck_identifier):
 #Discovering and adding new Decks
 @login_required
 def discover(request):
-    decks = Deck.objects.all().exclude(author=request.user).exclude(owners=request.user).exclude(cards_cuantity=0)
+    language = request.session.get('selected_language')
+    decks = Deck.objects.filter(language=language).exclude(author=request.user).exclude(owners=request.user).exclude(cards_cuantity=0)
 
     titles = Deck.objects.all().values_list('title', flat=True).exclude(cards_cuantity=0).distinct()
     authors = User.objects.exclude(deck_author__cards_cuantity=0).filter(deck_author__isnull=False).distinct().values_list('username', flat=True)
@@ -133,10 +135,13 @@ def create(request):
 
 @login_required
 def create_card(request):
+    author = request.user
+    language = request.session.get('selected_language')
+    
     if request.method == "POST":
-        form = CardForm(request.POST, user=request.user, language=request.session.get('selected_language'))
+        form = CardForm(request.POST, author=author, language=language)
         if form.is_valid():
-            card = form.save(commit=False, author=request.user)
+            card = form.save(commit=True, language=language, author=author)
             deck_identifier = form.cleaned_data['deck']
             card.save()
             
@@ -145,7 +150,7 @@ def create_card(request):
             deck.save()
             return redirect('create-card')
     else:
-        form = CardForm(user=request.user)
+        form = CardForm(author=author, language=language)
         
     context = {'form':form}
     return render(request, 'create_card.html', context)
@@ -158,7 +163,7 @@ def create_deck(request):
     if request.method == "POST":
         form = DeckForm(request.POST, request.FILES, author=author, language=language)
         if form.is_valid():
-            deck = form.save(commit=True, language=language)
+            deck = form.save(commit=True, language=language, author=author)
             return redirect('create-deck')
     else:
         form = DeckForm(author=author, language=language)
