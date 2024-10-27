@@ -35,21 +35,24 @@ class CardForm(forms.ModelForm):
         return card
     
 class DeckForm(forms.ModelForm):
-    cefr_level = forms.ChoiceField(choices=CEFR_LEVELS, required=True)
     image = forms.ImageField(required=False)
-    
+
     class Meta:
         model = Deck
-        fields = {'title', 'description', 'cefr_level', 'is_shareable', 'image'}
-        
+        fields = ['title', 'description', 'hsk_level', 'cefr_level', 'is_shareable', 'image']
+
     def __init__(self, *args, **kwargs):
         self.author = kwargs.pop('author', None)
         selected_language = kwargs.pop('language', None)
         super().__init__(*args, **kwargs)
-        
+
         if selected_language == 'Chinese':
-            self.fields['hanzi'] = forms.ChoiceField(choices=HSK_LEVELS, required=True)
-        
+            self.fields['hsk_level'] = forms.ChoiceField(choices=HSK_LEVELS, required=True)
+            self.fields.pop('cefr_level', None)  # Remove cefr_level for Chinese decks
+        else:
+            self.fields['cefr_level'].required = forms.ChoiceField(choices=CEFR_LEVELS, required=True)
+            self.fields.pop('hsk_level', None)  # Remove hsk_level for other languages
+
     def clean(self):
         cleaned_data = super().clean()
         title = cleaned_data.get('title')
@@ -57,20 +60,23 @@ class DeckForm(forms.ModelForm):
 
         if Deck.objects.filter(title=title, author=author).exists():
             raise forms.ValidationError(f'A deck with the title "{title}" by this author "{author}" already exists.')
-            print(f'A deck with the title "{title}" by this author "{author}" already exists.')
 
         return cleaned_data
-        
+
     def save(self, language, commit=True):
         deck = super().save(commit=False)
-        deck.title=self.cleaned_data['title']
+        deck.title = self.cleaned_data['title']
         deck.description = self.cleaned_data['description']
-        deck.cefr_level = self.cleaned_data['cefr_level']
         deck.is_shareable = self.cleaned_data['is_shareable']
         deck.image = self.cleaned_data['image']
         deck.author = self.author
         deck.language = language
-        
+
+        if language == "Chinese":
+            deck.hsk_level = self.cleaned_data.get('hsk_level')
+        else:
+            deck.cefr_level = self.cleaned_data.get('cefr_level')
+
         if commit:
             deck.save(author=deck.author)
         return deck

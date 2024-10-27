@@ -152,15 +152,16 @@ def create_card(request):
 
 @login_required
 def create_deck(request):
+    author = request.user
+    language = request.session.get('selected_language')
+
     if request.method == "POST":
-        author = request.user
-        form = DeckForm(request.POST, request.FILES, author=author, language=request.session.get('selected_language'))
+        form = DeckForm(request.POST, request.FILES, author=author, language=language)
         if form.is_valid():
-            deck = form.save(commit=False, language=request.session.get('selected_language'))
-            deck.save() 
+            deck = form.save(commit=True, language=language)
             return redirect('create-deck')
     else:
-        form = DeckForm()
+        form = DeckForm(author=author, language=language)
     
-    context = {'form':form}
+    context = {'form': form}
     return render(request, 'create_deck.html', context)
