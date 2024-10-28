@@ -2,5 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.community_home, name="community-home"),
+    path('', views.community, name="community"),
+    path('chat/', views.chat, name="chat")
 ]

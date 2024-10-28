@@ -17,6 +17,7 @@ h2{
     width: 100%;
     background-color: rgb(36, 25, 97);
     color: white;
+    padding-bottom: 4.5px;
 }
 
 .logo-container{
@@ -104,14 +105,13 @@ h2{
 /*Bottom Options Bar*/
 .bottom-options-bar{
     position: fixed;
-    top: 14%;
-    height: 80%;
+    top: 11%;
+    height: 90%;
     margin-bottom: 0;
-    width: 10%;
-    border-radius: 10px;
+    width: 12%;
     z-index: 1000;   
     display: block-flex;
-    background-color: rgb(36, 25, 97);
+    background-color: #111111;
 }
 .bottom-options-bar a li{
     width: 90%;
@@ -131,5 +131,5 @@ h2{
 .bottom-options-bar li:hover{
     color: rgb(199, 199, 199);
     transform: scale(1.02);
-    box-shadow: 1px 1px 1px 1px rgb(255, 255, 255);
+    box-shadow: 1px 1px 1px rgb(255, 255, 255);
 }

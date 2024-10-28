@@ -1,3 +1,30 @@
-{% extends "" %}
+{% extends "layouts/application_base.html" %}
 
-{% load static %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/community.css' %}">
+
+    <h2 class="community-title">Community</h2>
+    <p class="community-description">Get new friends and meet new people, or participate in different topics with our forum!</p>
+
+    <div class="users-list">
+        {% for user in users %}
+            <div class="user-card">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="user-profile">
+                        {% if user.profile_picture %}
+                            <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="profile-picture">
+                        {% else %}
+                            <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture" class="profile-picture">
+                        {% endif %}
+                    </div>
+                    <h3 class="user-name">{{ user.username }}</h3>
+                    <h4 class="user-country">{{ user.country }}</h4>
+                    <button type="submit" class="friend-button">Add friend ✚</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

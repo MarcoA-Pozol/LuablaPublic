@@ -7,8 +7,11 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Welcome.urls')),
+    # Authentication
     path('authentication/', include('Authentication.urls')),
+    # Community
     path('community/', include('Community.urls')),
+    # Porfile
     path('profile/', include('Profile.urls')),
     #Languages
     path('application/', include('Application.urls')),
