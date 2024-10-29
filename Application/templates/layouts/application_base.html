@@ -11,33 +11,38 @@
     </head>
 
     <body>
+        <!--TOP BAR-->
         <nav class="base_top_bar">
             <div class="logo-container">
                 <img src="{% static 'images/panda-logo-1.png' %}" alt="Panda Logo">
                 <h2>Luabla</h2>
             </div>
             <div id="language_container">
-                {% if selected_language == "English" %}
-                    <a href={% url 'languages-selection' %}>
+                <a href={% url 'languages-selection' %}>
+                    {% if selected_language == "English" %}
                         <img src={% static 'images/usa-flag.png' %}></img>
-                    </a>
-                    <h2>English</h2>
-                {% elif selected_language == "Chinese" %}
-                    <a href={% url 'languages-selection' %}>
+                        <h2>English</h2>
+                    {% elif selected_language == "Chinese" %}
                         <img src={% static 'images/china-flag.png' %}></img>
-                    </a>
-                    <h2>中文 - Chinese</h2>
-                {% elif selected_language == "German" %}
-                    <a href={% url 'languages-selection' %}>
+                        <h2>中文 - Chinese</h2>
+                    {% elif selected_language == "German" %}
                         <img src={% static 'images/germany-flag.png' %}></img>
-                    </a>
-                    <h2>German</h2>
-                {% else %}
-                    <a href={% url 'languages-selection' %}>
+                        <h2>German</h2>
+                    {% else %}
                         <img src={% static 'images/usa-flag.png' %}></img>
-                    </a>
-                    <h2>English</h2>
-                {% endif %}
+                        <h2>English</h2>
+                    {% endif %}
+                </a>
+            </div>
+            <div class="notifications_messages_container">
+                <div id="messages">
+                    <img src="{% static 'images/messages_icon.png' %}" alt="Messages icon">
+                    <h5>0<!--Replace with the count of total messages--></h5>
+                </div>
+                <div id="notifications">
+                    <img src="{% static 'images/notifications_icon.png' %}" alt="Notifications icon">
+                    <h5>0<!--Replace with the count of total notifications--></h5>
+                </div>
             </div>
             <div class="profile_container">
                 {% if request.user.profile_picture %}
@@ -49,6 +54,10 @@
             </div>
         </nav>
 
+
+
+
+        <!--CHANGEABLE CONTENT-->
         <div id="content">
             {% block content %}
                 <!--Changeable content-->
@@ -56,6 +65,9 @@
         </div>
 
 
+
+
+        <!--SIDE OPTIONS MENU-->
         <div class="bottom-options-bar">
             <a href="{% url 'application-home' %}">
                 <li>

@@ -11,69 +11,118 @@ h2{
     color: white;
 }
 
+a{
+    text-decoration: none;
+}
+
+
+
 .base_top_bar{
+    padding-top: 5px;
+    padding-left: 10px;
     position: fixed;
     top: 1;
     width: 100%;
     background-color: rgb(36, 25, 97);
     color: white;
-    padding-bottom: 4.5px;
-}
-
-.logo-container{
-    width: 15%;
     display: inline-flex;
 }
 
+/*Logo of Luabla*/
+.logo-container{
+    width: 15%;
+    display: inline-flex;
+    justify-content: center;
+    justify-items: center;
+}
+
 .logo-container img{
-    width: 45px;
-    height: 40px;
-    margin-left: 20px;
+    width: 75px;
+    height: 65px;
+    justify-self: center;
+    align-self: center;
+    padding-bottom: 15px;
 }
 .logo-container h2 {
     align-content: center;
     margin: 0;
-    font-size: 32px; 
+    font-size: 2.0rem; 
     width: 20%;
 }
 
+/*Language Container*/
 .base_top_bar #language_container{
-    display: inline-flex;
-    width: 30%;
-    margin-left: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 15%;
+    margin-left: 30%;
+    text-align: center;
 }
 .base_top_bar #language_container h2{
-    width: 50%;
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 0;
 }
-.base_top_bar #language_container a{
-    border-bottom-left-radius: 10px;
-    width: 50%;
+.base_top_bar #language_container img{
+    height: 40px;
+    width: 70px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+/*Notifications and Messages container*/
+.notifications_messages_container{
+    display: inline-flex;
+    justify-content: center;
     align-content: center;
+    align-items: center;
+    text-align: center;
+    margin-right: 10px;
+    margin-left: 10%;
+    padding-right: 15px;
+    border-right: 1px solid rgb(201, 200, 207);
 }
-.base_top_bar img{
-    height: 50px;
-    width: 50%;
-    margin-left: 40%;
-    border-radius: 10px;
+.notifications_messages_container div{
+    margin-left: 20px;
+    border-radius: 5px;
+}
+.notifications_messages_container div img{
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    margin-top: 5px;
+}
+.notifications_messages_container h5{
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: rgb(255, 255, 255);
+    background-color: #bb1212;
+    padding-top: 2px;
+    padding-bottom: 0;
+    padding-inline: 5px;
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 
 /*Profile*/
 .profile_container{
-    width: 30%;
-    margin-left: 5%;
-    display: inline-flex;
+    width: 10%;
+    display: block;
+    text-align: center;
 }
 .profile_container img{
     height: 50px;
     width: 50px;
-    border-radius: 10%;
-    border: 1px solid white;
+    border-radius: 50%;
     object-fit: cover;
 }
 .profile_container h3{
-    font-size: 1.2rem;
-    padding-inline: 10px;
+    font-size: 1.0rem;
+    margin-top: 0;
 }
 
 
@@ -105,8 +154,8 @@ h2{
 /*Bottom Options Bar*/
 .bottom-options-bar{
     position: fixed;
-    top: 11%;
-    height: 90%;
+    top: 14%;
+    height: 86%;
     margin-bottom: 0;
     width: 12%;
     z-index: 1000;   

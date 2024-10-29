@@ -62,7 +62,7 @@
 }
 
 .friend-button {
-    background-color: #4CAF50;
+    background-color: #1334c7;
     color: white;
     border: none;
     border-radius: 5px;
@@ -73,7 +73,7 @@
 }
 
 .friend-button:hover {
-    background-color: #45A049;
+    background-color: #002cf1;
 }
 
 .friend-button:focus {
