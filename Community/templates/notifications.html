@@ -1,0 +1,23 @@
+{% extends "layouts/application_base.html" %}
+
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/notifications.css' %}">
+
+    <div class="notifications-list">
+        <h2 class="community-title">Notifications</h2>
+        {% if notifications %}
+                {% for notification in notifications %}
+                    {{ notification.sent_date}}
+                    {{ notification.message }}
+                    <form method="POST" action="{% url 'action-read-notification' notification.id %}">
+                        {% csrf_token %}
+                        <button type="submit">OK</button>
+                    </form>
+                {% endfor %}
+        {% else %}
+            <h6>No notifications here</h6>
+        {% endif %}
+    </div>
+
+{% endblock %}

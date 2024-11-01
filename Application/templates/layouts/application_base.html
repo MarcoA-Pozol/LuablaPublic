@@ -39,10 +39,16 @@
                     <img src="{% static 'images/messages_icon.png' %}" alt="Messages icon">
                     <h5>0<!--Replace with the count of total messages--></h5>
                 </div>
-                <div id="notifications">
-                    <img src="{% static 'images/notifications_icon.png' %}" alt="Notifications icon">
-                    <h5>0<!--Replace with the count of total notifications--></h5>
-                </div>
+                <a href="{% url 'notifications' %}">
+                    <div id="notifications">
+                        <img src="{% static 'images/notifications_icon.png' %}" alt="Notifications icon">
+                        {% if total_notifications == 0 %}
+                            <h5 style="background-color: rgb(36, 25, 97);">ᶻ 𝗓 𐰁</h5>
+                        {% else %}
+                            <h5>{{ total_notifications }}</h5>
+                        {% endif %}
+                    </div>
+                </a>
             </div>
             <div class="profile_container">
                 {% if request.user.profile_picture %}

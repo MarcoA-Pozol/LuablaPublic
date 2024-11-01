@@ -7,6 +7,8 @@ from . models import Deck, Card
 from Authentication.models import User
 from . datasets import HSK_LEVELS
 from django.template.loader import render_to_string
+# Notifications model
+from Community.models import Notifications
 
 @login_required
 def application_home(request):
@@ -111,11 +113,15 @@ def discover(request):
 @login_required
 def ACTION_Get_Deck(request, deck_identifier):
     if request.method == "GET":
+        language = request.session.get('selected_language')
         user = request.user
         deck = Deck.objects.get(id=deck_identifier)
         deck.owners.add(user)
         deck.downloads = deck.downloads+1
         deck.save()
+        
+        obtained_deck_notification = Notifications.objects.create(reason='Obtained deck', message=f"'{deck}' deck from {language} language has been obtained and is now available to be studied.", destinatary=user, is_read=False)
+        obtained_deck_notification.save()
         return redirect('application-home')
     else:
         return redirect('application-home')
