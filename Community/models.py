@@ -12,8 +12,8 @@ class FriendRequest(models.Model):
 
     def accept(self):
         """Accept the friend request and add both users to each other's friend list."""
-        self.to_user.friends.add(self.from_user)
-        self.from_user.friends.add(self.to_user)
+        self.receiver.friends.add(self.sender)
+        self.sender.friends.add(self.receiver)
         self.accepted = True
         self.save()
         

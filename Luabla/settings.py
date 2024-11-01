@@ -81,7 +81,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'Application.context_processors.selected_language',
-                'Application.context_processors.total_notifications'
+                'Application.context_processors.total_notifications',
+                'Application.context_processors.total_friend_requests'
             ],
         },
     },

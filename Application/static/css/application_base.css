@@ -18,7 +18,7 @@ a{
 
 
 .base_top_bar{
-    padding-top: 5px;
+    padding-top: 10px;
     padding-left: 10px;
     position: fixed;
     top: 1;
@@ -75,11 +75,8 @@ a{
 /*Notifications and Messages container*/
 .notifications_messages_container{
     display: inline-flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
     text-align: center;
-    margin-right: 10px;
+    margin-top: 0;
     margin-left: 10%;
     padding-right: 15px;
     border-left: 1px solid rgb(201, 200, 207);
@@ -94,6 +91,7 @@ a{
 .notifications_messages_container div img{
     width: 35px;
     height: 35px;
+    margin-top: 10px;
     text-align: center;
 }
 .notifications_messages_container h5{
@@ -102,7 +100,7 @@ a{
     font-size: 0.7rem;
     color: rgb(255, 255, 255);
     background-color: #bb1212;
-    padding-inline: 5px;
+    padding-inline: 10px;
     text-align: center;
     border-radius: 5px;
 }
@@ -121,7 +119,7 @@ a{
     object-fit: cover;
 }
 .profile_container h3{
-    font-size: 1.0rem;
+    font-size: 0.8rem;
     margin-top: 0;
 }
 

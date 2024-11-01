@@ -10,3 +10,12 @@ def total_notifications(request):
         total_notifications = 0
         
     return {'total_notifications': total_notifications}
+
+def total_friend_requests(request):
+    if request.user.is_authenticated:
+        friend_requests = request.user.received_friend_requests.filter(receiver=request.user)
+        total_friend_requests = len(friend_requests)
+    else:
+        total_friend_requests = 0
+    
+    return {'total_friend_requests': total_friend_requests}
