@@ -39,7 +39,20 @@ def show_friend_requests(request):
     context = {"friend_requests":friend_requests}
     
     return render(request, "show_friend_requests.html", context)
-        
+
+def ACTION_accept_friend_request(request, friend_request_identifier):
+    """
+        Creates a relationship when the receiver accept, friendship in this case of one user and another user, the first as the sender of the friend request, and the second user as the receiver.
+    """
+    
+    friend_request = FriendRequest.objects.get(id=friend_request_identifier)
+    
+    if request.method == "POST":
+        friendship = Friendship.objects.create(user1=friend_request.sender, user2=friend_request.receiver)
+        friendship.save()
+        return redirect('show-friend-requests')
+    else:
+        return redirect('show-friend-requests')
         
 
 

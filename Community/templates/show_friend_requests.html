@@ -9,7 +9,7 @@
         {% if friend_requests %}
                 {% for friend_request in friend_requests %}
                     <h4>{{ friend_request.sender}} wants to be your friend!</h4>
-                    <form method="POST">
+                    <form method="POST" action="{% url 'action-accept-friend-request' friend_request.id %}">
                         {% csrf_token %}
                         <button id="accept_friend_request" type="submit">Accept</button>
                     </form>

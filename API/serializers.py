@@ -1,7 +1,8 @@
 from Application.models import Deck, Card
+from Community.models import FriendRequest, Friendship, Notifications
 from rest_framework import serializers
 
-# Chinese Cards Serializers
+# Cards Serializers
 class DeckSerializer(serializers.ModelSerializer):
     class Meta:
         model = Deck
@@ -12,5 +13,6 @@ class CardSerializer(serializers.ModelSerializer):
         model = Card
         fields = ['id', 'hanzi', 'pinyin', 'meaning', 'example_phrase', 'author', 'deck']
         
-# English Cards Serializers
-#.......Implement two serializers for English Cards App (Decks and Cards).......#
+
+
+# Friendships Serializer

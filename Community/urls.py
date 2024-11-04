@@ -6,6 +6,7 @@ urlpatterns = [
     path('', views.community, name="community"),
     path('show_friend_requests/', views.show_friend_requests, name="show-friend-requests"),
     path('send_friend_request/<int:user_identifier>/', views.ACTION_send_friend_request, name="action-send-friend-request"),
+    path('accept_friend_request/<int:friend_request_identifier>/', views.ACTION_accept_friend_request, name="action-accept-friend-request"),
     #Chat
     path('chat/', views.chat, name="chat"),
     #Notifications
