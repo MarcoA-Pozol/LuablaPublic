@@ -2,11 +2,13 @@
 
 {% load static %}
 {% block content %}
-    <h2>Chat</h2>
-    <p>Talk with your friends and exchange languages :)</p>
-    <ul>
-        {% for chat in chats %}
-            <li>{{chat.username}}</li>
-        {% endfor %}
-    </ul>
+    <div class="chat-container"> 
+        <h2>Chat</h2>
+        <p>Talk with your friends and exchange languages :D</p>
+        <ul>
+            {% for chat in chats %}
+                <li>{{chat.username}}</li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

@@ -62,7 +62,6 @@
 }
 
 .friend-button {
-    background-color: #1334c7;
     color: white;
     border: none;
     border-radius: 5px;
@@ -72,17 +71,32 @@
     transition: background-color 0.2s ease;
 }
 
-.friend-button:hover {
-    background-color: #002cf1;
-}
-
 .friend-button:focus {
     outline: none;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 
+.friend-button.add{
+    background-color: #002cf1;
+}
+
+.friend-button.accept{
+    background-color: green;
+}
+
 #friend-request-sent{
     background-color: rgb(120, 140, 250);
+    color: white;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+#friend-request-received{
+    background-color: rgb(27, 153, 16);
     color: white;
     text-align: center;
     border: none;

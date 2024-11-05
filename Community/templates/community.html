@@ -10,23 +10,56 @@
     <div class="users-list">
         {% for user in users %}
             <div class="user-card">
-                <form method="POST" action="{% url 'action-send-friend-request' user.id %}">
-                    {% csrf_token %}
-                    <div class="user-profile">
-                        {% if user.profile_picture %}
-                            <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="profile-picture">
-                        {% else %}
-                            <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture" class="profile-picture">
-                        {% endif %}
-                    </div>
-                    <h3 class="user-name">{{ user.username }}</h3>
-                    <h4 class="user-country">{{ user.country }}</h4>
-                    {% if user.id in friend_request_receivers %}
+                {% if user.id in friend_request_receivers %}
+                    <form method="POST" action="{% url 'action-send-friend-request' user.id %}">
+                        {% csrf_token %}
+                        <div class="user-profile">
+                            {% if user.profile_picture %}
+                                <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="profile-picture">
+                            {% else %}
+                                <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture" class="profile-picture">
+                            {% endif %}
+                        </div>
+                        <h3 class="user-name">{{ user.username }}</h3>
+                        <h4 class="user-country">{{ user.country }}</h4>
                         <h3 id="friend-request-sent">Request was sent ☑</h3>
-                    {% else %}
+                    </form>
+
+                {% elif user.id in friend_request_senders %}
+                    {% for friend_request in friend_requests %}
+                        {% if user == friend_request.sender %}
+                            <form method="POST" action="{% url 'action-accept-friend-request' friend_request.id %}">
+                                {% csrf_token %}
+                                <div class="user-profile">
+                                    {% if user.profile_picture %}
+                                        <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="profile-picture">
+                                    {% else %}
+                                        <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture" class="profile-picture">
+                                    {% endif %}
+                                </div>
+                                <h3 class="user-name">{{ user.username }}</h3>
+                                <h4 class="user-country">{{ user.country }}</h4>
+                                <button type="submit" class="friend-button accept">Accept ★
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% endfor %}
+
+                {% else %}
+                    <form method="POST" action="{% url 'action-send-friend-request' user.id %}">
+                        {% csrf_token %}
+                        <div class="user-profile">
+                            {% if user.profile_picture %}
+                                <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="profile-picture">
+                            {% else %}
+                                <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture" class="profile-picture">
+                            {% endif %}
+                        </div>
+                        <h3 class="user-name">{{ user.username }}</h3>
+                        <h4 class="user-country">{{ user.country }}</h4>
                         <button type="submit" class="friend-button add">Add Friend ✚</button>
-                    {% endif %}
-                </form>
+                    </form>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

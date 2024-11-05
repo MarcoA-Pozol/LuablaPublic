@@ -4,16 +4,41 @@ from . models import Notifications, FriendRequest, Friendship
 
 """COMMUNITY"""
 def community(request):
-    users = User.objects.exclude(id=request.user.id)
+    remove_this_users = []
+    
+    friendships = Friendship.objects.filter(user1=request.user) | Friendship.objects.filter(user2=request.user)
+    
+    for friendship in friendships:
+        if friendship.user2 == request.user:
+            user = User.objects.get(username=friendship.user1)
+            remove_this_users.append(user.id)
+        elif friendship.user1 == request.user:
+            user = User.objects.get(username=friendship.user2)
+            remove_this_users.append(user.id)
+        else:
+            pass
+    remove_this_users.append(request.user.id)
+    
+    users = User.objects.all().exclude(id__in=remove_this_users)
+    
 
     # Get IDs of users who have received a friend request from the current user
     friend_request_receivers = set(
         FriendRequest.objects.filter(sender=request.user).values_list('receiver_id', flat=True)
     )
+    
+    # Get IDs of users from who the current user is receiving a friend request
+    friend_request_senders = set(
+        FriendRequest.objects.filter(receiver=request.user).values_list('sender_id', flat=True)
+    )
+    
+    friend_requests = FriendRequest.objects.filter(receiver=request.user, accepted=False).all()
 
     context = {
         "users": users,
-        "friend_request_receivers": friend_request_receivers
+        "friend_request_receivers": friend_request_receivers,
+        "friend_request_senders": friend_request_senders,
+        "friend_requests": friend_requests
     }
     return render(request, "community.html", context)
 
@@ -58,8 +83,13 @@ def ACTION_accept_friend_request(request, friend_request_identifier):
     friend_request.save()
     
     if request.method == "POST":
-        friendship = Friendship.objects.create(user1=friend_request.sender, user2=friend_request.receiver)
+        friendship = Friendship.objects.create(user1=friend_request.sender, user2=friend_request.receiver) 
         friendship.save()
+        
+        # Generate a notification to advice to the authenticated user when the receiver of a friend request has accepted it.
+        notification = Notifications.objects.create(reason='New friend', message=f"'{friend_request.receiver}' has accepted to be your friend.", destinatary=friend_request.sender, is_read=False)
+        notification.save()
+        
         return redirect('show-friend-requests')
     else:
         return redirect('show-friend-requests')
@@ -72,7 +102,23 @@ def ACTION_accept_friend_request(request, friend_request_identifier):
 
 """CHAT"""
 def chat(request):
-    chats = User.objects.all() 
+    """
+        Show users that are friend of the requested user to initialize and chat with them.
+        Filter only users that have a Friendship object related to both of them (authenticated user and friend).
+    """
+    
+    friendships = Friendship.objects.all()
+    
+    chats = []
+    for friendship in friendships:
+        if friendship.user2 == request.user:
+            chat = User.objects.get(username=friendship.user1)
+            chats.append(chat)
+        elif friendship.user1 == request.user:
+            chat = User.objects.get(username=friendship.user2)
+            chats.append(chat)
+        else:
+            pass
     
     context = {"chats":chats}
     return render(request, "chat.html", context)
