@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{% static 'css/show_notifications.css' %}">
 
     <div class="notifications-list">
-        <h2 class="community-title">Notifications</h2>
+        <h2>Notifications</h2>
         {% if notifications %}
                 {% for notification in notifications %}
                     {{ notification.sent_date}}

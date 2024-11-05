@@ -4,9 +4,17 @@ from . models import Notifications, FriendRequest, Friendship
 
 """COMMUNITY"""
 def community(request):
-    users = User.objects.all().exclude(username=request.user)
-    
-    context = {"users":users}
+    users = User.objects.exclude(id=request.user.id)
+
+    # Get IDs of users who have received a friend request from the current user
+    friend_request_receivers = set(
+        FriendRequest.objects.filter(sender=request.user).values_list('receiver_id', flat=True)
+    )
+
+    context = {
+        "users": users,
+        "friend_request_receivers": friend_request_receivers
+    }
     return render(request, "community.html", context)
 
 def ACTION_send_friend_request(request, user_identifier):
@@ -34,7 +42,7 @@ def show_friend_requests(request):
     """
     
     user = request.user
-    friend_requests = FriendRequest.objects.filter(receiver=user).all()
+    friend_requests = FriendRequest.objects.filter(receiver=user, accepted=False).all()
     
     context = {"friend_requests":friend_requests}
     
@@ -46,6 +54,8 @@ def ACTION_accept_friend_request(request, friend_request_identifier):
     """
     
     friend_request = FriendRequest.objects.get(id=friend_request_identifier)
+    friend_request.accepted = True
+    friend_request.save()
     
     if request.method == "POST":
         friendship = Friendship.objects.create(user1=friend_request.sender, user2=friend_request.receiver)

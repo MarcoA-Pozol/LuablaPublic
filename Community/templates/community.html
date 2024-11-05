@@ -21,7 +21,11 @@
                     </div>
                     <h3 class="user-name">{{ user.username }}</h3>
                     <h4 class="user-country">{{ user.country }}</h4>
-                    <button type="submit" class="friend-button">Add friend ✚</button>
+                    {% if user.id in friend_request_receivers %}
+                        <h3 id="friend-request-sent">Request was sent ☑</h3>
+                    {% else %}
+                        <button type="submit" class="friend-button add">Add Friend ✚</button>
+                    {% endif %}
                 </form>
             </div>
         {% endfor %}

@@ -13,7 +13,7 @@ def total_notifications(request):
 
 def total_friend_requests(request):
     if request.user.is_authenticated:
-        friend_requests = request.user.received_friend_requests.filter(receiver=request.user)
+        friend_requests = request.user.received_friend_requests.filter(receiver=request.user, accepted=False)
         total_friend_requests = len(friend_requests)
     else:
         total_friend_requests = 0

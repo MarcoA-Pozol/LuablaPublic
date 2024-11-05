@@ -3,4 +3,8 @@
     box-shadow: 2px 2px 2px 2px #111111;
     text-align: center;
     background-color: white;
+    padding-top: 5px;
+}
+.notifications-list h2{
+    color: #111111;
 }
