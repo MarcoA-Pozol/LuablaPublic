@@ -61,6 +61,10 @@
     color: #777;
 }
 
+
+
+
+/* Buttons */
 .friend-button {
     color: white;
     border: none;
@@ -84,24 +88,14 @@
     background-color: green;
 }
 
-#friend-request-sent{
+.friend-button.cancel{
     background-color: rgb(120, 140, 250);
-    color: white;
-    text-align: center;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 1em;
-    cursor: pointer;
 }
 
-#friend-request-received{
-    background-color: rgb(27, 153, 16);
-    color: white;
-    text-align: center;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    font-size: 1em;
-    cursor: pointer;
+.friend-button.decline{
+    color: rgb(107, 107, 107);
+    margin-top: 10px;
+    font-size: 0.8rem;
+    background-color: transparent;
+    padding: 0 0;
 }

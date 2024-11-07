@@ -32,13 +32,15 @@ def community(request):
         FriendRequest.objects.filter(receiver=request.user).values_list('sender_id', flat=True)
     )
     
+    sent_requests = FriendRequest.objects.filter(sender=request.user, accepted=False).all()
     friend_requests = FriendRequest.objects.filter(receiver=request.user, accepted=False).all()
 
     context = {
         "users": users,
         "friend_request_receivers": friend_request_receivers,
         "friend_request_senders": friend_request_senders,
-        "friend_requests": friend_requests
+        "friend_requests": friend_requests,
+        "sent_requests": sent_requests
     }
     return render(request, "community.html", context)
 
@@ -94,10 +96,38 @@ def ACTION_accept_friend_request(request, friend_request_identifier):
     else:
         return redirect('show-friend-requests')
         
-
-
-
-
+def ACTION_decline_friend_request(request, friend_request_identifier):
+    """
+        Decline the received friend request and destroy it. The sender could send another friend requests after this process, but it will be adviced about it was rejected.
+    """
+    
+    if request.method == "POST":
+        # Delete friend request instance after rejecting it
+        friend_request = FriendRequest.objects.get(id=friend_request_identifier)
+        
+        # Notificate the sender user about their rejected friend request
+        notification = Notifications.objects.create(reason="Friend request rejected", message=f"{friend_request.receiver} has rejected your friend request. This is not your fault, do not worry :)", destinatary=friend_request.sender, is_read=False)
+        notification.save()
+        
+        friend_request.delete()
+        
+        return redirect('show-friend-requests')
+    else:
+        return redirect('show-friend-requests')
+    
+def ACTION_cancel_friend_request(request, friend_request_identifier):
+    """
+        Cancel a sent friend request. Destroy sent friend request instance.
+    """
+    
+    if request.method == "POST":
+        # Get the correct friend request and destroy its instance.
+        friend_request = FriendRequest.objects.get(id=friend_request_identifier)
+        friend_request.delete()
+        return redirect('community')
+    else:
+        return redirect('community')
+    
 
 
 """CHAT"""

@@ -7,6 +7,8 @@ urlpatterns = [
     path('show_friend_requests/', views.show_friend_requests, name="show-friend-requests"),
     path('send_friend_request/<int:user_identifier>/', views.ACTION_send_friend_request, name="action-send-friend-request"),
     path('accept_friend_request/<int:friend_request_identifier>/', views.ACTION_accept_friend_request, name="action-accept-friend-request"),
+    path('decline_friend_request/<int:friend_request_identifier>/', views.ACTION_decline_friend_request, name="action-decline-friend-request"),
+    path('cancel_friend_request/<int:friend_request_identifier>/', views.ACTION_cancel_friend_request, name="action-cancel-friend-request"),
     #Chat
     path('chat/', views.chat, name="chat"),
     #Notifications

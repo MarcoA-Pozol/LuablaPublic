@@ -13,7 +13,7 @@
                         {% csrf_token %}
                         <button id="accept_friend_request" type="submit">Accept</button>
                     </form>
-                    <form method="POST">
+                    <form method="POST" action="{% url 'action-decline-friend-request' friend_request.id %}">
                         {% csrf_token %}
                         <button id="decline_friend_request" type="submit">Decline</button>
                     </form>

@@ -10,20 +10,26 @@
     <div class="users-list">
         {% for user in users %}
             <div class="user-card">
+                
                 {% if user.id in friend_request_receivers %}
-                    <form method="POST" action="{% url 'action-send-friend-request' user.id %}">
-                        {% csrf_token %}
-                        <div class="user-profile">
-                            {% if user.profile_picture %}
-                                <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="profile-picture">
-                            {% else %}
-                                <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture" class="profile-picture">
-                            {% endif %}
-                        </div>
-                        <h3 class="user-name">{{ user.username }}</h3>
-                        <h4 class="user-country">{{ user.country }}</h4>
-                        <h3 id="friend-request-sent">Request was sent ☑</h3>
-                    </form>
+                    {% for friend_request in sent_requests %}
+                        {% if user == friend_request.receiver %}
+                            <form method="POST" action="{% url 'action-cancel-friend-request' friend_request.id %}">
+                                {% csrf_token %}
+                                <div class="user-profile">
+                                    {% if user.profile_picture %}
+                                        <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}" class="profile-picture">
+                                    {% else %}
+                                        <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture" class="profile-picture">
+                                    {% endif %}
+                                </div>
+                                <h3 class="user-name">{{ user.username }}</h3>
+                                <h4 class="user-country">{{ user.country }}</h4>
+                                <button type="submit" class="friend-button cancel" id="friend-request-{{ user.id }}">Request was sent ☑
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% endfor %}
 
                 {% elif user.id in friend_request_senders %}
                     {% for friend_request in friend_requests %}
@@ -41,6 +47,10 @@
                                 <h4 class="user-country">{{ user.country }}</h4>
                                 <button type="submit" class="friend-button accept">Accept ★
                                 </button>
+                            </form>
+                            <form method="POST" action="{% url 'action-decline-friend-request' friend_request.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="friend-button decline">Reject request</button>
                             </form>
                         {% endif %}
                     {% endfor %}
@@ -64,4 +74,20 @@
         {% endfor %}
     </div>
 
+
+    <script>
+        $(document).ready(function(){
+            // Variables
+
+            $('[id^="friend-request-"]').hover(
+                function() { 
+                    $(this).data('original-text', $(this).text());
+                    $(this).text('Cancel request');
+                },
+                function() { // When the cursor leaves
+                    $(this).text($(this).data('original-text')); // Restore original text
+                }
+            );
+        });
+    </script>
 {% endblock %}
