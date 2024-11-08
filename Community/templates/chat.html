@@ -2,13 +2,25 @@
 
 {% load static %}
 {% block content %}
+    <link rel="stylesheet" href="{% static "css/chat.css" %}"
+
     <div class="chat-container"> 
         <h2>Chat</h2>
         <p>Talk with your friends and exchange languages :D</p>
-        <ul>
+
+        <div class="chat">
             {% for chat in chats %}
-                <li>{{chat.username}}</li>
+                {% if chat.profile_picture %}
+                    <img id="profile-image" src="{{chat.profile_picture.url}}" alt="{{chat.username}}">
+                {% else %}
+                    <img id="profile-image" src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture">
+                {% endif %}
+                <h3 id="username">{{chat.username}}</h3>
+                <form method="POST" action="{% url 'action-remove-friend' chat.id %}">
+                    {% csrf_token %}
+                    <button id="remove-friend-button" type="submit">Remove friend</button>
+                </form>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endblock %}

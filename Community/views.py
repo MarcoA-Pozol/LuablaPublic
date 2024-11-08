@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect
 from Authentication.models import User
 from . models import Notifications, FriendRequest, Friendship
+from django.db.models import Q
+
 
 """COMMUNITY"""
 def community(request):
@@ -152,6 +154,40 @@ def chat(request):
     
     context = {"chats":chats}
     return render(request, "chat.html", context)
+
+def ACTION_remove_friend(request, friend_identifier):
+    """
+        Remove a friend from your friends list and destroy the Friendship object where two users were related to.
+    """
+    
+    if request.method == "POST":
+        # Obtain correct friend to be removed.
+        friend_to_remove = User.objects.get(id=friend_identifier)
+        
+        # Obtain the current authenticated user.
+        user = request.user
+        
+        # Obtain Friendship object where two users are related to and delete it.
+        try:
+            friendship = Friendship.objects.get(Q(user1=friend_to_remove, user2=user) | Q(user1=user, user2=friend_to_remove))
+            friendship.delete()
+        except Friendship.DoesNotExist:
+            print("Friendship does not exist.")
+        
+        # Obtain FriendRequest object where two users are related to and delete it.
+        try:
+            friend_request = FriendRequest.objects.get(Q(sender=friend_to_remove, receiver=user) | Q(sender=user, receiver=friend_to_remove))
+            friend_request.delete()
+        except FriendRequest.DoesNotExist:
+            print("Friend request does not exist.")
+        
+        # Notificate to removed user when he or she is removed for a friendship.
+        notification = Notifications.objects.create(reason="Removed for a friendship", message=f"{user} has removed you for your friendship :( But you can search for new ones on the community :)", destinatary=friend_to_remove, is_read=False).save()
+        
+        return redirect('chat')
+    else:
+        return redirect('chat')
+    
 
 
 

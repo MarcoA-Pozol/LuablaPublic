@@ -11,6 +11,7 @@ urlpatterns = [
     path('cancel_friend_request/<int:friend_request_identifier>/', views.ACTION_cancel_friend_request, name="action-cancel-friend-request"),
     #Chat
     path('chat/', views.chat, name="chat"),
+    path('action_remove_friend/<int:friend_identifier>/', views.ACTION_remove_friend, name="action-remove-friend"),
     #Notifications
     path('show_notifications/', views.show_notifications, name="show-notifications"),
     path('read_notification/<int:notification_identifier>/', views.ACTION_read_notification, name="action-read-notification")
