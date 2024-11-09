@@ -1,36 +1,124 @@
-.chat{
+.chats-container{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 2px 2px 2px 2px #111111;
+    text-align: center;
     font-family: sans-serif;
+    color: #111111;
+    margin-left: 10px;
+    width: 30%;
+    position: fixed;
+}
+
+.chats-top-bar{
     display: inline-flex;
-    width: 80%;
-    margin-left: 10%;
+    text-align: center;
+    background-color: #111111;
+    border: 2px solid white;
+    box-shadow: 1px 1px 1px 1px #111111;
+    border-radius: 5px;
+    width: 100%;
+    padding-inline: 10px;
+}
+
+.chats-top-bar h2{
+    width: 30%;
+    font-size: 1.6rem;
+}
+/*Search bar for chats*/
+.search-user-form{
+    width: 60%;
+    display: inline-flex;
+    margin-top: 10px;
+}
+.search-user-form input{
+    border-radius: 5px;
+    font-size: 1.0rem;
+    width: 70%;
+    text-align: center;
+}
+.search-user-form button{
+    color: #ffffff;
+    background-color: #222222;
+    text-align: center;
+    font-size: 1.0rem;
+    width: 30%;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.search-user-form button:hover{
+    transform: scaleZ(1.02);
+    background-color: #444444;
+}
+
+
+.chats{
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     background-color: white;
     color: #111111;
     text-align: center;
     padding-inline: 10px;
     padding-block: 5px;
+    box-shadow: 1px 1px 1px 2px #111111;
+    height: 450px; /* Set a fixed height */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds height */
+}
+
+
+
+/*CHAT*/
+.chats form{
+    width: 100%;
+}
+
+.chats form button{
+    width: 100%;
+    display: inline-flex;
+    border-radius: 10px;
+    background-color: white;
+    border: 2px solid #444444;
+    cursor: pointer;
+}
+.chats form button:hover{
+    transform: scale(1.02);
+    border-color: #111111;
     box-shadow: 2px 2px 2px 2px #111111;
 }
-.chat #profile-image{
+
+#profile-image{
     width: 70px;
     height: 70px;
     text-align: center;
     border-radius: 50%;
 }
-.chat #username{
-    font-size: 1.5rem;
-}
-.chat form{
-    text-align: center;
-    justify-content: center;
-}
-.chat #remove-friend-button{
-    text-align: center;
-    color: white;
-    background-color: darkred;
-    padding-inline: 5px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    border: none;
-    border-radius: 5px;
+#username{
+    font-size: 1.4rem;
+    width: 50%;
+    margin-left: 5%;
+    text-align: left;;
 }
 
+
+
+
+
+/*Conversation*/
+#conversation{
+    position: fixed;
+    width: 50%;
+    margin-left: 33%;
+    height: 550px;
+    overflow-y: auto;
+    background-color: white;
+    border: 2px solid whitesmoke;
+    color: #111111;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 2px #111111;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}

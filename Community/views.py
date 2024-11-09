@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from Authentication.models import User
-from . models import Notifications, FriendRequest, Friendship
+from . models import Notifications, FriendRequest, Friendship, Message
 from django.db.models import Q
 
 
@@ -132,6 +132,10 @@ def ACTION_cancel_friend_request(request, friend_request_identifier):
     
 
 
+
+
+
+
 """CHAT"""
 def chat(request):
     """
@@ -154,6 +158,36 @@ def chat(request):
     
     context = {"chats":chats}
     return render(request, "chat.html", context)
+
+def open_chat(request, chat_identifier):
+    """
+        Open the chat with one friend, if no any message exists yet, then, the person who open the chat first will sent "Hi" message automatically. Open the chat page and template.
+    """
+    # Obtain messages for both users
+    friend = User.objects.get(id=chat_identifier)
+    user = request.user
+    user_messages = Message.objects.filter(sender=user, receiver=friend)
+    friend_messages = Message.objects.filter(sender=friend, receiver=user)
+    
+    # Obtain chats
+    friendships = Friendship.objects.all()
+    
+    chats = []
+    for friendship in friendships:
+        if friendship.user2 == request.user:
+            chat = User.objects.get(username=friendship.user1)
+            chats.append(chat)
+        elif friendship.user1 == request.user:
+            chat = User.objects.get(username=friendship.user2)
+            chats.append(chat)
+        else:
+            pass
+    
+    context = {"user_messages":user_messages, "friend_messages":friend_messages, "friend":friend, "chats":chats}
+    
+    return render(request, "open_chat.html", context)
+    
+    
 
 def ACTION_remove_friend(request, friend_identifier):
     """

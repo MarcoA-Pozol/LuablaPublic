@@ -36,7 +36,15 @@ class Friendship(models.Model):
     def __str__(self):
         return f"{self.user1} is friends with {self.user2}"
     
+class Message(models.Model):
+    message = models.TextField()
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='message_sender')
+    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='message_receiver')
+    is_read = models.BooleanField(default=False)
+    sent_at = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return self.message
     
 # Notifications model
 class Notifications(models.Model):

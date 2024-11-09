@@ -1,0 +1,13 @@
+{% extends "chat.html" %}
+
+{% load static %}
+
+{% block conversation_content %}
+    <link rel="stylesheet" href="{% static "css/open_chat.css" %}">
+
+    {% if friend %}
+            <h2 class="title">{{friend.username}}</h2>
+    {% else %}
+        <h2 class="title">Lets find new friend to talk with :)</h2>
+    {% endif %}
+{% endblock %}
