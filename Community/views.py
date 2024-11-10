@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from Authentication.models import User
 from . models import Notifications, FriendRequest, Friendship, Message
 from django.db.models import Q
+from . forms import MessageForm
 
 
 """COMMUNITY"""
@@ -182,13 +183,46 @@ def open_chat(request, chat_identifier):
             chats.append(chat)
         else:
             pass
+        
+        
+    # Send message formulary logic
+    if request.method == "POST":
+        message_form = MessageForm(request.POST, sender=user, receiver=friend)
+        try:
+            if message_form.is_valid():
+                message = message_form.save(sender=user, receiver=friend, commit=True)
+                message.save()
+                return redirect('open-chat')
+        except Exception as e:
+            message_form.add_error('message', f'Error during message sending: {e}')
+            print(f'Error during message sending: {e}')
+    else:
+        message_form = MessageForm(sender=user, receiver=friend)
     
-    context = {"user_messages":user_messages, "friend_messages":friend_messages, "friend":friend, "chats":chats}
+    context = {"user_messages":user_messages, "friend_messages":friend_messages, "friend":friend, "chats":chats, "message_form":message_form}
     
     return render(request, "open_chat.html", context)
-    
-    
 
+def ACTION_send_message(request, user_identifier):
+    sender = request.user
+    receiver = User.objects.get(id=user_identifier)
+    
+    if request.method == "POST":
+        message_form = MessageForm(request.POST, sender=sender, receiver=receiver)
+        try:
+            if message_form.is_valid():
+                message = message_form.save(sender=sender, receiver=receiver, commit=False)
+                message.save()
+                return redirect('open-chat')
+        except Exception as e:
+            message_form.add_error('message', f'Error during message sending: {e}')
+            print(f'Error during message sending: {e}')
+    else:
+        message_form = MessageForm(sender=sender, receiver=receiver)
+        
+    return render()
+
+# Friends
 def ACTION_remove_friend(request, friend_identifier):
     """
         Remove a friend from your friends list and destroy the Friendship object where two users were related to.

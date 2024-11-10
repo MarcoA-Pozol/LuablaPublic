@@ -4,4 +4,61 @@
     width: 100%;
     text-align: center;
     padding-block: 5px;
+    margin-top: 0;
+    font-size: 1.4rem;
+    font-family: sans-serif;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+
+
+
+
+
+/* Formulary of messages at bottom of conversations */
+.message-formulary{
+    border: 1px solid white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px #111111;
+    width: 50%;
+    background-color: #111111;
+    color: white;
+    height: 50px;
+    position: fixed;
+    top: 91%;
+}
+.message-formulary form{
+    width: 100%;
+    display: inline-flex;
+    text-align: center;
+    height: 40px;
+    justify-content: center;
+    padding-top: 5px;
+}
+.message-formulary textarea{
+    width: 50%;
+    color: white;
+    background-color: #222222;
+    padding-block: 2px;
+    padding-inline: 10px;
+    font-size: 1.0rem;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px #111111;
+    border: 1px solid white;
+}
+.message-formulary button{
+    width: 10%;
+    color: white;
+    background-color: #222222;
+    cursor: pointer;
+    padding-block: 2px;
+    padding-inline: 10px;
+    font-size: 1.0rem;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px #111111;
+    border: 1px solid white;
+}
+.message-formulary button:hover{
+    background-color: #111111;
+    transform: scale(1.02);
 }
