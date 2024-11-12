@@ -77,6 +77,11 @@
     color: orangered;
     text-align: center;
 }
+#cefr_level{
+    width: 30%;
+    color: orangered;
+    text-align: center;
+}
 #cards_cuantity{
     width: 30%;
     color: darkgreen;

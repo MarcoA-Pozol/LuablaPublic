@@ -39,7 +39,11 @@
                     <p id="description">{{ deck.description }}</p>
                     <div id="deck_tags">
                         <h4 id="deck_author">{{ deck.author }}</h4>
-                        <h4 id="hsk_level">{{ deck.hsk_level }}</h4>
+                        {% if deck.language == "Chinese" %}
+                            <h4 id="hsk_level">{{ deck.hsk_level }}</h4>
+                        {% else %}
+                            <h4 id="cefr_level">{{ deck.cefr_level }}</h4>
+                        {% endif %}
                         <h4 id="cards_cuantity">❐ {{ deck.cards_cuantity }} cards</h4>
                     </div>
                     <form class="study_deck" method="GET" action="{% url 'action-study-deck' deck.id %}">

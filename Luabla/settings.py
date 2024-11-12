@@ -82,7 +82,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'Application.context_processors.selected_language',
                 'Application.context_processors.total_notifications',
-                'Application.context_processors.total_friend_requests'
+                'Application.context_processors.total_friend_requests',
+                'Application.context_processors.languages_list'
             ],
         },
     },

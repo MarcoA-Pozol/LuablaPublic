@@ -15,26 +15,30 @@
         <!--TOP BAR-->
         <nav class="base_top_bar">
             <div class="logo-container">
-                <img src="{% static 'images/panda-logo-1.png' %}" alt="Panda Logo">
-                <h2>Luabla</h2>
+                <a href="{% url 'welcome' %}">
+                    <img src="{% static 'images/panda-logo-1.png' %}" alt="Panda Logo">
+                    <h2>Luabla</h2>
+                </a>
             </div>
 
             <div id="language_container">
-                <a href={% url 'languages-selection' %}>
+                <form method="POST" action="{% url 'ACTION-select-language' %}">
+                    {% csrf_token %}
                     {% if selected_language == "English" %}
                         <img src={% static 'images/usa-flag.png' %}></img>
-                        <h2>English</h2>
                     {% elif selected_language == "Chinese" %}
                         <img src={% static 'images/china-flag.png' %}></img>
-                        <h2>中文 - Chinese</h2>
                     {% elif selected_language == "German" %}
                         <img src={% static 'images/germany-flag.png' %}></img>
-                        <h2>German</h2>
                     {% else %}
                         <img src={% static 'images/usa-flag.png' %}></img>
-                        <h2>English</h2>
                     {% endif %}
-                </a>
+                    <select name="language" id="language" onchange="this.form.submit()">
+                        <option value="English" {% if selected_language == "English" %}selected{% endif %}>English</option>
+                        <option value="Chinese" {% if selected_language == "Chinese" %}selected{% endif %}>Chinese</option>
+                        <option value="German" {% if selected_language == "German" %}selected{% endif %}>German</option>
+                    </select>
+                </form>  
             </div>
 
             <div class="notifications_messages_container">
@@ -49,10 +53,12 @@
                     </div>
                 </a>
 
-                <div id="messages">
-                    <img src="{% static 'images/messages_icon.png' %}" alt="Messages icon">
-                    <h5 style="background-color: rgb(36, 25, 97);">0</h5>
-                </div>
+                <a href="{% url 'chat' %}">
+                    <div id="messages">
+                        <img src="{% static 'images/messages_icon.png' %}" alt="Messages icon">
+                        <h5 style="background-color: rgb(36, 25, 97);">0</h5>
+                    </div>
+                </a>
 
                 <a href="{% url 'show-notifications' %}">
                     <div id="notifications">
@@ -91,11 +97,11 @@
 
         <!--SIDE OPTIONS MENU-->
         <div class="bottom-options-bar">
-            <a href="{% url 'application-home' %}">
+            <!--a href="{% url 'welcome' %}">
                 <li>
                     <h4>Home</h4>
                 </li>
-            </a>
+            </!a-->
             
             <a href="{% url 'study' %}">
                 <li>
@@ -118,24 +124,24 @@
             </a>
             
             
-            <a href="{% url 'application-home' %}">
-                <li>
-                    <h4>Ranking</h4>
-                </li>
-            </a>
-            
             <a href="{% url 'community' %}">
                 <li>
                     <h4>Community</h4>
                 </li>
             </a>
             
-            <a href="{% url 'chat' %}">
+            <!--a href="{% url 'chat' %}">
                 <li>
                     <h4>Chat</h4>
                 </li>
-            </a>
+            </!a-->
             
         </div>
+
+        <script>
+            $(document).ready(function(){
+                const hands = 2;
+            });
+        </script>
     </body>
 </html>

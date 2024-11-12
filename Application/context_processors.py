@@ -2,6 +2,10 @@ def selected_language(request):
     selected_language = request.session.get('selected_language', 'default_language')
     return {'selected_language': selected_language}
 
+def languages_list(request):
+    languages_list = ['English', 'Chinese', 'German']
+    return {'languages_list': languages_list}
+
 def total_notifications(request):
     if request.user.is_authenticated:
         notifications = request.user.notifications.filter(is_read=False)

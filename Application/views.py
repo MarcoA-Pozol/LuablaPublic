@@ -122,9 +122,9 @@ def ACTION_Get_Deck(request, deck_identifier):
         
         obtained_deck_notification = Notifications.objects.create(reason='Obtained deck', message=f"'{deck}' deck from {language} language has been obtained and is now available to be studied.", destinatary=user, is_read=False)
         obtained_deck_notification.save()
-        return redirect('application-home')
+        return redirect('study')
     else:
-        return redirect('application-home')
+        return redirect('study')
     
 
 

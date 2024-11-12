@@ -31,9 +31,12 @@ a{
 /*Logo of Luabla*/
 .logo-container{
     width: 15%;
-    display: inline-flex;
     justify-content: center;
     justify-items: center;
+}
+
+.logo-container a{
+    display: inline-flex;
 }
 
 .logo-container img{
@@ -53,22 +56,33 @@ a{
 /*Language Container*/
 .base_top_bar #language_container{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     width: 15%;
     margin-left: 30%;
     text-align: center;
 }
-.base_top_bar #language_container h2{
-    width: 100%;
+.base_top_bar #language_container form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    font-size: 1.2rem;
-    margin-top: 0;
+    width: 100%;
 }
-.base_top_bar #language_container img{
-    height: 40px;
-    width: 70px;
+.base_top_bar #language_container form  select{
+    font-family: sans-serif;
+    width: 60%;
+    background-color: rgb(36, 25, 97);
+    color: white;
+    font-size: 1.2rem;
+    border: none;
     border-radius: 5px;
+    text-align: center;
+}
+.base_top_bar #language_container form img{
+    height: 40px;
+    width: 40%;
+    margin-left: 10%;
+    border-radius: 5px;
+    text-align: center;
     object-fit: cover;
 }
 
