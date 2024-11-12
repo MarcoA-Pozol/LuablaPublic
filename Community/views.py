@@ -184,6 +184,10 @@ def open_chat(request, chat_identifier):
         else:
             pass
         
+    
+    # Load all messages in conversation in asc order
+    messages = Message.objects.filter(Q(sender=user, receiver=friend) | Q(sender=friend, receiver=user)).all().order_by('sent_at')
+        
         
     # Send message formulary logic
     if request.method == "POST":
@@ -199,7 +203,7 @@ def open_chat(request, chat_identifier):
     else:
         message_form = MessageForm(sender=user, receiver=friend)
     
-    context = {"user_messages":user_messages, "friend_messages":friend_messages, "friend":friend, "chats":chats, "message_form":message_form}
+    context = {"user_messages":user_messages, "user":user, "friend_messages":friend_messages, "friend":friend, "chats":chats, "message_form":message_form, "messages":messages}
     
     return render(request, "open_chat.html", context)
 

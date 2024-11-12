@@ -14,6 +14,37 @@
 
 
 
+/* Messages Container */
+.messages{
+    height: 400px;
+    overflow-y: auto;
+    font-family: sans-serif;
+}
+.messages #sender{
+    background-color: #444444;
+    color: white;
+    font-size: 0.8rem;
+    margin-left: 55%;
+    margin-right: 10%;
+    padding: 5px 15px;
+    max-width: 35%;
+    border-radius: 10px;
+    margin-bottom: 5px;
+
+}
+.messages #receiver{
+    background-color: #666666;
+    color: white;
+    font-size: 0.8rem;
+    margin-right: 55%;
+    margin-left: 10%;
+    padding: 5px 15px;
+    max-width: 35%;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+
 
 /* Formulary of messages at bottom of conversations */
 .message-formulary{

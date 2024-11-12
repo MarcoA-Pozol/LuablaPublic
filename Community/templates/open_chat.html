@@ -10,6 +10,23 @@
         <h2 class="title">Lets find new friend to talk with :)</h2>
     {% endif %}
 
+    <div class="messages">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.sender == user%}
+                    <div id="sender">
+                        <h4>{{ message.message }}</h4>
+                    </div>
+                {% else %}
+                    <div id="receiver">
+                        <h4>{{ message.message }}</h4>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <h4>The are no messages yet, let´s start saying "Hi!"</h4>
+        {% endif %}
+    </div>
 
     <div class="message-formulary">
         <form method="POST">
