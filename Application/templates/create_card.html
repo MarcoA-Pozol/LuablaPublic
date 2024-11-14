@@ -4,7 +4,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/create_card.css' %}">
 
-    <form method="POST">
+    <form class="create-card-form" method="POST">
         {% csrf_token %}
         <h2>Card creation</h2>
         {{ form.word.label }}

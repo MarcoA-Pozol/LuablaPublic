@@ -54,6 +54,8 @@
             {% endfor %}
         </div>
     {% else %}
-        <h5 id="no_decks_available">No available decks for study.</h5>
+        <h5 id="no_decks_available">No available decks to study.</h5>
+        <p id="no_decks_text">Let´s find decks in the library and start studying now.</p>
+        <a id="find_decks_button" href="{% url 'discover' %}"><span>Go to Library</span></a>
     {% endif %}
 {% endblock %}

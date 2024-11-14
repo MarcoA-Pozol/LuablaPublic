@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse #This is to set-up a view that works alike an API view to retrieve Cards data in Json format and manage it dinamically with JQuery and AJAX.
-import json #Serialize data to a Json String format to manage it on the template and iterate over it or use the data, this will load data before loading page, what is good, but for larger datasets this could not be the most reliable.
+import json # Serialize data to a Json String format to manage it on the template and iterate over it or use the data, this will load data before loading page, what is good, but for larger datasets this could not be the most reliable.
 from . forms import CardForm, DeckForm
 from . models import Deck, Card
 from Authentication.models import User
@@ -9,6 +9,8 @@ from . datasets import HSK_LEVELS
 from django.template.loader import render_to_string
 # Notifications model
 from Community.models import Notifications
+# Randomize the order of data in a list or JSON
+import random
 
 @login_required
 def application_home(request):
@@ -36,23 +38,25 @@ def study(request):
 def ACTION_Study_Deck(request, deck_identifier):
     """Gets the id of the Deck the User wants to study and renders a template with the related Cards."""
     deck = Deck.objects.get(id=deck_identifier)
-    deck_cards = Card.objects.filter(deck=deck).values('hanzi', 'pinyin', 'meaning', 'example_phrase')
     language = request.session.get("selected_language")
     if language == "Chinese":
         deck_cards = Card.objects.filter(deck=deck).values('hanzi', 'pinyin', 'meaning', 'example_phrase')
     else:
         deck_cards = Card.objects.filter(deck=deck).values('word', 'meaning', 'example_phrase')
     
+    # Serialize obtained list of cards as a JSON
+    deck_cards_list = list(deck_cards)
+    random.shuffle(deck_cards_list)
+    deck_cards_json = json.dumps(deck_cards_list)
+    
+    print("Final JSON: ", deck_cards_json)
+    
     context = {
         'deck': deck,
         'language': language,
-        'deck_cards_json': json.dumps(list(deck_cards)),  # Convert the list of dictionaries to a JSON string
+        'deck_cards_json': deck_cards_json  
     }
     return render(request, "study_deck.html", context)
-
-
-
-
 
 
 

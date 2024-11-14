@@ -120,3 +120,30 @@
     font-size: 2.0rem;
     color: #111111;
 }
+#no_decks_text{
+    text-align: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: #444444;
+    margin-bottom: 100px;
+}
+#find_decks_button{
+    text-align: center;
+    justify-content: center;
+    background-color: #111111;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 2.2rem;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: 1px 1px 1px 1px #111111;
+    margin-left: 40%;
+}
+#find_decks_button:hover{
+    text-align: center;
+    background-color: #222222;
+    color: white;
+    transform: scale(1.05);
+}

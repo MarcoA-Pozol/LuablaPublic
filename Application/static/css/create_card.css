@@ -1,46 +1,42 @@
-/* General form container styling */
-form {
-    width: 60%;  /* Form width limited to 60% */
-    margin: 0 auto;  /* Center the form on the page */
+.create-card-form {
+    width: 60%;  
+    margin: 0 auto;  
     padding: 20px;
-    background-color: #ffffff;  /* Light background to distinguish the form area */
+    background-color: #ffffff;  
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgb(58, 58, 60);  /* Subtle shadow for a polished look */
+    box-shadow: 0 4px 8px rgb(58, 58, 60);  
     color: rgb(50, 50, 54);
 }
 
-form h2{
+.create-card-form h2{
     font-size: 1.8rem;
     color: rgb(40, 40, 42);
 }
 
-/* Label styling */
-form label {
-    font-size: 1.4rem;  /* Slightly smaller labels */
+.create-card-form label {
+    font-size: 1.4rem; 
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
-    color: rgb(60, 60, 65);  /* Consistent dark color for labels */
+    color: rgb(60, 60, 65); 
 }
 
-/* Input fields styling */
-form input[type="text"],
-form textarea,
-form select {
-    width: 100%;  /* Full width within the form's width */
-    height: 40px;  /* Increased height for better usability */
+.create-card-form input[type="text"],
+.create-card-form textarea,
+.create-card-form select {
+    width: 100%;  
+    height: 40px;  
     padding: 10px;
-    font-size: 1rem;  /* Slightly larger font inside the input */
+    font-size: 1rem; 
     border: 1px solid #313233;
     border-radius: 5px;
-    background-color: #ffffff;  /* White background for input fields */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);  /* Subtle inner shadow */
+    background-color: #ffffff;  
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);  
 }
 
-/* Styling for the submit button */
-form button[type="submit"] {
-    background-color: #32429e;  /* Dark button background */
-    color: #ffffff;  /* White text for contrast */
+.create-card-form button[type="submit"] {
+    background-color: #32429e;  
+    color: #ffffff;  
     padding: 10px 20px;
     font-size: 1.1rem;
     border: none;
@@ -50,28 +46,25 @@ form button[type="submit"] {
     width: 100%;
 }
 
-/* Hover effect for the submit button */
-form button[type="submit"]:hover {
-    background-color: #223185;  /* Change color on hover */
+.create-card-form button[type="submit"]:hover {
+    background-color: #223185;  
 }
 
-/* Add margin to separate form fields */
-form input[type="text"],
-form textarea,
-form select,
-form button[type="submit"] {
+.create-card-form input[type="text"],
+.create-card-form textarea,
+.create-card-form select,
+.create-card-form button[type="submit"] {
     margin-bottom: 20px;
 }
 
-/* Make the form responsive */
 @media (max-width: 768px) {
-    form {
-        width: 90%;  /* Expand form width on smaller screens */
+    .create-card-form {
+        width: 90%;  
     }
 
-    form input[type="text"],
-    form textarea,
-    form select {
-        width: 100%;  /* Ensure input fields take full width on smaller screens */
+    .create-card-form input[type="text"],
+    .create-card-form textarea,
+    .create-card-form select {
+        width: 100%;  
     }
 }

@@ -4,7 +4,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/create_deck.css' %}">
 
-    <form method="POST" enctype="multipart/form-data">
+    <form class="create-deck-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h2>Deck creation</h2>
 
