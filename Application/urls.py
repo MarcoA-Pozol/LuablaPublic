@@ -2,15 +2,17 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    #Home
+    # Home
     path('', views.application_home, name="application-home"),
-    #Study
+    # Study
     path('study/', views.study, name="study"),
     path('study_deck/<int:deck_identifier>/', views.ACTION_Study_Deck, name="action-study-deck"),
-    #Discovering
+    # Discovering
     path('discover/', views.discover, name="discover"),
     path('get_deck/<int:deck_identifier>/', views.ACTION_Get_Deck, name="action-get-deck"),
-    #Creation
+    # Bank of Cards
+    path('bank_of_cards/', views.bank_of_cards, name="bank-of-cards"),
+    # Creation
     path('create/', views.create, name="create"),
     path('create/deck/', views.create_deck, name="create-deck"),
     path('create/card/', views.create_card, name="create-card"),

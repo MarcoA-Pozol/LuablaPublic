@@ -11,6 +11,8 @@ from django.template.loader import render_to_string
 from Community.models import Notifications
 # Randomize the order of data in a list or JSON
 import random
+# Connect to API
+import requests
 
 @login_required
 def application_home(request):
@@ -19,6 +21,21 @@ def application_home(request):
     context = {'user':user, 'selected_language':selected_language}
     return render(request, 'application_home.html', context)
 
+
+
+# Bank of Cards
+def bank_of_cards(request):
+    """
+        Access to a bank of cards page where the user will be able to select many cards and add them to their decks.
+    """
+    api_url = "http://localhost:8000/luabla_content_api/cards/" 
+    
+    response = requests.get(api_url)
+    if response.status_code == 200:
+        cards = response.json()
+        return render(request, 'bank_of_cards.html', {'cards': cards}) 
+    else:
+        raise Exception(f"API response error with status code: {response.status_code}")
 
 
 

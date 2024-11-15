@@ -1,0 +1,10 @@
+{% extends 'layouts/application_base.html' %}
+
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bank_of_cards.css' %}">
+
+    {% for card in cards%}
+        <p>{{card}}</p>
+    {% endfor %}
+{% endblock %}
