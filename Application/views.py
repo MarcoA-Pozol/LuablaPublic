@@ -5,7 +5,7 @@ import json # Serialize data to a Json String format to manage it on the templat
 from . forms import CardForm, DeckForm
 from . models import Deck, Card
 from Authentication.models import User
-from . datasets import HSK_LEVELS
+from . datasets import HSK_LEVELS, CEFR_LEVELS, CARDS_SUGGESTIONS
 from django.template.loader import render_to_string
 # Notifications model
 from Community.models import Notifications
@@ -29,13 +29,19 @@ def bank_of_cards(request):
         Access to a bank of cards page where the user will be able to select many cards and add them to their decks.
     """
     api_url = "http://localhost:8000/luabla_content_api/cards/" 
-    
-    response = requests.get(api_url)
-    if response.status_code == 200:
-        cards = response.json()
-        return render(request, 'bank_of_cards.html', {'cards': cards}) 
-    else:
-        raise Exception(f"API response error with status code: {response.status_code}")
+    try:
+        response = requests.get(api_url)
+        if response.status_code == 200:
+            cards_json = response.json()
+        else:
+            cards_json = CARDS_SUGGESTIONS  # Fallback if API response is not OK
+    except:
+        cards_json = CARDS_SUGGESTIONS  # Fallback if API call fails
+
+    language = request.session.get('selected_language')
+    context = {'cards_json': json.dumps(cards_json), "language": language}
+    return render(request, 'bank_of_cards.html', context)
+
 
 
 

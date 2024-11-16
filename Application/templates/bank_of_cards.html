@@ -4,7 +4,88 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bank_of_cards.css' %}">
 
-    {% for card in cards%}
-        <p>{{card}}</p>
-    {% endfor %}
+
+
+
+    <div id="cards-container">
+        <div id="card-container">
+            {% if language == "Chinese" %}
+                <h2 class="hanzi">hanzi</h2>
+                <h3 class="pinyin">pinyin</h3>
+            {% else %}
+                <h2 class="word">word</h2>
+            {% endif %}
+            <h2 id="meaning">meaning</h2>
+            <p id="example_phrase">example phrase</p>
+            <button id="get-card-button">Get</button>
+            <button id="skip-card-button">Skip</button>
+        </div>
+    </div>
+
+    <div id="no-more-cards-container">
+        <h5>There are no more cards</h5>
+        <h4>Redirecting...</h4>
+    </div>
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        let cards_list = JSON.parse('{{ cards_json|safe }}');
+        
+        $(document).ready(function(){
+            let currentIndex = 0;
+    
+            loadCard(currentIndex);
+    
+            $('#get-card-button').on('click', function(){
+                currentIndex++;
+                if (currentIndex < cards_list.length) {
+                    loadCard(currentIndex);
+                } else {
+                    document.getElementById('card-container').style.display = "none";
+                    document.getElementById('no-more-cards-container').style.display = "block";
+                    setTimeout(function() {
+                        window.location.href = "{% url 'study' %}"; 
+                    }, 1800);
+                }
+            });
+    
+            $('#skip-card-button').on('click', function(){
+                currentIndex++;
+                if (currentIndex < cards_list.length) {
+                    loadCard(currentIndex);
+                } else {
+                    document.getElementById('card-container').style.display = "none";
+                    document.getElementById('no-more-cards-container').style.display = "block";
+                }
+            });
+    
+            function loadCard(index) {
+                if (cards_list[index].word) {
+                    $('.word').text(cards_list[index].word);
+                } else {
+                    $('.word').text('');
+                }
+                if (cards_list[index].hanzi) {
+                    $('.hanzi').text(cards_list[index].hanzi);
+                } else {
+                    $('.hanzi').text('');
+                }
+                if (cards_list[index].pinyin) {
+                    $('.pinyin').text(cards_list[index].pinyin);
+                } else {
+                    $('.pinyin').text('');
+                }
+                $('#meaning').text(cards_list[index].meaning || '');
+                $('#example_phrase').text(cards_list[index].example_phrase || '');
+            }
+        });
+    </script>
+    
+    
 {% endblock %}
