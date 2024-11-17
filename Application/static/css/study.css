@@ -112,6 +112,26 @@
 }
 
 
+.add_card{
+    width: 80%;
+}
+
+.add_card button {
+    width: 100%;
+    color: #555555;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add_card button:hover {
+    background-color: #111111;
+    transform: scale(1.05);
+}
+
 
 /* If no decks */
 #no_decks_available{

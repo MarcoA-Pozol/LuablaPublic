@@ -18,13 +18,28 @@
                     <p id="description">{{ author_deck.description }}</p>
                     <div id="deck_tags">
                         <h4 id="deck_author">{{ author_deck.author }}</h4>
-                        <h4 id="hsk_level">{{ author_deck.hsk_level }}</h4>
+                        {% if author_deck.language == "Chinese" %}
+                            <h4 id="hsk_level">{{ author_deck.hsk_level }}</h4>
+                        {% else %}
+                            <h4 id="cefr_level">{{ author_deck.cefr_level }}</h4>
+                        {% endif %}    
                         <h4 id="cards_cuantity">❐ {{ author_deck.cards_cuantity }}</h4>
                     </div>
-                    <form class="study_deck" method="GET" action="{% url 'action-study-deck' author_deck.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Study</button>
-                    </form>
+                    {% if author_deck.cards_cuantity == 0 %}
+                        <form class="add_card" method="GET" action="{% url 'bank-of-cards' author_deck.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Add +</button>
+                        </form>
+                    {% else %}
+                        <form class="study_deck" method="GET" action="{% url 'action-study-deck' author_deck.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Study</button>
+                        </form>
+                        <form class="add_card" method="GET" action="{% url 'bank-of-cards' author_deck.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Add +</button>
+                        </form>
+                    {% endif %}
                 </div>
             {% endfor %}
 

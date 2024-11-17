@@ -13,6 +13,10 @@ from Community.models import Notifications
 import random
 # Connect to API
 import requests
+# Complex querying
+from django.db.models import Q
+# Load data from a template using AJAX and CSRF token
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required
 def application_home(request):
@@ -24,10 +28,18 @@ def application_home(request):
 
 
 # Bank of Cards
-def bank_of_cards(request):
+def bank_of_cards(request, deck_identifier):
     """
         Access to a bank of cards page where the user will be able to select many cards and add them to their decks.
     """
+    language = request.session.get('selected_language')    
+
+    # Author deck
+    deck = Deck.objects.get(id=deck_identifier)
+    
+    # Fetch all cards related to the author deck
+    deck_cards = Card.objects.filter(deck=deck)
+    
     api_url = "http://localhost:8000/luabla_content_api/cards/" 
     try:
         response = requests.get(api_url)
@@ -37,14 +49,52 @@ def bank_of_cards(request):
             cards_json = CARDS_SUGGESTIONS  # Fallback if API response is not OK
     except:
         cards_json = CARDS_SUGGESTIONS  # Fallback if API call fails
-
-    language = request.session.get('selected_language')
-    context = {'cards_json': json.dumps(cards_json), "language": language}
+        
+    # Filter cards to check if they already exists in author deck or not
+    filtered_cards = []
+    for card in cards_json:
+        if language == "Chinese":
+            is_duplicate = deck_cards.filter(
+                Q(hanzi=card.get("hanzi", "")) & Q(pinyin=card.get("pinyin", ""))
+            ).exists()
+        else:
+            is_duplicate = deck_cards.filter(word=card.get("word", "")).exists()
+        
+        if not is_duplicate:
+            filtered_cards.append(card)
+    
+    cards_json_length = len(filtered_cards)
+    random.shuffle(filtered_cards)
+    context = {'cards_json': json.dumps(filtered_cards), "language": language, "deck":deck, 'cards_json_length':cards_json_length}
     return render(request, 'bank_of_cards.html', context)
 
+@csrf_exempt
+def get_card_ajax(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)  # Parse JSON data from the request
+            deck = Deck.objects.get(id=data.get("deck_id"))
 
+            # Create and save the card
+            card = Card.objects.create(
+                word=data.get("word", ""),
+                hanzi=data.get("hanzi", ""),
+                pinyin=data.get("pinyin", ""),
+                meaning=data.get("meaning", ""),
+                example_phrase=data.get("example_phrase", ""),
+                author=request.user,
+                deck=deck,
+            )
+            # Update number of cards in the deck.
+            deck.cards_cuantity = deck.cards_cuantity+1
+            deck.save()
+            return JsonResponse({"message": "Card saved successfully!"})
+        except Deck.DoesNotExist:
+            return JsonResponse({"error": "Deck not found."}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
 
-
+    return JsonResponse({"error": "Invalid request method."}, status=400)
 
 #Studying acquired decks
 @login_required

@@ -4,22 +4,24 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bank_of_cards.css' %}">
 
+    <h2 id="deck-title">{{ deck.title }}</h2>
 
-
-
-    <div id="cards-container">
-        <div id="card-container">
-            {% if language == "Chinese" %}
-                <h2 class="hanzi">hanzi</h2>
-                <h3 class="pinyin">pinyin</h3>
-            {% else %}
-                <h2 class="word">word</h2>
-            {% endif %}
-            <h2 id="meaning">meaning</h2>
-            <p id="example_phrase">example phrase</p>
-            <button id="get-card-button">Get</button>
+    <div id="card-container">
+        {% if language == "Chinese" %}
+            <h3 class="hanzi">No cards</h3>
+            <h4 class="pinyin"></h4>
+        {% else %}
+            <h3 class="word">No cards</h3>
+        {% endif %}
+        <h2 id="meaning">Cards suggestions are not loaded correctly or there are no more of them.</h2>
+        <hr>
+        <p id="example_phrase">Try creating your own cards manually.</p>
+        {% if cards_json_length == 0 %}
+            <a href={% url 'study' %}>Back</a>
+        {% else %}
+            <button type="submit" id="get-card-button">Get</button>
             <button id="skip-card-button">Skip</button>
-        </div>
+        {% endif %}
     </div>
 
     <div id="no-more-cards-container">
@@ -42,18 +44,45 @@
     
             loadCard(currentIndex);
     
-            $('#get-card-button').on('click', function(){
-                currentIndex++;
-                if (currentIndex < cards_list.length) {
-                    loadCard(currentIndex);
-                } else {
-                    document.getElementById('card-container').style.display = "none";
-                    document.getElementById('no-more-cards-container').style.display = "block";
-                    setTimeout(function() {
-                        window.location.href = "{% url 'study' %}"; 
-                    }, 1800);
-                }
+            $('#get-card-button').on('click', function () {
+                $(this).prop('disabled', true);
+                const currentCard = cards_list[currentIndex]; // Get the current card
+                const cardData = {
+                    word: currentCard.word || "",
+                    hanzi: currentCard.hanzi || "",
+                    pinyin: currentCard.pinyin || "",
+                    meaning: currentCard.meaning || "",
+                    example_phrase: currentCard.example_phrase || "",
+                    deck_id: "{{ deck.id }}", // Assuming deck ID is available in the template context
+                };
+            
+                $.ajax({
+                    url: "{% url 'get-card-ajax' %}", // Update this to your actual URL for saving cards
+                    type: "POST",
+                    data: JSON.stringify(cardData),
+                    contentType: "application/json",
+                    headers: { "X-CSRFToken": "{{ csrf_token }}" },
+                    success: function (response) {
+                        console.log("Card saved:", response.message);
+                        // Proceed to the next card
+                        currentIndex++;
+                        if (currentIndex < cards_list.length) {
+                            loadCard(currentIndex);
+                        } else {
+                            document.getElementById('card-container').style.display = "none";
+                            document.getElementById('no-more-cards-container').style.display = "block";
+                            setTimeout(function () {
+                                window.location.href = "{% url 'study' %}";
+                            }, 1800);
+                        }
+                    },
+                    error: function (error) {
+                        console.log("Error saving card:", error.responseJSON.error);
+                    },
+                });
+                $(this).prop('disabled', false);
             });
+            
     
             $('#skip-card-button').on('click', function(){
                 currentIndex++;
@@ -62,6 +91,9 @@
                 } else {
                     document.getElementById('card-container').style.display = "none";
                     document.getElementById('no-more-cards-container').style.display = "block";
+                    setTimeout(function () {
+                        window.location.href = "{% url 'study' %}";
+                    }, 1800);
                 }
             });
     
