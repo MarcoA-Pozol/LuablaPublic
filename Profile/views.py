@@ -1,4 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
-def profile_home(request):
-    return HttpResponse("Welcome to profile")
+@login_required
+def user_profile(request):
+    user = request.user
+    context = {"user":user}
+    return render(request, "user_profile.html", context)

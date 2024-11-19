@@ -1,0 +1,37 @@
+{% load static %}
+
+<link rel="stylesheet" href={% static 'css/user_profile.css' %}>
+<nav>
+    <a href="{% url 'application-home' %}">⇦</a>
+    <a>Settings</a>
+    <a>Help</a>
+    <a href="{% url 'logout' %}">Logout</a>
+</nav>
+
+<div class="user-profile">
+    <div id="username-and-photo">
+        {% if user.profile_picture %}
+            <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}">  
+        {% else %}
+            <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture">
+        {% endif %}
+        <h1 id="username">{{user.username}}</h1>
+    </div>
+    <div id="aditional-info">
+        <p>Goals:{{user.learning_goals}}</p>
+        <span>Country: {{user.country}}</span>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll("nav a").forEach(link => {
+        link.addEventListener("click", e => {
+            e.preventDefault();
+            const href = link.getAttribute("href");
+            document.body.style.transition = "opacity 0.5s ease";
+            document.body.style.opacity = "0";
+            setTimeout(() => window.location.href = href, 500);
+        });
+    });
+</script>
+    

@@ -73,12 +73,14 @@
             </div>
 
             <div class="profile_container">
-                {% if request.user.profile_picture %}
-                    <img src="{{ request.user.profile_picture.url }}" alt="{{ request.user.username }}">  
-                {% else %}
-                    <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture">
-                {% endif %}
-                <h3>{{request.user.username}}</h3>
+                <a href="{% url 'user-profile' %}">
+                    {% if request.user.profile_picture %}
+                        <img src="{{ request.user.profile_picture.url }}" alt="{{ request.user.username }}">  
+                    {% else %}
+                        <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture">
+                    {% endif %}
+                    <h3>{{request.user.username}}</h3>
+                </a>
             </div>
         </nav>
 

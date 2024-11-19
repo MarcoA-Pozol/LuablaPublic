@@ -5,7 +5,11 @@ import json # Serialize data to a Json String format to manage it on the templat
 from . forms import CardForm, DeckForm
 from . models import Deck, Card
 from Authentication.models import User
-from . datasets import HSK_LEVELS, CEFR_LEVELS, CARDS_SUGGESTIONS
+# Datasets
+from . datasets import HSK_LEVELS, CEFR_LEVELS
+from . CardsDatasets.english_cards import ENGLISH_CARDS
+from . CardsDatasets.chinese_cards import CHINESE_CARDS
+from . CardsDatasets.german_cards import GERMAN_CARDS
 from django.template.loader import render_to_string
 # Notifications model
 from Community.models import Notifications
@@ -28,11 +32,21 @@ def application_home(request):
 
 
 # Bank of Cards
+@login_required
 def bank_of_cards(request, deck_identifier):
     """
         Access to a bank of cards page where the user will be able to select many cards and add them to their decks.
     """
-    language = request.session.get('selected_language')    
+    
+    language = request.session.get('selected_language')
+    print(f"Selected language from session: {language}")
+
+    if language == "Chinese":
+        cards_list = CHINESE_CARDS
+    if language == "English":
+        cards_list = ENGLISH_CARDS
+    if language == "German":
+        cards_list = GERMAN_CARDS
 
     # Author deck
     deck = Deck.objects.get(id=deck_identifier)
@@ -46,9 +60,9 @@ def bank_of_cards(request, deck_identifier):
         if response.status_code == 200:
             cards_json = response.json()
         else:
-            cards_json = CARDS_SUGGESTIONS  # Fallback if API response is not OK
+            cards_json = cards_list  # Fallback if API response is not OK
     except:
-        cards_json = CARDS_SUGGESTIONS  # Fallback if API call fails
+        cards_json = cards_list  # Fallback if API call fails
         
     # Filter cards to check if they already exists in author deck or not
     filtered_cards = []
@@ -62,6 +76,8 @@ def bank_of_cards(request, deck_identifier):
         
         if not is_duplicate:
             filtered_cards.append(card)
+    
+    print(cards_list)
     
     cards_json_length = len(filtered_cards)
     random.shuffle(filtered_cards)
@@ -102,7 +118,7 @@ def study(request):
     user = request.user
     language = request.session.get('selected_language')
     decks = Deck.objects.filter(owners=user, language=language)
-    author_decks = Deck.objects.filter(author=user)
+    author_decks = Deck.objects.filter(author=user, language=language)
     cards = list(Card.objects.values('hanzi', 'pinyin', 'meaning', 'example_phrase'))
     context = {'decks':decks, 'author_decks':author_decks,'cards_json': json.dumps(cards) }
     return render(request, 'study.html', context)

@@ -136,7 +136,10 @@ a{
     font-size: 0.8rem;
     margin-top: 0;
 }
-
+.profile_container a{
+    text-decoration: none;
+    color: white;
+}
 
 
 

@@ -17,7 +17,7 @@
         <hr>
         <p id="example_phrase">Try creating your own cards manually.</p>
         {% if cards_json_length == 0 %}
-            <a href={% url 'study' %}>Back</a>
+            <a href={% url 'study' %} style="text-decoration:none;color:#777777;font-size:1.4rem;padding-block:10px;">Back</a>
         {% else %}
             <button type="submit" id="get-card-button">Get</button>
             <button id="skip-card-button">Skip</button>
@@ -37,16 +37,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-        let cards_list = JSON.parse('{{ cards_json|safe }}');
-        
-        $(document).ready(function(){
+        // Debugging: Log the raw cards JSON to the console for verification
+        console.log("Cards JSON:", JSON.parse('{{ cards_json|escapejs }}')); 
+    
+        // Parse the cards JSON safely
+        let cards_list = JSON.parse('{{ cards_json|escapejs }}');
+    
+        $(document).ready(function () {
             let currentIndex = 0;
     
+            // Load the first card initially
             loadCard(currentIndex);
     
+            // Handle "Get" button click
             $('#get-card-button').on('click', function () {
-                $(this).prop('disabled', true);
+                $(this).prop('disabled', true); // Prevent multiple clicks
                 const currentCard = cards_list[currentIndex]; // Get the current card
+    
                 const cardData = {
                     word: currentCard.word || "",
                     hanzi: currentCard.hanzi || "",
@@ -55,69 +62,63 @@
                     example_phrase: currentCard.example_phrase || "",
                     deck_id: "{{ deck.id }}", // Assuming deck ID is available in the template context
                 };
-            
+    
+                // Make AJAX request to save the card
                 $.ajax({
-                    url: "{% url 'get-card-ajax' %}", // Update this to your actual URL for saving cards
+                    url: "{% url 'get-card-ajax' %}", // Update this to your actual URL
                     type: "POST",
                     data: JSON.stringify(cardData),
                     contentType: "application/json",
                     headers: { "X-CSRFToken": "{{ csrf_token }}" },
                     success: function (response) {
                         console.log("Card saved:", response.message);
-                        // Proceed to the next card
                         currentIndex++;
                         if (currentIndex < cards_list.length) {
                             loadCard(currentIndex);
                         } else {
-                            document.getElementById('card-container').style.display = "none";
-                            document.getElementById('no-more-cards-container').style.display = "block";
-                            setTimeout(function () {
+                            // Handle no more cards scenario
+                            $('#card-container').hide();
+                            $('#no-more-cards-container').show();
+                            setTimeout(() => {
                                 window.location.href = "{% url 'study' %}";
                             }, 1800);
                         }
                     },
                     error: function (error) {
-                        console.log("Error saving card:", error.responseJSON.error);
+                        console.error("Error saving card:", error.responseJSON?.error || error);
                     },
                 });
+    
                 $(this).prop('disabled', false);
             });
-            
     
-            $('#skip-card-button').on('click', function(){
+            // Handle "Skip" button click
+            $('#skip-card-button').on('click', function () {
                 currentIndex++;
                 if (currentIndex < cards_list.length) {
                     loadCard(currentIndex);
                 } else {
-                    document.getElementById('card-container').style.display = "none";
-                    document.getElementById('no-more-cards-container').style.display = "block";
-                    setTimeout(function () {
+                    // Handle no more cards scenario
+                    $('#card-container').hide();
+                    $('#no-more-cards-container').show();
+                    setTimeout(() => {
                         window.location.href = "{% url 'study' %}";
                     }, 1800);
                 }
             });
     
+            // Function to load a card at a specific index
             function loadCard(index) {
-                if (cards_list[index].word) {
-                    $('.word').text(cards_list[index].word);
-                } else {
-                    $('.word').text('');
-                }
-                if (cards_list[index].hanzi) {
-                    $('.hanzi').text(cards_list[index].hanzi);
-                } else {
-                    $('.hanzi').text('');
-                }
-                if (cards_list[index].pinyin) {
-                    $('.pinyin').text(cards_list[index].pinyin);
-                } else {
-                    $('.pinyin').text('');
-                }
-                $('#meaning').text(cards_list[index].meaning || '');
-                $('#example_phrase').text(cards_list[index].example_phrase || '');
+                const card = cards_list[index];
+                $('.word').text(card.word || "");
+                $('.hanzi').text(card.hanzi || "");
+                $('.pinyin').text(card.pinyin || "");
+                $('#meaning').text(card.meaning || "");
+                $('#example_phrase').text(card.example_phrase || "");
             }
         });
     </script>
+    
     
     
 {% endblock %}

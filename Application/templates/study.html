@@ -69,8 +69,11 @@
             {% endfor %}
         </div>
     {% else %}
-        <h5 id="no_decks_available">No available decks to study.</h5>
-        <p id="no_decks_text">Let´s find decks in the library and start studying now.</p>
-        <a id="find_decks_button" href="{% url 'discover' %}"><span>Go to Library</span></a>
+        <h5 id="no_decks_available">How would you like to start?</h5>
+        <p id="no_decks_text">Let´s find decks in the library and start studying now. Or create your own custom deck with the words you really need.</p>
+        <div id="no_decks_buttons_container">
+            <a id="create_deck_button" href="{% url 'create-deck' %}"><span>New Deck</span></a>
+            <a id="find_decks_button" href="{% url 'discover' %}"><span>Library</span></a>
+        </div>
     {% endif %}
 {% endblock %}

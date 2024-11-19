@@ -17,32 +17,3 @@ CEFR_LEVELS = [
     ('C1', 'C1'),
     ('C2', 'C2'),
 ]
-
-
-# Cards as suggestions
-CARDS_SUGGESTIONS = [
-    {
-        "language": "English",
-        "word": "to Have",
-        "hanzi": "",
-        "pinyin": "",
-        "meaning": "Tener / Poseer",
-        "example_phrase": "Do you have siblings? / I would like to have a red car"
-    },
-    {
-        "language": "English",
-        "word": "Reject",
-        "hanzi": "",
-        "pinyin": "",
-        "meaning": "Negar / Decir No",
-        "example_phrase": "If people does not send all the requirements then their requests will be rejected."
-    },
-    {
-        "language": "English",
-        "word": "to Brush",
-        "hanzi": "",
-        "pinyin": "",
-        "meaning": "Cepillar / Lavar con cepillo, peine, etc",
-        "example_phrase": "Oh no, Max has soiled the sofa, I think I should brush it."
-    }
-]
