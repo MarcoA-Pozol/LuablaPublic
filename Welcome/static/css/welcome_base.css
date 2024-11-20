@@ -9,7 +9,8 @@ a{
     color: white;
     display: flex;
     align-items: center; /* Ensures vertical centering */
-    padding: 10px 20px; /* Padding for spacing */
+    padding: 5px 20px; /* Padding for spacing */
+    margin-bottom: 0;
 }
 
 .header-top-bar img{
