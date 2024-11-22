@@ -5,71 +5,146 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 
     <div class="hero-section">
-        <h1>Welcome to <span class="highlight-text">Luabla</span></h1>
-        <p>Your gateway to mastering languages with fun, engaging, and personalized learning tools!</p>
-        <a href={% url 'login' %}><button class="explore-btn">Explore Now</button></a>
+        {% if request.user.is_authenticated %}
+            <h1>Welcome again <span class="highlight-text">{{request.user.username}}</span></h1>
+            <p>Its time to practice!</p>
+            <a href={% url 'login' %}><button class="explore-btn">Let´s Go!</button></a>
+        {% else %}
+            <h1>Master a <span class="highlight-text">Language</span></h1>
+            <p>Your gateway to mastering languages with ease, using engaging and inovative learning tools!</p>
+            <a href={% url 'login' %}><button class="explore-btn">Explore Now<span class="led-border"></span></button></a>
+        {% endif %}
     </div>
 
-    <div class="hero-container">
-        <div>
-            <h3>Master your bilingual skills!</h3>
-            <p>Learn solid and faster, enjoy and acquire new language, in only one place at every time. Join to our big community with learners from all around the world!</p>
+    <section id="why-luabla" class="why-luabla-section">
+        <div class="why-luabla-content">
+          <h2>Why Choose <span>Luabla?</span></h2>
+          <p>Luabla is your ultimate language-learning partner. With engaging exercises, tailored lessons, and real-world practice, you'll achieve fluency faster than ever.</p>
+          <ul class="features-list">
+            <li><i class="fas fa-check-circle">»</i> Personalized learning paths</li>
+            <li><i class="fas fa-check-circle">»</i> Interactive and fun exercises</li>
+            <li><i class="fas fa-check-circle">»</i> Progress tracking and feedback</li>
+            <li><i class="fas fa-check-circle">»</i> Learn anytime, anywhere</li>
+          </ul>
+          <button onclick="redirectToRegister()" class="try-now-btn">Try Now</button>
         </div>
-
-        <!-- Background Images -->
-        <img src="{% static 'images/panda-1.png' %}" alt="Background Image 2" class="hero-bg-image image1">
-    </div> <!-- Corrected closing div -->
+    </section>
+      
 
     <div class="features-container">
-        <h3>Luabla offer many possibilities!</h3>
-        <ul>
-            <li>
-                <div>
-                    <h4>1000+ Words</h4>
-                    <p>Discover over different decks with many cards for your interest topics and study them. You can create your own decks and cards to study them later, or add what Luabla provides to you for free!</p>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <h4>Choose a Language</h4>
-                    <p>We offer many languages to you, choose one that fits your needs and boost your bilingual skills. Nothing can stop you!</p>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <h4>Community</h4>
-                    <p>Meet new people, get friends, teach them and learn for them. We have a strongly community that want to learn your native language!</p>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <h4>AI Assistant</h4>
-                    <p>Yaoli is your new assistant for Languages learning. Feed them and receive a lot of help to improve as the time you care of Yaoli!</p>
-                </div>
-            </li>
-        </ul>
-    </div>
-
-    <div class="gallery-container">
-        <div>
-            <h4>Take a look over Luabla</h4>
-            <p id="description-text"></p>
-            <ul class="images-gallery-menu">
-                <li><img src="{% static 'images/screenshot_1.png' %}" alt="Image 1" class="images-gallery-selection sc-1"></li>
-                <li><img src="{% static 'images/background-image-2.png' %}" alt="Image 2" class="images-gallery-selection sc-2"></li>
-                <li><img src="{% static 'images/background-image-1.png' %}" alt="Image 3" class="images-gallery-selection sc-3"></li>
-                <li><img src="{% static 'images/background-image-2.png' %}" alt="Image 4" class="images-gallery-selection sc-4"></li>
-            </ul>
-            <div id="screenshot-description">
-                <!--Screenshot description will be placed here when user get mouse over the corresponding image-->
-                Discover what Luabla can offer to you
-            </div>
+        <div class="feature">
+            <img src="{% static 'images/being_happy_2.jpg' %}" alt="Become Bilingual" class="feature-image">
+            <h3>Become Bilingual</h3>
+            <span class="decoration-line"></span>
+            <p>Build a solid foundation for learning your desired language with an enjoyable and effective method.</p>
+        </div>
+        <div class="feature">
+            <img src="{% static 'images/speak.jpg' %}" alt="Speak with Confidence" class="feature-image">
+            <h3>Speak with Confidence</h3>
+            <span class="decoration-line"></span>
+            <p>Engage in conversations with native speakers and boost your speaking skills effortlessly.</p>
+        </div>
+        <div class="feature">
+            <img src="{% static 'images/schedule.jpg' %}" alt="Learn at Your Pace" class="feature-image">
+            <h3>Learn at Your Pace</h3>
+            <span class="decoration-line"></span>
+            <p>Enjoy a flexible learning schedule tailored to your goals and lifestyle.</p>
         </div>
     </div>
 
+    <div class="testimonials-section">
+        <h2 class="testimonials-title">What Our Users Say</h2>
+        <div class="testimonials-carousel">
+            <div class="testimonial active">
+                <img src="{% static 'images/american_girl_face_3.jpeg' %}" alt="Maria G." class="testimonial-image">
+                <p class="testimonial-text">"Luabla has transformed the way I learn languages. The interactive approach keeps me motivated every day!"</p>
+                <h4 class="testimonial-author">- Maria G., Spain</h4>
+            </div>
+            <div class="testimonial">
+                <img src="{% static 'images/mexican_man_face_3.jpg' %}" alt="Alex H." class="testimonial-image">
+                <p class="testimonial-text">"I never thought language learning could be this enjoyable. The speaking exercises are amazing!"</p>
+                <h4 class="testimonial-author">- Alex H., USA</h4>
+            </div>
+            <div class="testimonial">
+                <img src="{% static 'images/chinese_girl_face_1.jpg' %}" alt="Chen W." class="testimonial-image">
+                <p class="testimonial-text">"Thanks to Luabla, I can now converse confidently with native speakers. Highly recommended!"</p>
+                <h4 class="testimonial-author">- Chen W., China</h4>
+            </div>
+        </div>
+        <div class="testimonial-controls">
+            <button class="prev-btn">❮</button>
+            <button class="next-btn">❯</button>
+        </div>
+    </div>
+    
+    
+    
+
     <script>
+        function redirectToRegister() {
+            window.location.href = "{% url 'register' %}";
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const testimonials = document.querySelectorAll('.testimonial');
+            let currentIndex = 0;
+        
+            const updateTestimonials = (index) => {
+                testimonials.forEach((testimonial, i) => {
+                    testimonial.classList.remove('active');
+                    if (i === index) {
+                        testimonial.classList.add('active');
+                    }
+                });
+            };
+        
+            // Initial activation
+            updateTestimonials(currentIndex);
+        
+            // Event listeners for controls
+            document.querySelector('.prev-btn').addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+                updateTestimonials(currentIndex);
+            });
+        
+            document.querySelector('.next-btn').addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % testimonials.length;
+                updateTestimonials(currentIndex);
+            });
+        
+            // Auto-play functionality
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % testimonials.length;
+                updateTestimonials(currentIndex);
+            }, 5000);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const features = document.querySelectorAll('.feature');
+    
+            features.forEach((feature, index) => {
+                feature.style.opacity = '0';
+                feature.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    feature.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    feature.style.opacity = '1';
+                    feature.style.transform = 'translateY(0)';
+                }, index * 200); // Staggered animation
+            });
+    
+            // Optional: Add click effect
+            features.forEach(feature => {
+                feature.addEventListener('click', () => {
+                    feature.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        feature.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+        });
+
         $(document).ready(function(){
-            var descriptionText = "Many features are waiting for you, discover the easier and enjoyable way to acquire a new foreign language. Just in one place, learn, share and enjoy!";
+            var descriptionText = "Inovative features, friendly methods of study with friendly and enjoyable interface.";
             var typedElement = $('#description-text');
             var typingSpeed = 40;
             var scrollTriggered = false; 

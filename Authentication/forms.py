@@ -4,18 +4,16 @@ from . models import User
 
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, min_length=8, max_length=20)
-    confirm_password = forms.CharField(widget=forms.PasswordInput, min_length=8, max_length=20)
     country = forms.ChoiceField(choices=COUNTRIES)
-    genre = forms.ChoiceField(choices=(('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other'), ('I would prefer not to say', 'I would prefer not to say'), ('Confident', 'Confident')))
     profile_picture = forms.ImageField(required=False)
     
     class Meta():
         model = User
-        fields = ['username', 'email', 'password', 'confirm_password', 'country', 'genre', 'learning_goals', 'profile_picture']
+        fields = ['username', 'email', 'password', 'country', 'profile_picture']
         
         #Fields like personal description, profile image and age can be setted after profile creation, and score, friends and more will be modified during app using workflow.
     
-    def clean(self):
+    """def clean(self):
         cleaned_data = super().clean()
         password = cleaned_data.get('password')
         confirm_password = cleaned_data.get('confirm_password')
@@ -25,7 +23,7 @@ class UserRegisterForm(forms.ModelForm):
             
         if not password:
             self.add_error('password', "Password was not provided.")
-        return cleaned_data
+        return cleaned_data"""
     
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -33,8 +31,6 @@ class UserRegisterForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password'])
         user.email = self.cleaned_data['email']
         user.country = self.cleaned_data['country']
-        user.genre = self.cleaned_data['genre']
-        user.learning_goals = self.cleaned_data['learning_goals']
         user.profile_picture = self.cleaned_data['profile_picture']
         
         if commit:
