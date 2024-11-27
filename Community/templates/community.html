@@ -25,7 +25,7 @@
                                 </div>
                                 <h3 class="user-name">{{ user.username }}</h3>
                                 <h4 class="user-country">{{ user.country }}</h4>
-                                <button type="submit" class="friend-button cancel" id="friend-request-{{ user.id }}">Request was sent ☑
+                                <button type="submit" class="friend-button cancel" id="friend-request-{{ user.id }}">Sent ☑
                                 </button>
                             </form>
                         {% endif %}
@@ -50,7 +50,7 @@
                             </form>
                             <form method="POST" action="{% url 'action-decline-friend-request' friend_request.id %}">
                                 {% csrf_token %}
-                                <button type="submit" class="friend-button decline">Reject request</button>
+                                <button type="submit" class="friend-button decline">Reject X</button>
                             </form>
                         {% endif %}
                     {% endfor %}
@@ -67,7 +67,7 @@
                         </div>
                         <h3 class="user-name">{{ user.username }}</h3>
                         <h4 class="user-country">{{ user.country }}</h4>
-                        <button type="submit" class="friend-button add">Add Friend ✚</button>
+                        <button type="submit" class="friend-button add">Add ✚</button>
                     </form>
                 {% endif %}
             </div>
@@ -82,7 +82,7 @@
             $('[id^="friend-request-"]').hover(
                 function() { 
                     $(this).data('original-text', $(this).text());
-                    $(this).text('Cancel request');
+                    $(this).text('Cancel X');
                 },
                 function() { // When the cursor leaves
                     $(this).text($(this).data('original-text')); // Restore original text
