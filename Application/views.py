@@ -157,10 +157,10 @@ def discover(request):
     language = request.session.get('selected_language')
     decks = Deck.objects.filter(language=language).exclude(author=request.user).exclude(owners=request.user).exclude(cards_cuantity=0)
 
-    titles = Deck.objects.all().values_list('title', flat=True).exclude(cards_cuantity=0).distinct()
-    authors = User.objects.exclude(deck_author__cards_cuantity=0).filter(deck_author__isnull=False).distinct().values_list('username', flat=True)
+    titles = Deck.objects.filter(language=language).values_list('title', flat=True).exclude(cards_cuantity=0, author=request.user, owners=request.user).distinct()
+    authors = User.objects.exclude(deck_author__cards_cuantity=0, username=request.user).filter(deck_author__isnull=False).distinct().values_list('username', flat=True)
     hsk_levels = HSK_LEVELS
-    downloads = ['0', '10', '50', '100', '200', '500', '1000']
+    cefr_levels = CEFR_LEVELS
 
     filter_by = request.GET.get('filter_by', 'title')
     selected_option = request.GET.get('option', None)
@@ -172,8 +172,8 @@ def discover(request):
         decks = decks.filter(author__username=selected_option)
     elif filter_by == 'hsk_level' and selected_option:
         decks = decks.filter(hsk_level=selected_option)
-    elif filter_by == 'downloads' and selected_option:
-        decks = decks.filter(downloads__gte=int(selected_option))
+    elif filter_by == 'cefr_level' and selected_option:
+        decks = decks.filter(cefr_level=selected_option)
 
     # Check if it's an AJAX request
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
@@ -188,17 +188,18 @@ def discover(request):
         options = list(authors)
     elif filter_by == 'hsk_level':
         options = [level[1] for level in HSK_LEVELS]
-    elif filter_by == 'downloads':
-        options = downloads
+    elif filter_by == 'cefr_level':
+        options = [level[1] for level in CEFR_LEVELS]
 
     context = {
+        "language": language,
         "decks": decks,
         "options": options,
         "filter_by": filter_by,
         "titles": titles,
         "authors": authors,
         "hsk_levels": hsk_levels,
-        "downloads": downloads
+        "cefr_levels": cefr_levels,
     }
     
     return render(request, 'discover.html', context)

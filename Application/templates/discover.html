@@ -13,8 +13,11 @@
             <select name="filter_by" id="filter_by" onchange="updateOptions()">
                 <option value="title" {% if filter_by == 'title' %}selected{% endif %}>Title</option>
                 <option value="author" {% if filter_by == 'author' %}selected{% endif %}>Author</option>
-                <option value="hsk_level" {% if filter_by == 'hsk_level' %}selected{% endif %}>HSK Level</option>
-                <option value="downloads" {% if filter_by == 'downloads' %}selected{% endif %}>Downloads</option>
+                {% if language == "Chinese"%}
+                    <option value="hsk_level" {% if filter_by == 'hsk_level' %}selected{% endif %}>HSK Level</option>
+                {% else %}
+                    <option value="cefr_level" {% if filter_by == 'cefr_level' %}selected{% endif %}>CEFR Level</option> 
+                {% endif %}    
             </select>
         </div>
         
