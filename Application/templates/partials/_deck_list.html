@@ -13,15 +13,15 @@
             {% endif %}
             <p>{{ deck.description }}</p>
             <h4>
-                <b id="author">{{ deck.author }}</b> | 
-                <b id="downloads">⏏ {{ deck.downloads }}</b> | 
+                <b id="author">{{ deck.author }}</b>  
+                <b id="downloads">⏏ {{ deck.downloads }}</b>  
                 {% if language == "Chinese" %}
-                    <b id="hsk_level">{{ deck.hsk_level }}</b> |
+                    <b id="hsk_level">{{ deck.hsk_level }}</b> 
                 {% else %}
-                    <b id="cefr_level">{{ deck.cefr_level }}</b> |
+                    <b id="cefr_level">{{ deck.cefr_level }}</b> 
                 {% endif %}
-                <b id="starts_rating">☆ 5</b> | 
-                <b id="cards_cuantity">❐ {{ deck.cards_cuantity }} cards</b>
+                <b id="starts_rating">☆ 5</b>  
+                <b id="cards_cuantity">❐ {{ deck.cards_cuantity }}</b>
             </h4>
             <form method="GET" action="{% url 'action-get-deck' deck.id %}">
                 {% csrf_token %}

@@ -3,6 +3,7 @@ h3{
 }
 
 .decks-container{
+    padding-top: 70px;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -10,13 +11,18 @@ h3{
 
 /* Deck Container */
 .deck {
-    padding-top: 5px;
+    padding-block: 10px;
+    padding-inline: 20px;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+    align-items: center;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px 3px rgb(66, 64, 64);
+    box-shadow: 3px 4px 2px 3px rgb(66, 64, 64);
     background-color: #ffffff;
-    width: 45%;
-    margin-inline: 2.5%;
-    margin-bottom: 40px;
+    width: 28%;
+    margin-left: 5%;
+    margin-bottom: 120px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -28,15 +34,15 @@ h3{
 
 .deck h3 {
     width: 100%;
-    font-size: 1.8em;
-    color: rgb(43, 44, 44);
+    font-size: 1.2em;
+    color: #333333;
     margin-top: 0;
     margin-bottom: 0;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    padding-block: 5px;
+    padding-inline: 5px;
     text-align: center;
     align-content: center;
+    white-space: nowrap; /*Content does not wrap*/
+    overflow-x: hidden;
 }
 
 .deck h4{
@@ -45,57 +51,100 @@ h3{
 
 /* Deck Image */
 .deck img {
+    width: 220px;
+    height: 130px;
     margin-top: 10px;
     margin-bottom: 10px;
-    width: 80%;
-    height: 180px;
     margin-bottom: 0;
     border-radius: 10px;
     box-shadow: 1px 1px 1px 2px rgb(93, 93, 94);
+    object-fit: cover;
 }
 
 /* Deck Description */
 .deck p {
+    min-height: 80px;
+    max-height: 80px;
     font-size: 0.9em;
     color: #404650;
     line-height: 1.6;
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: 5px;
     padding-block: 10px;
     padding-inline: 20px;
     border-bottom: 1px solid rgb(43, 44, 44);
+    overflow-y: scroll;
 }
 
 #author{
-    color: rgb(30, 94, 179);
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color: rgb(30, 94, 179);
 }
 #downloads{
-    color: rgb(137, 74, 173);
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color: rgb(137, 74, 173);
 }
 #hsk_level{
-    color:rgb(224, 96, 45);
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color:rgb(224, 96, 45);
 }
 #cefr_level{
-    color:rgb(224, 96, 45);
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color:rgb(224, 96, 45);
 }
 #starts_rating{
-    color: rgb(230, 208, 14);
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color: rgb(230, 190, 14);
 }
 #cards_cuantity{
-    color: rgb(20, 182, 68);
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color: rgb(20, 182, 68);
 }
 
 .deck button{
-    margin-bottom: 10px;
-    width: 80%;
-    margin-left: 5%;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    width: 100%;
+    padding-block: 5px;
+    padding-inline: 120px;
     text-align: center;
     align-content: center;
     background-color: #456eb9;
     color: white;
     cursor: pointer;
-    font-size: 1.5rem;
-    border-radius: 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
 }
 .deck button:hover{
     transform: scale(1.05);
@@ -105,60 +154,61 @@ h3{
 
 
 
-/* Search form style*/
-#filter-form{
-    border-radius: 10px;
-    margin-left: 10%;
-    width: 80%;
-    align-content: center;
-    background-color: white;
-    color: #111111;
-    padding-block: 10px;
+/* Search Form (Compact and Fixed Position) */
+#filter-form {
+    border-top: .5px solid rgba(255, 255, 255, 0.2);
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: rgb(36, 25, 97);
+    color: white;
+    padding: 5px;
+    padding-top: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
     display: inline-flex;
-    font-size: 1.4rem;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
 }
 
-#filter-by-container{
-    margin-left: 10%;
-    width: 30%;
-    text-align: center;
-    background-color: #456eb9;
-    border: 1px solid white;
-    border-radius: 10px;
-    color: white;
-    padding: 5px;
+#filter-by-container, #options-select-container, #search-button {
+    min-width: 150px;
 }
 
-#options-select-container{
-    text-align: center;
-    margin-left: 10px;
-    width: 40%;
-    background-color: #456eb9;
-    border: 1px solid white;
-    border-radius: 10px;
+#filter-by-container, #options-select-container {
     color: white;
-    padding: 5px;
-}
-#options-select{
-    width: 50%;
-}
-
-#search-button{
-    width: 10%;
-    margin-left: 10px;
-    background-color: #456eb9;
-    color: white;
-    font-size: 1.4rem;
-    border-radius: 10px;
-    border: 1px solid white;
-}
-#search-button:hover{
-    cursor: pointer;
-    background-color: #455eb9;
+    background-color: rgb(36, 25, 97);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 1.0em;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 select{
-    font-size: 1.2rem;
-    border-radius: 10px;
-    color: #383a3d;
+    border-radius: 5px;
+    margin-left: 5px;
+    padding-block: 2px;
+    cursor: pointer;
+    border: none;
+    color: #333333;
+    font-size: 1em;
+    width: 100px;
+}
+
+#search-button {
+    background-color: #456eb9;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 5px 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#search-button:hover {
+    background-color: #2855a7;
+    color: white;
 }

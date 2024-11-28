@@ -154,11 +154,21 @@ def ACTION_Study_Deck(request, deck_identifier):
 #Discovering and adding new Decks
 @login_required
 def discover(request):
+    """
+        Load deck options on the Library to be acquired by the requested user.
+        It filters the decks by the selected language, excluding those that have the current user as an author and those that does not have a single card yet. This uses a filtering bar to filter by title, author and hsk/cefr levels.
+        
+        Parametters:
+            -Nothing
+            
+        Return:
+            -Renderize 'discover' page.
+    """
     language = request.session.get('selected_language')
     decks = Deck.objects.filter(language=language).exclude(author=request.user).exclude(owners=request.user).exclude(cards_cuantity=0)
 
-    titles = Deck.objects.filter(language=language).values_list('title', flat=True).exclude(cards_cuantity=0, author=request.user, owners=request.user).distinct()
-    authors = User.objects.exclude(deck_author__cards_cuantity=0, username=request.user).filter(deck_author__isnull=False).distinct().values_list('username', flat=True)
+    titles = Deck.objects.filter(language=language).values_list('title', flat=True).exclude(cards_cuantity=0).exclude( author=request.user).exclude(owners=request.user).distinct()
+    authors = User.objects.filter(deck_author__language=language).exclude(deck_author__cards_cuantity=0).exclude(username=request.user).filter(deck_author__isnull=False).distinct().values_list('username', flat=True).filter(deck_author__in=decks)
     hsk_levels = HSK_LEVELS
     cefr_levels = CEFR_LEVELS
 

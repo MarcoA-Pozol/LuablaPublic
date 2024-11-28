@@ -2,36 +2,37 @@
 
 {% block content %}
     {% load static %}
-
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/discover.css' %}"></link>
 
     <!-- Search Form -->
     <form id="filter-form" method="GET" action="{% url 'discover' %}">
         {% csrf_token %}
         <div id="filter-by-container">
-            <label for="filter-by">Filter By:</label>
+            <label for="filter-by"><i style="color:rgb(220, 220, 220);"  class="fas fa-filter"></i></label>
             <select name="filter_by" id="filter_by" onchange="updateOptions()">
                 <option value="title" {% if filter_by == 'title' %}selected{% endif %}>Title</option>
                 <option value="author" {% if filter_by == 'author' %}selected{% endif %}>Author</option>
                 {% if language == "Chinese"%}
-                    <option value="hsk_level" {% if filter_by == 'hsk_level' %}selected{% endif %}>HSK Level</option>
+                    <option value="hsk_level" {% if filter_by == 'hsk_level' %}selected{% endif %}>Level</option>
                 {% else %}
-                    <option value="cefr_level" {% if filter_by == 'cefr_level' %}selected{% endif %}>CEFR Level</option> 
+                    <option value="cefr_level" {% if filter_by == 'cefr_level' %}selected{% endif %}>Level</option> 
                 {% endif %}    
             </select>
         </div>
         
         <div id="options-select-container">
-            <label for="options-select">Select:</label>
+            <label for="options-select"><i style="color:rgb(220, 220, 220);"  class="fas fa-gears"></i></label>
             <select name="option" id="options-select">
-                <option value="">Choose an option</option>
+                <option value="">Select</option>
                 {% for option in options %}
                     <option value="{{ option }}" {% if option == request.GET.option %}selected{% endif %}>{{ option }}</option>
                 {% endfor %}
             </select>
         </div>
         
-        <button  id="search-button" type="submit" onclick="event.preventDefault(); updateDecks();">Search </button>
+        <button  id="search-button" type="submit" onclick="event.preventDefault(); updateDecks();"><i style="color:rgb(220, 220, 220);"  class="fas fa-search"></i></button>
     </form>
 
     <!-- Decks List -->
