@@ -21,6 +21,8 @@ import requests
 from django.db.models import Q
 # Load data from a template using AJAX and CSRF token
 from django.views.decorators.csrf import csrf_exempt
+# Serializers
+from django.core import serializers
 
 @login_required
 def application_home(request):
@@ -39,7 +41,6 @@ def bank_of_cards(request, deck_identifier):
     """
     
     language = request.session.get('selected_language')
-    print(f"Selected language from session: {language}")
 
     if language == "Chinese":
         cards_list = CHINESE_CARDS
@@ -151,6 +152,11 @@ def ACTION_Study_Deck(request, deck_identifier):
 
 
 
+
+
+
+
+
 #Discovering and adding new Decks
 @login_required
 def discover(request):
@@ -201,9 +207,14 @@ def discover(request):
     elif filter_by == 'cefr_level':
         options = [level[1] for level in CEFR_LEVELS]
 
+    
+    # Serialize decks queryset to JSON
+    decks_json = serializers.serialize('json', decks)
+
     context = {
         "language": language,
         "decks": decks,
+        "decks_json": decks_json,
         "options": options,
         "filter_by": filter_by,
         "titles": titles,
@@ -215,21 +226,33 @@ def discover(request):
     return render(request, 'discover.html', context)
 
 @login_required
-def ACTION_Get_Deck(request, deck_identifier):
-    if request.method == "GET":
-        language = request.session.get('selected_language')
-        user = request.user
-        deck = Deck.objects.get(id=deck_identifier)
-        deck.owners.add(user)
-        deck.downloads = deck.downloads+1
-        deck.save()
-        
-        obtained_deck_notification = Notifications.objects.create(reason='Obtained deck', message=f"'{deck}' deck from {language} language has been obtained and is now available to be studied.", destinatary=user, is_read=False)
-        obtained_deck_notification.save()
-        return redirect('study')
-    else:
-        return redirect('study')
+@csrf_exempt
+def get_deck_ajax(request):
+    if request.method == "POST":
+        try:
+            # User data
+            user = request.user
+            language = request.session.get('selected_language')
+            
+            data = json.loads(request.body)  # Parse JSON data from the request
+            deck = Deck.objects.get(pk=data.get("deck_id"))
+            
+            # Add current user as an owner of the deck
+            deck.owners.add(user)
+            deck.downloads = deck.downloads+1
+            deck.save()
+            # Notificate the current user when he/she got a new deck.
+            notification = Notifications.objects.create(reason="Obtained deck", message=f"'{deck}' deck from {language} language has been obtained and is now available to be studied.", destinatary=user, is_read=False).save()
+            return JsonResponse({"message": f"{user} had obtained this deck '{deck}'!"})
+        except Deck.DoesNotExist:
+            return JsonResponse({"error": "Deck not found."}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Invalid request method."}, status=400)
     
+
+
 
 
 

@@ -9,7 +9,7 @@ urlpatterns = [
     path('study_deck/<int:deck_identifier>/', views.ACTION_Study_Deck, name="action-study-deck"),
     # Discovering
     path('discover/', views.discover, name="discover"),
-    path('get_deck/<int:deck_identifier>/', views.ACTION_Get_Deck, name="action-get-deck"),
+    path('get_deck_ajax/', views.get_deck_ajax, name='get-deck-ajax'), 
     # Bank of Cards
     path('bank_of_cards/<int:deck_identifier>/', views.bank_of_cards, name="bank-of-cards"),
     path('get_card_ajax/', views.get_card_ajax, name="get-card-ajax"),
