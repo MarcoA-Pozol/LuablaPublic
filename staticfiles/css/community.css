@@ -1,0 +1,101 @@
+/* Community Page Styling */
+.community-title {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+    font-size: 2em;
+}
+
+.community-description {
+    text-align: center;
+    color: #555;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.users-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.user-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    position: relative;
+    transition: transform 0.2s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+}
+
+.user-profile {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.user-name {
+    font-size: 1.2em;
+    color: #333;
+    margin: 10px 0 5px;
+}
+
+.user-country {
+    font-size: 1em;
+    color: #777;
+}
+
+
+
+
+/* Buttons */
+.friend-button {
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.friend-button:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.friend-button.add{
+    background-color: #002cf1;
+}
+
+.friend-button.accept{
+    background-color: green;
+}
+
+.friend-button.cancel{
+    background-color: rgb(120, 140, 250);
+}
+
+.friend-button.decline{
+    color: rgb(107, 107, 107);
+    margin-top: 10px;
+    font-size: 0.8rem;
+    background-color: transparent;
+    padding: 0 0;
+}

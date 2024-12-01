@@ -1,0 +1,214 @@
+h3{
+    text-align: center;
+}
+
+.decks-container{
+    padding-top: 70px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Deck Container */
+.deck {
+    padding-block: 10px;
+    padding-inline: 20px;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 3px 4px 2px 3px rgb(66, 64, 64);
+    background-color: #ffffff;
+    width: 28%;
+    margin-left: 5%;
+    margin-bottom: 120px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Deck Hover Effect */
+.deck:hover {
+    transform: translateY(-10px);
+}
+
+.deck h3 {
+    width: 100%;
+    font-size: 1.2em;
+    color: #333333;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-inline: 5px;
+    text-align: center;
+    align-content: center;
+    white-space: nowrap; /*Content does not wrap*/
+    overflow-x: hidden;
+}
+
+.deck h4{
+    color: rgb(43, 44, 44);
+}
+
+/* Deck Image */
+.deck img {
+    width: 220px;
+    height: 130px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-bottom: 0;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px 2px rgb(93, 93, 94);
+    object-fit: cover;
+}
+
+/* Deck Description */
+.deck p {
+    min-height: 80px;
+    max-height: 80px;
+    font-size: 0.9em;
+    color: #404650;
+    line-height: 1.6;
+    margin-top: 0;
+    margin-bottom: 5px;
+    padding-block: 10px;
+    padding-inline: 20px;
+    border-bottom: 1px solid rgb(43, 44, 44);
+    overflow-y: scroll;
+}
+
+#author{
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color: rgb(30, 94, 179);
+}
+#downloads{
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color: rgb(137, 74, 173);
+}
+#hsk_level{
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color:rgb(224, 96, 45);
+}
+#cefr_level{
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color:rgb(224, 96, 45);
+}
+#starts_rating{
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color: rgb(230, 190, 14);
+}
+#cards_cuantity{
+    border-radius: 5px;
+    padding-inline: 5px;
+    padding-block: 2px;
+    border: none;
+    font-size: 0.8em;
+    color: white;
+    background-color: rgb(20, 182, 68);
+}
+
+.deck button{
+    margin-top: 10px;
+    margin-bottom: 50px;
+    width: 100%;
+    padding-block: 5px;
+    padding-inline: 120px;
+    text-align: center;
+    align-content: center;
+    background-color: #456eb9;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
+}
+.deck button:hover{
+    transform: scale(1.05);
+    transition-duration: 1.2s;
+}
+
+
+
+
+/* Search Form (Compact and Fixed Position) */
+#filter-form {
+    border-top: .5px solid rgba(255, 255, 255, 0.2);
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    background-color: rgb(36, 25, 97);
+    color: white;
+    padding: 5px;
+    padding-top: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
+#filter-by-container, #options-select-container, #search-button {
+    min-width: 150px;
+}
+
+#filter-by-container, #options-select-container {
+    color: white;
+    background-color: rgb(36, 25, 97);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 1.0em;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+select{
+    border-radius: 5px;
+    margin-left: 5px;
+    padding-block: 2px;
+    cursor: pointer;
+    border: none;
+    color: #333333;
+    font-size: 1em;
+    width: 100px;
+}
+
+#search-button {
+    background-color: #456eb9;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    padding: 5px 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#search-button:hover {
+    background-color: #2855a7;
+    color: white;
+}

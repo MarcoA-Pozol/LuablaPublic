@@ -1,0 +1,14 @@
+#h3{
+    width: 100%;
+    text-align: center;
+    color: #111111;
+    justify-content: center;
+}
+
+#p{
+    width: 100%;
+    padding: 20px 50px;
+    text-align: center;
+    justify-content: center;
+    color: #252525;
+}
