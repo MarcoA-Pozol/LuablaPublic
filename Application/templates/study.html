@@ -2,10 +2,15 @@
 
 {% block content %}
     {% load static %}
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/study.css' %}"></link>
 
     {% if author_decks or decks %}
+        
+        <header id="page-header">
+            <h1><li class="fas fa-arrow-down-short-wide"></li> Choose Your Deck to Study</h1>
+        </header>
+
         <div id="decks">
             {% for author_deck in author_decks %}
                 <div class="deck-container">
@@ -45,21 +50,21 @@
 
             {% for deck in decks %}
                 <div class="deck-container">
-                    <h3 id="title">{{ deck.title }}</h3>
+                    <h3>{{ deck.title }}</h3>
                     {% if deck.image %}
                         <img id="image" src="{{ deck.image.url }}" alt="{{ deck.title }}">
                     {% else %}
                         <img id="image" src="{% static 'images/default_deck_image.jpg' %}">
                     {% endif %}
-                    <p id="description">{{ deck.description }}</p>
+                    <p id="description"><i class="fas fa-book-open"></i> {{ deck.description }}</p>
                     <div id="deck_tags">
-                        <h4 id="deck_author">{{ deck.author }}</h4>
+                        <h4 id="deck_author"><i class="fas fa-face-grin-stars"></i> {{ deck.author }}</h4>
                         {% if deck.language == "Chinese" %}
-                            <h4 id="hsk_level">{{ deck.hsk_level }}</h4>
+                            <h4 id="hsk_level"><i class="fas fa-certificate"></i> {{ deck.hsk_level }}</h4>
                         {% else %}
-                            <h4 id="cefr_level">{{ deck.cefr_level }}</h4>
+                            <h4 id="cefr_level"><i class="fas fa-certificate"></i> {{ deck.cefr_level }}</h4>
                         {% endif %}
-                        <h4 id="cards_cuantity">❐ {{ deck.cards_cuantity }} cards</h4>
+                        <h4 id="cards_cuantity">❐ {{ deck.cards_cuantity }}</h4>
                     </div>
                     <form class="study_deck" method="GET" action="{% url 'action-study-deck' deck.id %}">
                         {% csrf_token %}
