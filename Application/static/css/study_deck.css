@@ -1,12 +1,28 @@
+/* Back to previous page button */
+#back-page-button{
+    color: #111111;
+    text-decoration: none;
+    font-size: 2.5em;
+    position: fixed;
+    left: 200px;
+    top: 110px;
+    font-weight: bold;
+}
+
+body{
+    background-color: white;
+}
+
+
+/* Deck Container */
 #deck-container{
     background-color: #111111;
-    box-shadow: 2px 2px 2px 3px white;
     width: 40%;
     margin-left: 30%;
     border-radius: 10px;
     padding-block: 5px;
     padding-top: 30px;
-    padding-inline: 20px;
+    padding-inline: 60px;
 }
 
 /* Styling for the deck container */
@@ -33,7 +49,7 @@
 .word {
     font-size: 2.4rem;
     font-weight: bold;
-    color: #87d4f3; 
+    color: rgb(70, 30, 160); 
     margin-bottom: 0;
 }
 
@@ -41,7 +57,7 @@
 .hanzi {
     font-size: 2.4rem;
     font-weight: bold;
-    color: #87d4f3; 
+    color: rgb(70, 30, 160); 
     margin-bottom: 0;
 }
 
@@ -55,7 +71,8 @@
 /* Meaning and example phrase styling */
 #meaning {
     font-size: 1.4rem;
-    color: #ffffff;
+    color: #dadada;
+    margin-block: 5px;
 }
 
 #example_phrase {
@@ -69,7 +86,7 @@
 
 /* Buttons */
 button {
-    background-color: #4a3aca; 
+    background-color: rgb(35, 10, 90); 
     color: #ffffff;
     border: none;
     padding: 15px 50px;
@@ -77,61 +94,17 @@ button {
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    margin-bottom: 5px;
+    margin-top: 22px;
+    padding-inline: 60px;
 }
 
 /* Hover effect for buttons */
 button:hover {
-    background-color: #3335a7; 
+    background-color: rgb(15, 9, 90); 
     color: white;
 }
 
-
-
-/*Finished Deck Message*/
-#finished_deck_container {
-    display: none;
-    position: absolute;
-    width: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #f0f0f0;
-    padding: 60px 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-#finished_deck_container h3 {
-    font-size: 2.8rem;
-    color: #111111;
-}
-#finished_deck_container h4{
-    font-size: 2.2rem;
-    color: #3b3b3b;
-}
-#finished_deck_message{
-    display: none;
-}
-#continue{
-    color: white;
-    background-color: royalblue;
-    border-radius: 10px;
-    padding: 5px 10px;
-    text-decoration: none;
-    font-size: 1.6rem;
-    margin-inline: 10px;
-}
-#again{
-    color: white;
-    background-color: green;
-    border-radius: 10px;
-    padding: 5px 10px;
-    text-decoration: none;
-    font-size: 1.6rem;
-    margin-inline: 10px;
-}
+/* Index of cards*/
 #card_index{
     width: 100%;
     text-align: center;
@@ -143,6 +116,56 @@ button:hover {
     color: #3b3b3b;
     border-top: 1px solid #bfe1f8;
 }
+
+
+
+/*Finished Deck Message*/
+#finished_deck_container {
+    display: none;
+    position: absolute;
+    width: 30%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #111;
+    padding: 60px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 300px;
+}
+
+#finished_deck_container h3 {
+    font-size: 2.0rem;
+    color: white;
+}
+#finished_deck_container h4{
+    margin-block: 20px;
+    font-size: 1.2rem;
+    color: #9c9c9c;
+}
+#finished_deck_message{
+    display: none;
+}
+#continue{
+    color: white;
+    background-color: rgb(35, 10, 90);
+    border-radius: 10px;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin-inline: 10px;
+}
+#again{
+    color: white;
+    background-color: rgb(70, 30, 160);
+    border-radius: 10px;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 1.5rem;
+    margin-inline: 10px;
+}
+
 
 /* Layout for smaller screens */
 @media (max-width: 768px) {

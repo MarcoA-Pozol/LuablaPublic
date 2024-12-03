@@ -72,6 +72,12 @@
                     </form>
                 </div>
             {% endfor %}
+
+            <a class="add-deck-container" href="{% url 'discover' %}">
+                <div>
+                    <i class="fas fa-add"></i>
+                </div>
+            </a>
         </div>
     {% else %}
         <h5 id="no_decks_available">How would you like to start?</h5>

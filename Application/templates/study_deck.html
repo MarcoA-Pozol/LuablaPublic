@@ -5,6 +5,8 @@
 
     <link rel="stylesheet" href="{% static 'css/study_deck.css' %}"></link>
 
+    <a href="{% url 'study' %}" id="back-page-button"><i class="fas fa-arrow-alt-circle-left"></i></a>
+
     <div id="deck-container">
         <div id="card-container">
             <div class="card-front">
@@ -24,7 +26,7 @@
                 {% endif %}
                 <h2 id="meaning"></h2>
                 <p id="example_phrase"></p>
-                <button id="next-card">Next Card</button>
+                <button id="next-card"><i></i>Next</button>
             </div>
         </div>
         <h4 id="card_index"></h4>
@@ -34,8 +36,8 @@
         <h3>Finished</h3>
         <h4 id="finished_deck_message"></h4>
         <div class="finished_deck_options">
-            <a id="continue" href="{% url 'study' %}">Continue</a>
-            <a id="again" href="{% url 'action-study-deck' deck.id %}">↻</a>
+            <a id="continue" href="{% url 'study' %}"><i></i>Continue</a>
+            <a id="again" href="{% url 'action-study-deck' deck.id %}"><i class="fas fa-arrow-left-rotate"></i></a>
         </div>
     </div>
 

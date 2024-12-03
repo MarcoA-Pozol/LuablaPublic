@@ -17,9 +17,9 @@
                 <b id="author">{{ deck.author }}</b>  
                 <b id="downloads">⏏ {{ deck.downloads }}</b>  
                 {% if language == "Chinese" %}
-                    <b id="hsk_level">{{ deck.hsk_level }}</b> 
+                    <b id="hsk_level"><i class="fas fa-certificate"></i> {{ deck.hsk_level }}</b> 
                 {% else %}
-                    <b id="cefr_level">{{ deck.cefr_level }}</b> 
+                    <b id="cefr_level"><i class="fas fa-certificate"></i> {{ deck.cefr_level }}</b> 
                 {% endif %}
                 <b id="starts_rating">☆ 5</b>  
                 <b id="cards_cuantity">❐ {{ deck.cards_cuantity }}</b>

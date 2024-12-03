@@ -83,7 +83,7 @@ h3{
     border: none;
     font-size: 0.8em;
     color: white;
-    background-color: rgb(30, 94, 179);
+    background-color: rgb(15, 73, 148);
 }
 #downloads{
     border-radius: 5px;
@@ -92,7 +92,7 @@ h3{
     border: none;
     font-size: 0.8em;
     color: white;
-    background-color: rgb(137, 74, 173);
+    background-color: rgb(75, 22, 105);
 }
 #hsk_level{
     border-radius: 5px;
@@ -101,7 +101,7 @@ h3{
     border: none;
     font-size: 0.8em;
     color: white;
-    background-color:rgb(224, 96, 45);
+    background-color:rgb(182, 46, 45);
 }
 #cefr_level{
     border-radius: 5px;
@@ -110,7 +110,7 @@ h3{
     border: none;
     font-size: 0.8em;
     color: white;
-    background-color:rgb(224, 96, 45);
+    background-color:rgb(182, 46, 45);
 }
 #starts_rating{
     border-radius: 5px;
@@ -128,7 +128,7 @@ h3{
     border: none;
     font-size: 0.8em;
     color: white;
-    background-color: rgb(20, 182, 68);
+    background-color: rgb(7, 104, 36);
 }
 
 .deck button{
@@ -139,7 +139,7 @@ h3{
     padding-inline: 120px;
     text-align: center;
     align-content: center;
-    background-color: #456eb9;
+    background-color: rgb(15, 9, 90);
     color: white;
     cursor: pointer;
     font-size: 1.2rem;
@@ -198,7 +198,7 @@ select{
 }
 
 #search-button {
-    background-color: #456eb9;
+    background-color: rgb(36, 25, 97);
     border: none;
     color: white;
     border-radius: 5px;
@@ -209,6 +209,6 @@ select{
 }
 
 #search-button:hover {
-    background-color: #2855a7;
+    background-color: rgb(35, 10, 90);
     color: white;
 }
