@@ -24,7 +24,7 @@ class CardForm(forms.ModelForm):
             self.fields.pop('pinyin', None)
             
         if self.author:
-            self.fields['deck'].queryset = Deck.objects.filter(author=self.author)
+            self.fields['deck'].queryset = Deck.objects.filter(author=self.author, language=selected_language)
 
             
     def save(self, language, author, commit=True):
