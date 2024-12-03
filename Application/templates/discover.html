@@ -67,16 +67,7 @@
                     // If no more decks are available
                     if ($('.deck').length === 0) {
                         $('#decks-container').html(`
-                            <h5 id="no_decks_available" style="
-                                width: 100%;
-                                text-align: center;
-                                justify-content: center;
-                                align-content: center;
-                                font-size: 2.0rem;
-                                color: #222;">
-                                No more decks available
-                            </h5>
-                            <h6 style="margin-left:30%;width:40%;text-align: center;justify-content: center;font-size: 1.4rem;color: #333;">
+                            <h6 style="text-align: center;justify-content: center;font-size: 1.4rem;justify-self:center;color: #333;">
                                 Redirecting...
                             </h6>
                         `);
@@ -85,7 +76,7 @@
                         setTimeout(() => {
                             window.location.href = "{% url 'study' %}";
                             showAlert()
-                        }, 1800);
+                        }, 100);
                     }
                 },
                 error: function(error) {

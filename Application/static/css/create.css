@@ -5,7 +5,7 @@
     justify-content: space-between; 
     width: 80%;          
     margin-left: 10%;     
-    color: rgb(36, 36, 39)
+    color: rgb(36, 36, 39);
 }
 
 .create-options-container div {
@@ -13,12 +13,9 @@
     padding-block: 5%;
     width: 45%;
     border-radius: 10px;
-    box-shadow: 3px 3px 3px 3px rgb(53, 53, 53); /*Light Mode*/
-    /*box-shadow: 3px 3px 3px 3px rgb(255, 255, 255); /*Dark Mode*/ 
-    /*background-color: white; /*Light Mode*/
-    background-color: #ffffff;/*Dark Mode*/
-    box-shadow: 2px 2px 2px 2px gray; /*Light Mode*/
-    /*box-shadow: 2px 2px 2px 2px white; /*White Mode*/
+    box-shadow: 3px 3px 3px 3px rgb(255, 255, 255);
+    background-color: #111;
+    color: white;
     transition: 0.5s ease;
 }
 
@@ -27,7 +24,7 @@
     transition-duration: 1.2s;
 }
 .create-options-container p{
-    color: rgb(63, 63, 75);
+    color: #666;
     padding-inline: 10%;
     text-align: center;
     font-size: 1.2rem;
@@ -38,17 +35,18 @@
     display: inline-block;
     margin-top: 10%;
     padding: 10px 20px;
-    background-color: #334ca1;
+    background-color: rgb(35, 10, 90);
     color: rgb(255, 255, 255);
     text-decoration: none;
     border-radius: 10px;
-    width: 85%;
+    margin-left: 10%;
+    width: 80%;
     text-align: center;
     font-size: 1.5rem;
 }
 
 .create-options-container a:hover {
-    background-color: #1d337a;
+    background-color: rgb(15, 9, 90);
     transform: scale(1.02);
 }
 

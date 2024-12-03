@@ -49,7 +49,8 @@ body{
 .word {
     font-size: 2.4rem;
     font-weight: bold;
-    color: rgb(70, 30, 160); 
+    color: rgb(70, 30, 160);
+    text-shadow: 1px 1px 1px rgb(170, 130, 250);
     margin-bottom: 0;
 }
 

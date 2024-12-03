@@ -49,7 +49,7 @@
 }
 
 .create-card-form button[type="submit"] {
-    background-color: #000000; /* Bold black button */
+    background-color: #222222; 
     color: #ffffff;  
     padding: 0.7rem; /* Compact padding */
     font-size: 1rem; 
@@ -62,11 +62,13 @@
 }
 
 .create-card-form button[type="submit"]:hover {
+    box-shadow: 0 0 6px rgba(85, 85, 85, 0.7); 
     background-color: #222222; /* Slightly lighter hover state */
     transform: scale(1.02);
 }
 
 .create-card-form button[type="submit"]:active {
+    box-shadow: 0 0 6px rgba(85, 85, 85, 0.7); 
     transform: scale(0.98);
 }
 

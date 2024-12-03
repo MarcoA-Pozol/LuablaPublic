@@ -212,3 +212,28 @@ select{
     background-color: rgb(35, 10, 90);
     color: white;
 }
+
+
+
+/* No more decks */
+.button-options-container{
+    width: 100%;
+    justify-content: center;
+    justify-items: center;
+    padding-block: 25px;
+    gap: 50px;
+    display: inline-flex;
+}
+.no-deck-button{
+    padding-block: 10px;
+    padding-inline: 10px;
+    text-align: center;
+    color: white;
+    background-color: rgb(35, 10, 90);
+    font-size: 1.6em;
+    border-radius: 5px;
+}
+.no-deck-button:hover{
+    background-color: rgb(15, 9, 90);
+    transform: translateY(-5px);
+}

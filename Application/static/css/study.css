@@ -201,7 +201,7 @@
 
 .add_card button {
     width: 100%;
-    color: #555555;
+    color: #444;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -211,7 +211,6 @@
 }
 
 .add_card button:hover {
-    background-color: #111111;
     transform: scale(1.05);
 }
 

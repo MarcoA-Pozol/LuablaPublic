@@ -4,7 +4,8 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/bank_of_cards.css' %}">
 
-    <h2 id="deck-title">{{ deck.title }}</h2>
+    <h2 id="deck-title"><i class="fas fa-pencil-square"></i> {{ deck.title }}</h2>
+    <h3 id="info"><i class="fas fa-info-circle"></i> Add or skip cards for you current deck.</h3>
 
     <div id="card-container">
         {% if language == "Chinese" %}
@@ -81,7 +82,7 @@
                             $('#no-more-cards-container').show();
                             setTimeout(() => {
                                 window.location.href = "{% url 'study' %}";
-                            }, 1800);
+                            }, 500);
                         }
                     },
                     error: function (error) {

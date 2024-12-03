@@ -5,64 +5,72 @@
     font-family: sans-serif;
     font-size: 1.8rem;
     padding-block: 10px;
-    color: #111111;
+    color: #222;
+}
+
+#info{
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+    font-size: 1.2em;
+    padding-block: 5px;
+    color: #444;
 }
 
 /* Cards container */
 #card-container{
-    margin-top: 50px;
+    padding-block: 20px;
+    margin-top: 10px;
     width: 40%;
     margin-left: 30%;
     background-color: #111111;
-    color: black;
-    font-family: sans-serif;
     border-radius: 10px;
-    border: 1px solid white;
     display: flex;
     flex-direction: column;
     text-align: center;
     justify-content: center;
-    box-shadow: 2px 2px 2px 2px #111111;
 }
 .hanzi{
-    color: #a3c0db;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(45, 20, 100);
     background-color: #111111;
-    width: 80%;
-    margin-top: 0;
-    margin-inline: 0;
-    padding-top: 30px;
-    font-size: 1.8rem;
-    padding-inline: 10%;
-    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+    justify-items: center;
+    padding-top: 25px;
+    font-size: 2.5em;
 }
 .pinyin{
     color: #333333;
     font-size: 1.2rem;
     padding-inline: 20px;
+    padding-block: 10px;
 }
 .word{
-    color: #a3c0db;
+    color: rgb(45, 20, 100);
     background-color: #111111;
-    width: 80%;
-    margin-top: 0;
-    margin-inline: 0;
-    padding-top: 30px;
-    font-size: 1.8rem;
-    padding-inline: 10%;
-    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    justify-content: center;
+    justify-items: center;
+    padding-block: 25px;
+    font-size: 2.5em;
 }
 #meaning{
     font-size: 1.2rem;
     color: #555555;
     padding-inline: 5px;
+    margin-bottom: 10px;
 }
 #example_phrase{
     font-size: 1.0rem;
     color: #555555;
     padding-inline: 20px;
+    margin-top: 10px;
 }
 #get-card-button{
-    background-color: #22CC;
+    background-color: rgb(35, 10, 90);
     color: white;
     border-radius: 5px;
     border: none;
@@ -77,13 +85,13 @@
 }
 #get-card-button:hover{
     transform: scale(1.02);
-    background-color: #202179;
+    background-color: rgb(15, 9, 90);
 }
 #skip-card-button{
     font-size: 1.2rem;
     margin-top: 10px;
     margin-bottom: 50px;
-    color: #555555;
+    color: #666;
     border-radius: 5px;
     border: none;
     padding-block: 5px;
@@ -92,10 +100,11 @@
     margin-left: 30%;
     transition: ease-in-out;
     transition-duration: 0.2s;
+    background-color: #111111;
 }
 #skip-card-button:hover{
     transform: scale(1.02);
-    background-color: #111111;
+    color: #777;
 }
 hr{
     width: 100%;
@@ -105,4 +114,8 @@ hr{
 /* No more cards */
 #no-more-cards-container{
     display: none;
+    text-align: center;
+    justify-content: center;
+    justify-self: center;
+    justify-items: center;
 }
