@@ -3,8 +3,12 @@
 {% block content %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/create_deck.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/create-deck.js' %}"></script>
 
-    <form class="create-deck-form" method="POST" enctype="multipart/form-data">
+    <span id="selected-language" style="display:none;">{{language}}</span>
+
+    <form id="create-deck-form" class="create-deck-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h2>Deck creation</h2>
 
@@ -25,7 +29,14 @@
         
         {{ form.image.label }}
         {{ form.image }}
-        <button type="submit">Submit</button>
+        <button id="create-deck-button" type="submit">Submit</button>
     </form>
 
+    <div id="alert-box" class="hidden">
+        <i class="fas fa-smile"></i> New deck created
+    </div>
+
+    <div id="error-box" class="hidden">
+        <i class="fas fa-warning"></i> Fill up all the required fields
+    </div>
 {% endblock %}

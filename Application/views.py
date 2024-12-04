@@ -301,5 +301,5 @@ def create_deck(request):
     else:
         form = DeckForm(author=author, language=language)
     
-    context = {'form': form}
+    context = {'form':form, 'language':language}
     return render(request, 'create_deck.html', context)

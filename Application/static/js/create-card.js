@@ -65,7 +65,7 @@ $(document).ready(function() {
         alertBox.classList.remove('hidden');
         alertBox.classList.add('visible');
 
-        // Remove the alert after 2.0 seconds
+        // Remove the alert after 2.5 seconds
         setTimeout(() => {
             alertBox.classList.remove('visible');
             alertBox.classList.add('hidden');

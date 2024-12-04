@@ -63,6 +63,14 @@ class DeckForm(forms.ModelForm):
         self.author = kwargs.pop('author', None)
         selected_language = kwargs.pop('language', None)
         super().__init__(*args, **kwargs)
+        
+        # Add IDs to fields
+        self.fields['title'].widget.attrs.update({'id': 'id_title'})
+        self.fields['description'].widget.attrs.update({'id': 'id_description'})
+        self.fields['hsk_level'].widget.attrs.update({'id': 'id_hsk_level'})
+        self.fields['cefr_level'].widget.attrs.update({'id': 'id_cefr_level'})
+        self.fields['is_shareable'].widget.attrs.update({'id': 'id_is_shareable'})
+        self.fields['image'].widget.attrs.update({'id': 'id_image'})
 
         if selected_language == 'Chinese':
             self.fields['hsk_level'] = forms.ChoiceField(choices=HSK_LEVELS, required=True)
