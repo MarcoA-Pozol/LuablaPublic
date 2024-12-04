@@ -14,6 +14,14 @@ class CardForm(forms.ModelForm):
         selected_language = kwargs.pop('language', None)
         super().__init__(*args, **kwargs)
         
+        # Add IDs to fields
+        self.fields['word'].widget.attrs.update({'id': 'id_word'})
+        self.fields['hanzi'].widget.attrs.update({'id': 'id_hanzi'})
+        self.fields['pinyin'].widget.attrs.update({'id': 'id_pinyin'})
+        self.fields['meaning'].widget.attrs.update({'id': 'id_meaning'})
+        self.fields['example_phrase'].widget.attrs.update({'id': 'id_example_phrase'})
+        self.fields['deck'].widget.attrs.update({'id': 'id_deck'})
+        
         if selected_language == 'Chinese':
             self.fields['hanzi'] = forms.CharField(max_length=255, required=True)
             self.fields['pinyin'] = forms.CharField(max_length=255, required=True)

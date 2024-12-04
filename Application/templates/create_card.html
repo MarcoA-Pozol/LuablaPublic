@@ -3,8 +3,12 @@
 {% block content %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/create_card.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/create-card.js' %}"></script>
+    
+    <span id="selected-language" style="display:none;">{{language}}</span>
 
-    <form class="create-card-form" method="POST">
+    <form id="create-card-form" class="create-card-form" method="POST">
         {% csrf_token %}
         <h2>Card creation</h2>
         {{ form.word.label }}
@@ -20,11 +24,18 @@
         {{ form.meaning }}
 
         {{ form.example_phrase.label }}
-        {{ form.example_phrase}}
+        {{ form.example_phrase }}
         
         {{ form.deck.label }}
         {{ form.deck }}
-        <button type="submit">Submit</button>
+        <button id="create-card-button" type="submit">Submit</button>
     </form>
 
+    <div id="alert-box" class="hidden">
+        <i class="fas fa-smile"></i> New card created 
+    </div>
+
+    <div id="error-box" class="hidden">
+        <i class="fas fa-warning"></i> Fill up all the fields
+    </div>
 {% endblock %}

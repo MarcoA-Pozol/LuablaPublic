@@ -285,7 +285,7 @@ def create_card(request):
     else:
         form = CardForm(author=author, language=language)
         
-    context = {'form':form}
+    context = {'form':form, 'language':language}
     return render(request, 'create_card.html', context)
 
 @login_required
