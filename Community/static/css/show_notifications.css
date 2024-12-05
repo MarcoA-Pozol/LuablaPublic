@@ -1,12 +1,113 @@
-.notifications-container{
-    background-color: rebeccapurple;
+/* Notifications Container */
+.notifications-container {
+    background-color: rgb(35, 10, 90);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    margin: 20px auto;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    animation: slide-in 0.5s ease-in-out;
 }
-.no-notifications-container{
+
+/* Individual Notification Styling */
+.notification {
+    background-color: rgb(15, 9, 90);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.notification:hover {
+    transform: scale(1.03);
+    background-color: rgb(35, 10, 90);
+    box-shadow: 0 0 0 rgba(0, 0, 0, 9);
+}
+
+/* Notification Content */
+#sent-date {
+    font-size: 0.9rem;
+    color: #e0e0e0;
+    margin-bottom: 5px;
+}
+
+#message {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Button Styling */
+.read-notification-button {
+    align-self: flex-end;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: white;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.read-notification-button:hover {
+    background-color: #45a049;
+}
+
+/* No Notifications Container */
+.no-notifications-container {
     background-color: royalblue;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    margin: 20px auto;
+    text-align: center;
+    color: white;
+    font-family: 'Arial', sans-serif;
 }
 
+.no-notifications-container h4 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-/*Behavior classes*/
-.hidden{
+.no-notifications-container p {
+    font-size: 0.95rem;
+    color: #e0e0e0;
+}
+
+/* Hidden Class */
+.hidden {
     display: none;
+}
+
+/* Animations */
+@keyframes slide-in {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
