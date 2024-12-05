@@ -23,6 +23,9 @@ from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 # Serializers
 from django.core import serializers
+# Join two querysets
+from itertools import chain
+
 
 @login_required
 def application_home(request):
@@ -116,15 +119,19 @@ def get_card_ajax(request):
 
     return JsonResponse({"error": "Invalid request method."}, status=400)
 
-#Studying acquired decks
+
+
+
+
 @login_required
 def study(request):
     user = request.user
     language = request.session.get('selected_language')
-    decks = Deck.objects.filter(owners=user, language=language)
+    owned_decks = Deck.objects.filter(owners=user, language=language)
     author_decks = Deck.objects.filter(author=user, language=language)
+    decks = list(chain(owned_decks, author_decks))
     cards = list(Card.objects.values('hanzi', 'pinyin', 'meaning', 'example_phrase'))
-    context = {'decks':decks, 'author_decks':author_decks,'cards_json': json.dumps(cards) }
+    context = {'decks':decks, 'cards_json':json.dumps(cards), 'user':user}
     return render(request, 'study.html', context)
 
 @login_required
@@ -231,6 +238,9 @@ def discover(request):
 @login_required
 @csrf_exempt
 def get_deck_ajax(request):
+    """
+        Authenticated user gets a Deck using AJAX and saving the user on the deck´s owners list on the DB
+    """
     if request.method == "POST":
         try:
             # User data
@@ -245,14 +255,39 @@ def get_deck_ajax(request):
             deck.downloads = deck.downloads+1
             deck.save()
             # Notificate the current user when he/she got a new deck.
-            notification = Notifications.objects.create(reason="Obtained deck", message=f"'{deck}' deck from {language} language has been obtained and is now available to be studied.", destinatary=user, is_read=False).save()
-            return JsonResponse({"message": f"{user} had obtained this deck '{deck}'!"})
+            notification = Notifications.objects.create(reason="Obtained deck", message=f"Obtained deck ({deck}, {language})", destinatary=user, is_read=False).save()
+            return JsonResponse({"message": f"{user} obtained deck ({deck})"})
         except Deck.DoesNotExist:
             return JsonResponse({"error": "Deck not found."}, status=404)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
 
     return JsonResponse({"error": "Invalid request method."}, status=400)
+
+@login_required
+def remove_deck_ajax(request):
+    """
+        Remove authenticated user from the deck´s owners list and save it on the DB.
+    """
+    if request.method == "POST":
+        user = request.user
+        language = request.session.get('selected_language')
+        try:
+            data = json.loads(request.body) # Parse JSON data from the request(FrontEnd) to be used on this view
+            deck = Deck.objects.get(pk=data.get("deck_id"))
+            
+            # Remove authenticated user from deck´s owners
+            deck.owners.remove(user)
+            deck.save()
+            # Notificate to authenticated user when the deck was removed successfully.
+            notification = Notifications.objects.create(reason="Removed deck", message=f"Removed deck ({deck}, {language})", destinatary=user, is_read=False).save()
+            return JsonResponse({"message": f"{user} removed deck ({deck})"})
+        except Deck.DoesNotExist:
+            return JsonResponse({"error": "Deck not found."}, status=404)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    
+    return JsonResponse({"error": "Invalid request method."}, status=400) 
     
 
 

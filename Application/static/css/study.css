@@ -21,7 +21,7 @@
 }
 
 /* Container that holds the decks */
-#decks {
+#decks-container {
     padding-top: 70px;
     width: 100%;
     display: flex;
@@ -54,7 +54,26 @@
 
 
 /* Main container styling for individual deck */
-.deck-container {
+.deck-options-bar{
+    display: inline;
+    justify-content: right;
+    align-content: center;
+    gap: 10px;
+    width: 100%;
+    padding-inline: 10px;
+    background-color: rgb(35, 10, 90);
+}
+.remove-deck-button{
+    font-size: 1.0em;
+    color: white;
+    background-color: rgb(15, 9, 90);
+    cursor: pointer;
+    padding: 2px;
+    border: none;
+    border-radius: 5px;
+}
+
+.deck {
     padding-block: 10px;
     padding-inline: 20px;
     justify-content: center;
@@ -72,12 +91,12 @@
 }
 
 /* Hover effect on deck container */
-.deck-container:hover {
+.deck:hover {
     transform: translateY(-10px);
 }
 
 /* Title styling */
-.deck-container h3 {
+.deck h3 {
     width: 100%;
     font-size: 1.2em;
     color: #333333;
@@ -91,7 +110,7 @@
 }
 
 /* Image styling */
-.deck-container img {
+.deck img {
     width: 220px;
     height: 130px;
     margin-top: 10px;
@@ -103,7 +122,7 @@
 }
 
 /* Description styling */
-.deck-container p {
+.deck p {
     min-height: 70px;
     max-height: 70px;
     font-size: 0.9em;

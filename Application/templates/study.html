@@ -4,52 +4,24 @@
     {% load static %}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/study.css' %}"></link>
+    <script src="{% static 'js/study.js' %}"></script>
 
-    {% if author_decks or decks %}
+    {% if decks %}
         
         <header id="page-header">
             <h1><li class="fas fa-arrow-down-short-wide"></li> Choose Your Deck to Study</h1>
         </header>
 
-        <div id="decks">
-            {% for author_deck in author_decks %}
-                <div class="deck-container">
-                    <h3 id="title">{{ author_deck.title }}</h3>
-                    {% if author_deck.image %}
-                        <img id="image" src="{{ author_deck.image.url }}" alt="{{ author_deck.title }}">
-                    {% else %}
-                        <img id="image" src="{% static 'images/default_deck_image.jpg' %}">
-                    {% endif %}
-                    <p id="description">{{ author_deck.description }}</p>
-                    <div id="deck_tags">
-                        <h4 id="deck_author">{{ author_deck.author }}</h4>
-                        {% if author_deck.language == "Chinese" %}
-                            <h4 id="hsk_level">{{ author_deck.hsk_level }}</h4>
-                        {% else %}
-                            <h4 id="cefr_level">{{ author_deck.cefr_level }}</h4>
-                        {% endif %}    
-                        <h4 id="cards_cuantity">❐ {{ author_deck.cards_cuantity }}</h4>
-                    </div>
-                    {% if author_deck.cards_cuantity == 0 %}
-                        <form class="add_card" method="GET" action="{% url 'bank-of-cards' author_deck.id %}">
-                            {% csrf_token %}
-                            <button type="submit">Add +</button>
-                        </form>
-                    {% else %}
-                        <form class="study_deck" method="GET" action="{% url 'action-study-deck' author_deck.id %}">
-                            {% csrf_token %}
-                            <button type="submit">Study</button>
-                        </form>
-                        <form class="add_card" method="GET" action="{% url 'bank-of-cards' author_deck.id %}">
-                            {% csrf_token %}
-                            <button type="submit">Add +</button>
-                        </form>
-                    {% endif %}
-                </div>
-            {% endfor %}
-
+        <div id="decks-container">
             {% for deck in decks %}
-                <div class="deck-container">
+                <div class="deck" id="deck-{{deck.pk}}">
+                    <div class="deck-options-bar" id="deck-options-bar">
+                        {% if deck.author == user %}
+                            <button><i class="fas fa-trash-can"></i></button>
+                        {% else %}
+                            <button class="remove-deck-button" id="remove-deck-button" type="submit" data-id="{{deck.pk}}"><i class="fas fa-trash-can"></i></button>
+                        {% endif %}
+                    </div>
                     <h3>{{ deck.title }}</h3>
                     {% if deck.image %}
                         <img id="image" src="{{ deck.image.url }}" alt="{{ deck.title }}">
@@ -66,10 +38,29 @@
                         {% endif %}
                         <h4 id="cards_cuantity">❐ {{ deck.cards_cuantity }}</h4>
                     </div>
-                    <form class="study_deck" method="GET" action="{% url 'action-study-deck' deck.id %}">
-                        {% csrf_token %}
-                        <button type="submit">Study</button>
-                    </form>
+
+                    {% if deck.author == user %}
+                        {% if deck.cards_cuantity == 0 %}
+                            <form class="add_card" method="GET" action="{% url 'bank-of-cards' deck.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Add +</button>
+                            </form>
+                        {% else %}
+                            <form class="study_deck" method="GET" action="{% url 'action-study-deck' deck.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Study</button>
+                            </form>
+                            <form class="add_card" method="GET" action="{% url 'bank-of-cards' deck.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Add +</button>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <form class="study_deck" method="GET" action="{% url 'action-study-deck' deck.id %}">
+                            {% csrf_token %}
+                            <button type="submit">Study</button>
+                        </form>
+                    {% endif %}
                 </div>
             {% endfor %}
 
@@ -79,12 +70,19 @@
                 </div>
             </a>
         </div>
+
     {% else %}
+
         <h5 id="no_decks_available">How would you like to start?</h5>
         <p id="no_decks_text">Let´s find decks in the library and start studying now. Or create your own custom deck with the words you really need.</p>
         <div id="no_decks_buttons_container">
             <a id="create_deck_button" href="{% url 'create-deck' %}"><span>New Deck</span></a>
             <a id="find_decks_button" href="{% url 'discover' %}"><span>Library</span></a>
         </div>
+
     {% endif %}
+
+    <script>
+        const removeDeckUrl = "{% url 'remove-deck-ajax' %}";
+    </script>
 {% endblock %}
