@@ -54,7 +54,7 @@
             </div>
 
             <div class="notifications_messages_container">
-                <a href="{% url 'show-friend-requests' %}">
+                <!--a>
                     <div id="notifications">
                         <img src="{% static 'images/friend_requests_icon.png' %}" alt="Friend requests icon">
                         {% if total_friend_requests == 0 %}
@@ -63,14 +63,14 @@
                             <h5>{{ total_friend_requests }}</h5>
                         {% endif %}
                     </div>
-                </a>
+                </!a-->
 
-                <a href="{% url 'chat' %}">
+                <!--a>
                     <div id="messages">
                         <img src="{% static 'images/messages_icon.png' %}" alt="Messages icon">
                         <h5 style="background-color: rgb(36, 25, 97);">0</h5>
                     </div>
-                </a>
+                </!a-->
 
                 <a href="{% url 'show-notifications' %}">
                     <div id="notifications">
@@ -134,24 +134,11 @@
                 </li>
             </a>
             
-            <a href="{% url 'community' %}">
+            <!--a>
                 <li>
                     <h4><i style="color:rgb(120, 190, 120);"  class="fas fa-people-arrows"></i> Community</h4>
                 </li>
-            </a>
-            
-            <!--a href="{% url 'chat' %}">
-                <li>
-                    <h4>Chat</h4>
-                </li>
             </!a-->
-            
         </div>
-
-        <script>
-            $(document).ready(function(){
-                const hands = 2;
-            });
-        </script>
     </body>
 </html>
