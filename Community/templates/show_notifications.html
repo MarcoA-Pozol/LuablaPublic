@@ -3,21 +3,37 @@
 {% block content %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/show_notifications.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/show_notifications.js' %}"></script>
 
-    <div class="notifications-list">
-        <h2>Notifications</h2>
         {% if notifications %}
-                {% for notification in notifications %}
-                    {{ notification.sent_date}}
-                    {{ notification.message }}
-                    <form method="POST" action="{% url 'action-read-notification' notification.id %}">
-                        {% csrf_token %}
-                        <button type="submit">OK</button>
-                    </form>
-                {% endfor %}
-        {% else %}
-            <h6>No notifications here</h6>
-        {% endif %}
-    </div>
 
+            <div id="notifications-container" class="notifications-container">
+                {% for notification in notifications %}
+                    <div class="notification" id="notification-{{notification.pk}}">
+                        <h3 id="sent-date">{{ notification.sent_date}}</h3>
+                        <h4 id="message">{{ notification.message }}</h4>
+                        <button class="read-notification-button" data-id="{{notification.pk}}" type="submit">OK</button>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div id="no-notifications-container" class="hidden">
+                <h4>There are no new notifications.</h4>
+                <p><i class="fas fa-note-sticky"></i> We will notify you if something important happen.</p>
+            </div>
+
+        {% else %}
+
+            <div id="no-notifications-container" class="no-notifications-container">
+                <h4>There are no new notifications.</h4>
+                <p><i class="fas fa-note-sticky"></i> We will notify you if something important happen.</p>
+            </div>
+        
+        {% endif %}
+        
+        <script>
+            // Since Django cannot resolve data in external JS files, it is neccesary to sent the request data and context using pre-defined script variables/constants, if it is not desired, then define all the document script into an internal script tag on the HTML template.
+            const readNotificationUrl = "{% url 'read-notification-ajax' %}";            
+        </script>
 {% endblock %}

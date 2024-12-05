@@ -15,5 +15,5 @@ urlpatterns = [
     path('action_remove_friend/<int:friend_identifier>/', views.ACTION_remove_friend, name="action-remove-friend"),
     #Notifications
     path('show_notifications/', views.show_notifications, name="show-notifications"),
-    path('read_notification/<int:notification_identifier>/', views.ACTION_read_notification, name="action-read-notification")
+    path('read_notification_ajax/', views.read_notification_ajax, name="read-notification-ajax")
 ]

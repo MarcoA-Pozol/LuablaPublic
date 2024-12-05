@@ -3,7 +3,11 @@ from Authentication.models import User
 from . models import Notifications, FriendRequest, Friendship, Message
 from django.db.models import Q
 from . forms import MessageForm
-
+# Load data from a template using AJAX and CSRF token
+from django.views.decorators.csrf import csrf_exempt
+# JsonResponse for communication with FrontEnd side
+from django.http import JsonResponse
+import json
 
 """COMMUNITY"""
 def community(request):
@@ -274,18 +278,25 @@ def show_notifications(request):
     context = {"notifications":notifications}
     return render(request, "show_notifications.html", context)
 
-def ACTION_read_notification(request, notification_identifier):
+def read_notification_ajax(request):
     """
-        Set a Notifications object 'is_read' statement to True to hide it from all Notifications dislaying.
+        Save a Notification instance "is_read" statement from False to True.
+        This view is called on the FrontEnd side, using AJAX and JQuery to dinamically modify and load the updated content without a page reload.
     """
     
-    try:
-        notification = Notifications.objects.get(id=notification_identifier)
-        
-        notification.is_read = True
-        notification.save()
-        
-        return redirect('show-notifications')
-    except Exception as e:
-        print(f"Exception {e}")
-        return redirect('show-notifications')
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body) # Parse JSON data from the request on the template´s body.
+            notification = Notifications.objects.get(id=data.get('notification_id')) # Check if it is 'notification_id' or just 'id'
+            
+            # Modify the 'is_read' field from the obtained Notifications´s object and save it.
+            notification.is_read=True
+            notification.save()
+            
+            return JsonResponse({'message': 'Notification´s "is_read" statement was changed from "False" to "True" successfully!'})
+        except Notifications.DoesNotExist:
+            return JsonResponse({'error': 'Notification not found.'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method.'}, status=400)

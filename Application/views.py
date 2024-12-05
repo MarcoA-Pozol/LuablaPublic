@@ -87,6 +87,9 @@ def bank_of_cards(request, deck_identifier):
 
 @csrf_exempt
 def get_card_ajax(request):
+    """
+        Calling this view on the FrontEnd side will save a new card on the current user´s deck to set it to acquired state.
+    """
     if request.method == "POST":
         try:
             data = json.loads(request.body)  # Parse JSON data from the request
