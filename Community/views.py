@@ -273,9 +273,10 @@ import json
 """NOTIFICATIONS"""
 def show_notifications(request):
     user = request.user
-    notifications = Notifications.objects.filter(destinatary=user, is_read=False).all()
+    notifications = Notifications.objects.filter(destinatary=user, is_read=False).all().order_by("-sent_date")
+    read_notifications = Notifications.objects.filter(destinatary=user, is_read=True).all().order_by("-sent_date")
     
-    context = {"notifications":notifications}
+    context = {"notifications":notifications, "read_notifications":read_notifications}
     return render(request, "show_notifications.html", context)
 
 def read_notification_ajax(request):

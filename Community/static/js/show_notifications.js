@@ -3,10 +3,16 @@ $(document).ready(function() {
 
 
     $(".read-notification-button").on('click', function() {
-        const notificationId = $(this).data('id'); // Retrieve notification ID from data-id on the button saved as data parameter
+        const notificationId = $(this).data('id'); // Retrieve notification ID from data-id as identifier for each loaded notification in the template
+        const readNotificationId = $(this).data('id'); // Retrieve read notification ID from data-id as identifier for each loaded notification in the template
 
         if(!notificationId) {
-            console.error("No notification ID found for this notification´s button.");
+            console.error("No any read notification related to the current ID was found.");
+            return;
+        }
+
+        if(!readNotificationId) {
+            console.error("No any read notification related to the current ID was found.");
             return;
         }
 
@@ -21,7 +27,11 @@ $(document).ready(function() {
                 console.log("Notification read:", response.message);
 
                 // Remove the Notification´s HTML element from the DOM
-                $(`#notification-${notificationId}`).remove();
+                //$(`#notification-${notificationId}`).remove();
+
+                $(`#notification-${notificationId}`).appendTo('#read-notifications-container'); // Move the notification to the "read notifications" container
+                $(`#notification-${notificationId}`).removeClass('notification').addClass('read-notification'); // Change its style (.notification style -> .read-notifiation style)
+                $(`#notification-${notificationId}`).find("button").remove(); // Remove the read-notification-button after notification is read
 
                 // If no more notifications are available
                 if ($('.notification').length === 0) {
@@ -38,6 +48,19 @@ $(document).ready(function() {
         });
     });
 
+
+    // Display new notifications list
+    $(".list-new-notifications-button").on('click', function() {
+        $('#notifications-container').removeClass('hidden').addClass('notifications-container');
+        $('#read-notifications-container').removeClass('read-notifications-container').addClass('hidden');
+    });
+
+
+    // Display read notifications list
+    $(".list-read-notifications-button").on('click', function() {
+        $('#notifications-container').removeClass('notifications-container').addClass('hidden');
+        $('#read-notifications-container').removeClass('hidden').addClass('read-notifications-container');
+    });
 
     
 
