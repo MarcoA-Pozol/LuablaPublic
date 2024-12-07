@@ -62,7 +62,8 @@
 /* Individual Notification Styling */
 .notification {
     background-color: rgb(15, 9, 90);
-    padding: 15px;
+    padding-block: 25px;
+    padding-inline: 50px;
     margin-bottom: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -81,15 +82,15 @@
 
 /* Notification Content */
 #sent-date {
-    font-size: 0.9rem;
-    color: #e0e0e0;
+    font-size: 0.8rem;
+    color: #bdbdbe;
     margin-bottom: 5px;
 }
 
 #message {
-    font-size: 1.1rem;
+    font-size: 1.0rem;
     font-weight: bold;
-    color: #ffffff;
+    color: #dddddd;
 }
 
 /* Button Styling */
@@ -138,7 +139,8 @@
 /* Individual read notification Styling */
 .read-notification {
     background-color: rgb(200, 60, 50);
-    padding: 15px;
+    padding-block: 25px;
+    padding-inline: 50px;
     margin-bottom: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -153,6 +155,23 @@
     transform: scale(1.03);
     background-color: rgb(202, 61, 42);
     box-shadow: 0 0 0 rgba(0, 0, 0, 9);
+}
+/* Button Styling */
+.delete-notification-button {
+    align-self: flex-end;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: white;
+    background-color: #c40808;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-notification-button:hover {
+    background-color: #b90e0e;
 }
 
 

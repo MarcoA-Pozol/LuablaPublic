@@ -1,7 +1,7 @@
 07 / 12 / 24
 -[DONE] Notifications JS, CSS and HTML structure implemented.
 -[DONE] Improved notifications JS logic using AJAX and JQuery for elements manipulation in the DOM.
--Add "Delete" read notification button, logic, AJAX, view in backend and URL.
--Implement Jquery and AJAX within a JS file to manage the "Delete" read notification button functionality.
+-[DONE] Add "Delete" read notification button, logic, AJAX, view in backend and URL.
+-[DONE] Implement Jquery and AJAX within a JS file to manage the "Delete" read notification button functionality.
 -Add the recently read notification to the read notifications container but place it at the top ordering it by the recently read notifications.
--Fix/Improve the "message" and "sent date" html elements style on Notifications page. 
+-[DONE] Fix/Improve the "message" and "sent date" html elements style on Notifications page. 

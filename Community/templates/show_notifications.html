@@ -6,13 +6,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'js/show_notifications.js' %}"></script>
 
-        {% if notifications or read_notifications %}
-            <div id="top-options-menu" class="top-options-menu">
-                <button class="list-new-notifications-button" id="list-new-notifications-button"><i class="fas fa-list-check"></i> New</button>
-                <button class="list-read-notifications-button" id="list-read-notifications-button"><i class="fas fa-list-squares"></i> Read</button>
-            </div>
+        <div id="top-options-menu" class="top-options-menu">
+            <button class="list-new-notifications-button" id="list-new-notifications-button"><i class="fas fa-list-check"></i> New</button>
+            <button class="list-read-notifications-button" id="list-read-notifications-button"><i class="fas fa-list-squares"></i> Read</button>
+        </div>
 
-            <div id="notifications-container" class="notifications-container">
+        
+        {% comment "Notifications" %}{% endcomment %}
+        <div id="notifications-container" class="notifications-container">
+            {% if notifications %}
                 {% for notification in notifications %}
                     {% if notification.is_read == False %}
                         <div class="notification" id="notification-{{notification.pk}}">
@@ -27,29 +29,33 @@
                     <h4>There are no new notifications.</h4>
                     <p><i class="fas fa-note-sticky"></i> We will notify you if something important happen.</p>
                 </div>
-            </div>
+            {% else %}
+                <div id="no-notifications-container" class="no-notifications-container">
+                    <h4>There are no new notifications.</h4>
+                    <p><i class="fas fa-note-sticky"></i> We will notify you if something important happen.</p>
+                </div>
+            {% endif %}
+        </div>
 
-            <div id="read-notifications-container" class="hidden">
+
+        {% comment "Read Notifications" %}{% endcomment %}
+        <div id="read-notifications-container" class="hidden">
+            {% if read_notifications %}
                 {% for notification in read_notifications %}  
                     {% if notification.is_read == True %}
                         <div class="read-notification" id="read-notification-{{notification.pk}}">
                             <h3 id="sent-date">{{ notification.sent_date}}</h3>
                             <h4 id="message">{{ notification.message }}</h4>
+                            <button class="delete-notification-button" data-id="{{notification.pk}}" type="submit"><i class="fas fa-trash-can"></i></button>
                         </div>
                     {% endif %}
                 {% endfor %}
-            </div>
-        {% else %}
-
-            <div id="no-notifications-container" class="no-notifications-container">
-                <h4>There are no new notifications.</h4>
-                <p><i class="fas fa-note-sticky"></i> We will notify you if something important happen.</p>
-            </div>
-        
-        {% endif %}
-        
-        <script>
-            // Since Django cannot resolve data in external JS files, it is neccesary to sent the request data and context using pre-defined script variables/constants, if it is not desired, then define all the document script into an internal script tag on the HTML template.
-            const readNotificationUrl = "{% url 'read-notification-ajax' %}";       
-        </script>
+                </div>
+            {% endif %}
+        </div>
+    
+    <script>
+        const readNotificationUrl = "{% url 'read-notification-ajax' %}";       
+        const deleteNotificationUrl = "{% url 'delete-notification-ajax' %}";
+    </script>
 {% endblock %}
