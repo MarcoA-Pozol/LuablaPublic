@@ -10,6 +10,7 @@ a{
     display: flex;
     justify-content: center;
     padding-block: 10px;
+    margin-bottom: 0;
 }
 
 .header-top-bar #luabla-logo{
@@ -89,6 +90,7 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #ffffff;
     color: #333333;
+    padding-top: 0;
 }
 
 
