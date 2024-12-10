@@ -1,0 +1,26 @@
+<html>
+    {% load static %}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Luabla - Profile</title>
+        <meta name="description" content="Luabla user profile">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="{% static 'icons/favicon.ico' %}">
+        <link rel="stylesheet" href="{% static 'css/user_profile_base.css' %}"> <!--Document style-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> <!--Icons classes-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!--JQuery-->
+    </head>
+
+    <body>
+        <nav>
+            <a href="{% url 'study' %}"><i class="fas fa-backward"></i> Back</a>
+            <a href="{% url 'user-profile' %}"><i class="fas fa-user"></i> Profile</a>
+            <a href="{% url 'logout' %}"><i class="fas fa-turn-down"></i> Logout</a>
+        </nav>
+
+        {% block content %}
+            <!--Content-->
+        {% endblock %}
+    </body>
+</html>

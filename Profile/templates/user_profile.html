@@ -1,37 +1,65 @@
+{% extends "user_profile_base.html" %}
 {% load static %}
 
-<link rel="stylesheet" href={% static 'css/user_profile.css' %}>
-<nav>
-    <a href="{% url 'study' %}">⇦</a>
-    <a>Settings</a>
-    <a>Help</a>
-    <a href="{% url 'logout' %}">Logout</a>
-</nav>
+{% block content %}
 
-<div class="user-profile">
-    <div id="username-and-photo">
-        {% if user.profile_picture %}
-            <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}">  
-        {% else %}
-            <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture">
-        {% endif %}
-        <h1 id="username">{{user.username}}</h1>
-    </div>
-    <div id="aditional-info">
-        <p>Goals:{{user.learning_goals}}</p>
-        <span>Country: {{user.country}}</span>
-    </div>
-</div>
+    <link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
+    <script src="{% static 'js/user_profile.js' %}"></script>
 
-<script>
-    document.querySelectorAll("nav a").forEach(link => {
-        link.addEventListener("click", e => {
-            e.preventDefault();
-            const href = link.getAttribute("href");
-            document.body.style.transition = "opacity 0.5s ease";
-            document.body.style.opacity = "0";
-            setTimeout(() => window.location.href = href, 500);
-        });
-    });
-</script>
-    
+    <div class="user-profile">
+        <div id="username-photo-goals">
+            {% if user.profile_picture %}
+                <img id="user-profile-picture" src="{{ user.profile_picture.url }}" alt="{{ user.username }}">  
+            {% else %}
+                <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture">
+            {% endif %}
+            <h1 id="username">{{user.username}}</h1>
+            <p id="user-learning-goals"><i class="fas fa-quote-left"></i> {{user.learning_goals}} <i class="fas fa-quote-right"></i> </p>
+        </div>
+        
+        <div id="aditional-info">
+            <div id="ai-1">
+                {% if user.description %}
+                    <span id="user-description"><i class="fas fa-hand"></i> {{ user.description }}</span>
+                {% else %}
+                    <button class="add-description-button" id="add-description-button"><i class="fas fa-add"></i> Add description</button>
+                {% endif %}
+            </div>
+            <div id="ai-2">
+                <span><i class="fas fa-flag"></i> {{user.country}}</span>
+                <span><i class="fas fa-mail-bulk"></i> {{ user.email }}</span>
+            </div>
+        </div>
+
+        <span id="display-formulary-button"><i class="fas fa-edit"></i> Edit profile data</span>
+    </div>
+
+    <form id="update-profile-data-form" class="hidden" enctype="multipart/form-data">
+        <h2>Update Data</h2>
+
+        {{ form.profile_image.label}}
+        {{ form.profile_image }}
+
+        {{ form.learning_goals.label}}
+        {{ form.learning_goals }}
+
+        {{ form.description.label}}
+        {{ form.description }}
+
+        <button id="update-profile-data-button" class="update-profile-data-button" type="submit"><i class="fas fa-save"></i> Save</button>
+    </form>
+
+
+    <!--Success / Error Alert-->
+    <div id="alert-box" class="hidden">
+        <i class="fas fa-smile"></i> Updated data!
+
+    <div id="error-box" class="hidden">
+        <i class="fas fa-bug"></i> There was a server error. Try it again later.
+    </div>
+
+    <script>
+        const userId = "{{ user.id }}"
+        const updateProfileDataURL = "{% url 'update-profile-data-ajax' %}";       
+    </script>
+{% endblock %}

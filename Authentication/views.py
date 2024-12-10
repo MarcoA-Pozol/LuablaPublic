@@ -21,10 +21,9 @@ def register(request):
                 user.save()
                 
                 send_mail(
-                    subject=f"Welcome to Luabla {user}!",
-                    message=f"You´re already on the right way to start learning a new Language, we are really glad that you joined to our community of learners around the world. Keep going, learn, practice and enjoy!",
-                    from_email=EMAIL_HOST_USER,  # Or use DEFAULT_FROM_EMAIL
-                    #password=EMAIL_HOST_PASSWORD,
+                    subject=f"Welcome to Luabla",
+                    message=f"You´re already on the right way to start learning a new Language, we are really glad that you joined to our community of learners around the world. Keep going, learn, practice and enjoy!. \nIf you have any doubt or question, don´t wait to send us an emal for all your doubts clarification.",
+                    from_email=EMAIL_HOST_USER, 
                     recipient_list=[user.email],
                     fail_silently=False,  # Raise an exception if email sending fails
                 )
