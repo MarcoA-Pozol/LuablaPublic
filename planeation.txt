@@ -5,3 +5,8 @@
 -[DONE] Implement Jquery and AJAX within a JS file to manage the "Delete" read notification button functionality.
 -Add the recently read notification to the read notifications container but place it at the top ordering it by the recently read notifications.
 -[DONE] Fix/Improve the "message" and "sent date" html elements style on Notifications page. 
+
+11 / 12 / 24
+-[DONE] Update profile´s data formulary, view, url, methods, JS, HTML, CSS and more to be implemented.
+-[IN PROGRESS] Fix image field on formulary to make sure it can save images to the desired path on the DJango directory and it can manage images.
+-[IN PROGRESS] Improve and complete the profile´s data updation formulary´s style acordingly to the entire profile page.

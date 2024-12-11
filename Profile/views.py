@@ -1,10 +1,18 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+import json
+from django.http import JsonResponse
+# External Models
+from Community.models import Notifications
+from Authentication.models import User
+# Formulary
+from . forms import UpdateProfileDataForm
 
 @login_required
 def user_profile(request):
     user = request.user
-    context = {"user":user}
+    form = UpdateProfileDataForm
+    context = {"user":user, "form":form}
     return render(request, "user_profile.html", context)
 
 @login_required
@@ -25,16 +33,16 @@ def update_profile_data_ajax(request):
                 learning_goals = data.get("learning_goals")
                 description = data.get("description")
 
-                # Validate data
+                # Validate and save data 
                 if profile_image != "":
                     user.profile_image = profile_image
+                    user.save()
                 if learning_goals != "":
                     user.learning_goals = learning_goals
+                    user.save()
                 if description != "":
                     user.description = description
-                    
-                # Save data changes
-                user.save()
+                    user.save()
             
                 # Notificate to authenticated user when their data was changed.
                 notification = Notifications.objects.create(reason="Updated data", message=f"Updated profile data.", destinatary=user, is_read=False).save()

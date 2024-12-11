@@ -14,13 +14,13 @@
                 <img src="{% static 'images/default_profile_picture.jpg' %}" alt="Default profile picture">
             {% endif %}
             <h1 id="username">{{user.username}}</h1>
-            <p id="user-learning-goals"><i class="fas fa-quote-left"></i> {{user.learning_goals}} <i class="fas fa-quote-right"></i> </p>
+            <p id="user-learning-goals"><b>“</b> {{user.learning_goals}} <b>”</b></p>
         </div>
         
         <div id="aditional-info">
             <div id="ai-1">
                 {% if user.description %}
-                    <span id="user-description"><i class="fas fa-hand"></i> {{ user.description }}</span>
+                    <i class="fas fa-hand"></i> <span id="user-description">{{ user.description }}</span>
                 {% else %}
                     <button class="add-description-button" id="add-description-button"><i class="fas fa-add"></i> Add description</button>
                 {% endif %}
@@ -59,7 +59,7 @@
     </div>
 
     <script>
-        const userId = "{{ user.id }}"
+        const userID = "{{user.id}}"
         const updateProfileDataURL = "{% url 'update-profile-data-ajax' %}";       
     </script>
 {% endblock %}

@@ -25,6 +25,7 @@
 #username-photo-goals img {
     width: 80px;
     height: 80px;
+    margin-left: 50px;
     border-radius: 50%;
     box-shadow: -3px 4px 2px 6px #ff4d4d, 3px 3px 3px 6px rgb(45, 20, 100);
     object-fit: cover;
@@ -36,6 +37,13 @@
 }
 #user-learning-goals {
     font-size: 1.0em;
+    color: #222;
+    width: 40%;
+    padding-inline: 10px;
+}
+b{
+    font-size: 1.2em;
+    color: #111;
 }
 
 
@@ -53,18 +61,17 @@
     align-items: center;
 }
 #ai-1{
-    width: 100%;
-    background-color: rgb(45, 20, 100);
+    width: 80%;
     border-radius: 10px;
     padding: 10px;
     text-align: center;
     align-items: center;
     justify-items: center;
     margin-block: 10px;
+    box-shadow: 2px 3px 5px 1px #f1f1f1;
 }
 .add-description-button{
     color: white;
-    background-color: rgb(45, 20, 100);
     border: none;
     font-size: 1.2em;
     cursor: pointer;
@@ -75,7 +82,7 @@
     transform: scale(1.02);
 }
 #ai-2{
-    margin-block: 10px;
+    margin-block: 20px;
     display: inline-flex;
     text-align: center;
     align-items: center;
@@ -83,6 +90,39 @@
     gap: 70px;
 }
 
+
+
+
+/*Display Formulary*/
+#display-formulary-button{
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    justify-self: center;
+    margin-top: 35px;
+
+}
+
+
+
+
+
+
+
+
+/*Formulary*/
+#update-profile-data-form{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    border-radius: 10px;
+    padding: 20px;
+    width: 45%;
+    justify-self: center;
+    margin-bottom: 50px;
+}
 
 
 /* Save changes button */

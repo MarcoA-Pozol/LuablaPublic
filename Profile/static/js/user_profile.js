@@ -36,7 +36,9 @@ $(document).ready(function() {
         // Prevent default form submission
         event.preventDefault();
 
-        if (!userId) {
+        console.log("Clicked button")
+
+        if (!userID) {
             console.error("No user matches the current ID.") 
             return;
         }
@@ -54,10 +56,10 @@ $(document).ready(function() {
             url: updateProfileDataURL,
             type: "POST",
             data: JSON.stringify({
-                user_id: userId,
-                profile_image: profileImage,
-                learning_goals: learningGoals,
-                description: description
+                "user_id": userID,
+                "profile_image": profileImage,
+                "learning_goals": learningGoals,
+                "description": description
             }),
             constentType: "application/json",
             headers: { "X-CSRFToken": csrftoken },
@@ -73,11 +75,18 @@ $(document).ready(function() {
                 
 
                 // Update the data that is displayed on the profile´s data with the new updated ones
-                if (profileImage) {
+                if (profileImage !== "") {
                     $('#user-profile-image').attr('src', profileImage);
+                    console.log("Profile image changed: ", profileImage);
                 }
-                $('#user-learning-goals').text(learningGoals);
-                $('#user-description').text(description);
+                if (learningGoals !== "") {
+                    $('#user-learning-goals').text("“" + learningGoals + "”");
+                    console.log("Learning goals changed: ", learningGoals);
+                }
+                if (description !== "") {
+                    $('#user-description').text(description);
+                    console.log("Description changed: ", description);
+                }
 
 
                 // Show a "success alert" to let the user know that the data has been updated with success
