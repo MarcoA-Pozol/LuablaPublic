@@ -25,8 +25,14 @@ $(document).ready(function() {
 
     // Display formulary for profile´s data updation
     $("#display-formulary-button").on('click', function() {
-        $('#update-profile-data-form').removeClass('hidden');
+        $('#update-profile-data-form').removeClass('not-displayed').addClass('update-profile-data-form');
         console.log("Formulary displayed")
+
+        // Smooth scrolling to the bottom (formulary)
+        window.scrollTo({
+            top: document.body.scrollHeight * 0.5,
+            behavior: 'smooth' 
+        });
     });
 
 
@@ -85,8 +91,16 @@ $(document).ready(function() {
                     console.log("Description changed:", response.description);
                 }
 
-                // Hide formulary data updating formulary after a success data updation
-                $('#update-profile-data-form').addClass('hidden');
+                // Smooth scrolling to the top (profile data)
+                window.scrollTo({
+                    top: document.body.scrollHeight * 0,
+                    behavior: 'smooth' 
+                });
+
+                // Hide formulary data updating formulary after a success data updation but after 1 second
+                setTimeout(() => {
+                    $('#update-profile-data-form').addClass('not-displayed').removeClass('update-profile-data-form');
+                }, 1000);
 
                 // Show a "success alert" to let the user know that the data has been updated with success
                 showSuccessAlert();

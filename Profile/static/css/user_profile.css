@@ -7,6 +7,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: fadeIn 1.5s ease-in-out;
+    margin-bottom: 50px;
 }
 
 
@@ -45,9 +46,6 @@ b{
     font-size: 1.2em;
     color: #111;
 }
-
-
-
 
 /* Additional Info Section */
 #aditional-info {
@@ -90,9 +88,6 @@ b{
     gap: 70px;
 }
 
-
-
-
 /*Display Formulary*/
 #display-formulary-button{
     display: block;
@@ -111,7 +106,7 @@ b{
 
 
 /*Formulary*/
-#update-profile-data-form{
+.update-profile-data-form{
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -123,10 +118,53 @@ b{
     justify-self: center;
     margin-bottom: 50px;
 }
+.not-displayed{
+    display: none;
+}
+.update-profile-data-form h2{
+    text-align: center;
+    margin-block: 10px;
+    color: #333;
+}
+.update-profile-data-form label {
+    display: block; 
+    margin-bottom: 4px;
+    font-weight: bold;
+    color: #d81002;
+}
+.update-profile-data-form input,
+.update-profile-data-form select,
+.update-profile-data-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 8px rgb(45, 8, 112);
+    text-align: center;
+}
 
+.update-profile-data-form input{
+    height: 50px;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+}
+.update-profile-data-form textarea{
+    height: 100px;
+}
+
+.update-profile-data-form input:focus,
+.update-profile-data-form select:focus,
+.update-profile-data-form textarea:focus {
+    box-shadow: 0 0 8px #ff4d4d;
+    outline: none;
+}
 
 /* Save changes button */
-.save-changes-button{
+.update-profile-data-button{
     text-align: center;
     justify-self: center;
     align-self: center;
@@ -141,10 +179,13 @@ b{
     font-size: 1.2em;
     width: 40%;
 }
-.save-changes-button:hover{
+.update-profile-data-button:hover{
     transform: scale(1.05);
     text-shadow: 1px 1px 2px white;
 }
+
+
+
 
 
 
