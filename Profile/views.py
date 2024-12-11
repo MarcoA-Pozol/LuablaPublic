@@ -7,6 +7,8 @@ from Community.models import Notifications
 from Authentication.models import User
 # Formulary
 from . forms import UpdateProfileDataForm
+import os
+from django.conf import settings
 
 @login_required
 def user_profile(request):
@@ -25,28 +27,43 @@ def update_profile_data_ajax(request):
         user = request.user
         
         try:
-                data = json.loads(request.body) # Parse JSON data from the request(FrontEnd) to be used on this view
-                user = User.objects.get(pk=data.get("user_id"))
-                
-                # Possible data to be updated
-                profile_image = data.get("profile_image")
-                learning_goals = data.get("learning_goals")
-                description = data.get("description")
+            # Get form data
+            profile_picture = request.FILES.get('profile_picture')  # Handle file uploads
+            learning_goals = request.POST.get('learning_goals', '').strip()
+            description = request.POST.get('description', '').strip()
 
-                # Validate and save data 
-                if profile_image != "":
-                    user.profile_image = profile_image
-                    user.save()
-                if learning_goals != "":
-                    user.learning_goals = learning_goals
-                    user.save()
-                if description != "":
-                    user.description = description
-                    user.save()
-            
-                # Notificate to authenticated user when their data was changed.
-                notification = Notifications.objects.create(reason="Updated data", message=f"Updated profile data.", destinatary=user, is_read=False).save()
-                return JsonResponse({"message": f"{user} had updated their data."})
+            # Validate and save data 
+            if profile_picture:
+                # Save the uploaded file
+                upload_dir = os.path.join(settings.MEDIA_ROOT, 'profile_pictures/')
+                os.makedirs(upload_dir, exist_ok=True)
+                file_path = os.path.join(upload_dir, profile_picture.name)
+
+                with open(file_path, 'wb+') as destination:
+                    for chunk in profile_picture.chunks():
+                        destination.write(chunk)
+
+                # Update user profile_picture field with the relative path
+                user.profile_picture = f"profile_pictures/{profile_picture.name}"
+
+            if learning_goals:
+                user.learning_goals = learning_goals
+            if description:
+                user.description = description
+                
+            user.save()
+        
+            # Notificate to authenticated user when their data was changed.
+            notification = Notifications.objects.create(reason="Updated data", message=f"Updated profile data.", destinatary=user, is_read=False).save()
+
+            # Return the updated profile image  (This returns the updated files and data to the FrontEnd after it is saved on the DB)
+            profile_picture_url = user.profile_picture.url if user.profile_picture else None
+            return JsonResponse({
+                "message": f"{user} had updated their data.",
+                "profile_picture": profile_picture_url,
+                "learning_goals": user.learning_goals,
+                "description": user.description
+            })
         except User.DoesNotExist:
             return JsonResponse({"error": "User not found."}, status=404)
         except Exception as e:

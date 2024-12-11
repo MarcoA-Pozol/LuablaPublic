@@ -8,5 +8,5 @@
 
 11 / 12 / 24
 -[DONE] Update profile´s data formulary, view, url, methods, JS, HTML, CSS and more to be implemented.
--[IN PROGRESS] Fix image field on formulary to make sure it can save images to the desired path on the DJango directory and it can manage images.
+-[DONE] Fix image field on formulary to make sure it can save images to the desired path on the DJango directory and it can manage images.
 -[IN PROGRESS] Improve and complete the profile´s data updation formulary´s style acordingly to the entire profile page.

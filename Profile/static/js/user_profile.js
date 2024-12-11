@@ -44,50 +44,49 @@ $(document).ready(function() {
         }
 
         // Get data from formulary fields 
-        const form = document.getElementById("update-profile-data-form");
+        // Create a FormData object
+        const formData = new FormData();
+        const profileImage = document.getElementById("id_profile_image").files[0]; // Use `.files` to get the file
+        const learningGoals = document.getElementById("id_learning_goals").value.trim();
+        const description = document.getElementById("id_description").value.trim();
 
-        const profileImage = document.getElementById("id_profile_image")?.value.trim() || "";
-        const learningGoals = document.getElementById("id_learning_goals")?.value.trim() || "";
-        const description = document.getElementById("id_description")?.value.trim() || "";
+        // Append data to FormData
+        if (profileImage) formData.append("profile_picture", profileImage);
+        formData.append("learning_goals", learningGoals);
+        formData.append("description", description);
+        formData.append("user_id", userID);
 
 
         // Make AJAX request to update user info
         $.ajax({
             url: updateProfileDataURL,
             type: "POST",
-            data: JSON.stringify({
-                "user_id": userID,
-                "profile_image": profileImage,
-                "learning_goals": learningGoals,
-                "description": description
-            }),
+            data: formData,
+            processData: false, // Prevent jQuery from processing the data
+            contentType: false, // Prevent jQuery from setting content type
             constentType: "application/json",
             headers: { "X-CSRFToken": csrftoken },
 
             //Success
-            success: function(response) {
+            success: function (response) {
                 console.log("Updated profile´s data:", response.message);
 
-                // Form submission turned down because we are using AJAX request instead of Django request: form.onsubmit()
+                // Update the data that is displayed on the profile´s data with the new updated ones
+                if (response.profile_picture) {
+                    $('#user-profile-picture').attr('src', `${response.profile_picture}?t=${new Date().getTime()}`);
+                    console.log("Profile picture changed:", response.profile_picture);
+                }
+                if (response.learning_goals) {
+                    $('#user-learning-goals').text("“" + response.learning_goals + "”");
+                    console.log("Learning goals changed:", response.learning_goals);
+                }
+                if (response.description) {
+                    $('#user-description').text(response.description);
+                    console.log("Description changed:", response.description);
+                }
 
                 // Hide formulary data updating formulary after a success data updation
                 $('#update-profile-data-form').addClass('hidden');
-                
-
-                // Update the data that is displayed on the profile´s data with the new updated ones
-                if (profileImage !== "") {
-                    $('#user-profile-image').attr('src', profileImage);
-                    console.log("Profile image changed: ", profileImage);
-                }
-                if (learningGoals !== "") {
-                    $('#user-learning-goals').text("“" + learningGoals + "”");
-                    console.log("Learning goals changed: ", learningGoals);
-                }
-                if (description !== "") {
-                    $('#user-description').text(description);
-                    console.log("Description changed: ", description);
-                }
-
 
                 // Show a "success alert" to let the user know that the data has been updated with success
                 showSuccessAlert();
