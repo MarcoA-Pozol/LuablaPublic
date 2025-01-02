@@ -57,15 +57,22 @@ def bank_of_cards(request, deck_identifier):
     
     # Fetch all cards related to the author deck
     deck_cards = Card.objects.filter(deck=deck)
-    
-    api_url = "http://localhost:8000/luabla_content_api/cards/" 
+
     try:
+        api_url = "http://localhost:8000/luablacontentapi/cards/" 
+
         response = requests.get(api_url)
         if response.status_code == 200:
+            print("Fetching from API")
             cards_json = response.json()
-        else:
+        elif response.status_code == 404:
+            print("Fetching from dataset")
             cards_json = cards_list  # Fallback if API response is not OK
-    except:
+        else:
+            e = response.status_code
+            print(f"Server issue: {e}")
+    except Exception as e:
+        print("API issue: {}".format(e))
         cards_json = cards_list  # Fallback if API call fails
         
     # Filter cards to check if they already exists in author deck or not
@@ -80,8 +87,6 @@ def bank_of_cards(request, deck_identifier):
         
         if not is_duplicate:
             filtered_cards.append(card)
-    
-    print(cards_list)
     
     cards_json_length = len(filtered_cards)
     random.shuffle(filtered_cards)

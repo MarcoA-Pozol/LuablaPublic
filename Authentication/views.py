@@ -62,26 +62,3 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('welcome')
-
-
-
-
-
-"""def login(request):
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = auth.authenticate(request, username=username, password=password)
-            if user is not None:
-                auth.login(request, user)
-                return redirect('languages')
-            else:
-                messages.error(request, 'Invalid username or password')
-    else:
-        form = LoginForm()
-    
-    context = {'form': form}
-    return render(request, 'login.html', context)
-"""

@@ -170,7 +170,16 @@ button:hover {
 
 /* Layout for smaller screens */
 @media (max-width: 768px) {
-    #card-container {
-        width: 95%; /* Make the card container fit smaller screens */
+    #deck-container {
+        margin-block: 0;
+        padding-block: 0;
+        width: 100%;
+        align-self: center;
+        justify-self: center;
+        margin-inline: 0;
+    }
+
+    #back-page-button{
+        display: none;
     }
 }
