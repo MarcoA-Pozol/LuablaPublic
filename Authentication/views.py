@@ -25,7 +25,7 @@ def register(request):
                     message=f"You´re already on the right way to start learning a new Language, we are really glad that you joined to our community of learners around the world. Keep going, learn, practice and enjoy!. \nIf you have any doubt or question, don´t wait to send us an emal for all your doubts clarification.",
                     from_email=EMAIL_HOST_USER, 
                     recipient_list=[user.email],
-                    fail_silently=False,  # Raise an exception if email sending fails
+                    fail_silently=True,  # Raise an exception if email sending fails
                 )
 
                 auth.login(request, user)

@@ -6,9 +6,9 @@ services:
     ports:
       - "8701:5432"
     environment:
-      POSTGRES_DB: Luabla_DB
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mach1029
+      POSTGRES_DB: ${DATABASE_NAME} # Recommended to be called "LuablaDB"
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     networks:
       - luabla-network
 
@@ -17,17 +17,19 @@ services:
     command: sh -c "python manage.py makemigrations Authentication --noinput && python manage.py migrate Authentication --noinput && python manage.py makemigrations --noinput && python manage.py makemigrations Community --noinput && python manage.py makemigrations Chinese --noinput && python manage.py makemigrations English --noinput && python manage.py makemigrations Profile --noinput && python manage.py migrate --noinput && python manage.py makemigrations Welcome --noinput && python manage.py collectstatic --noinput && python manage.py runserver 0.0.0.0:8700"
     volumes:
       - .:/app
+    env_file:
+      - Luabla/.env
     ports:
       - "8700:8700"
     depends_on:
       - luabla_db
     environment:
-      - DEBUG=1
-      - DB_NAME=Luabla_DB
-      - DB_USER=postgres
-      - DB_PASSWORD=mach1029
-      - DB_HOST=luabla_db
-      - DB_PORT=5432
+      - DEBUG= ${DJANGO_DEBUG} # Show console and template errors for debugging (Set to 0/False of you´re a user, to 1/True if you´re a developer or tester).
+      - DB_NAME= ${DATABASE_NAME} # Recommended to be called 'LuablaDB'
+      - DB_USER= ${DATABASE_USER} # Set to 'postgres' user to use your 'by-default' PostgreSQL user.
+      - DB_PASSWORD= ${DATABASE_PASSWORD} 
+      - DB_HOST= ${DATABASE_HOST} # Luabla Database Container
+      - DB_PORT= ${DATABASE_PORT} # Set to 5432 to use the 'by-default' port
     networks:
       - luabla-network
 

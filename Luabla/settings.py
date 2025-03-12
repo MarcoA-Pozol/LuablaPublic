@@ -1,8 +1,12 @@
 from pathlib import Path
 import os
-import dj_database_url
 from datetime import timedelta
 import environ
+
+
+# Initialize environment variables
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,18 +15,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e@3=ng=*il=5@8-1dxaibx42iv4s&*&wk0h)3zfa-4!fpw(k9i'
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
     ".ngrok-free.app",
+    "*"
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.ngrok-free.app",
+    "https://*"
 ]
 
 # Application definition
@@ -60,7 +64,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(hours=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=6),
 }
 
 MIDDLEWARE = [
@@ -103,12 +107,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Luabla_DB',
-        'USER': 'postgres',
-        'PASSWORD': 'mach1029',
-        # 'HOST': 'luabla_db', # Host DB into a container for developing, but principally for deployament and distribution
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        # 'HOST': env('DATABASE_HOST'), # DB into a Docker container.
         'HOST': 'localhost', # Testing host, local for debug with ease and only for developing and testing 
-        'PORT': '5432',
+        'PORT': env('DATABASE_PORT'),
     }
 }
 
@@ -150,16 +154,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Login Default Redirection URL
 LOGIN_URL = 'login'
 
-# Initialize environment variables
-env = environ.Env()
-environ.Env.read_env()
-
 # Emails sending settings
 # settings.py
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com' 
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_USE_TLS = env('EMAIL_USE_TLS')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER') 
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = 'Luabla Learning'
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
