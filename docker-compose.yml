@@ -6,9 +6,9 @@ services:
     ports:
       - "8701:5432"
     environment:
-      POSTGRES_DB: ${DATABASE_NAME} # Recommended to be called "LuablaDB"
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: LuablaDB # Recommended to be called "LuablaDB"
+      POSTGRES_USER: defaultuser
+      POSTGRES_PASSWORD: defaultpassword
     networks:
       - luabla-network
 
@@ -24,12 +24,12 @@ services:
     depends_on:
       - luabla_db
     environment:
-      - DEBUG= ${DJANGO_DEBUG} # Show console and template errors for debugging (Set to 0/False of you´re a user, to 1/True if you´re a developer or tester).
-      - DB_NAME= ${DATABASE_NAME} # Recommended to be called 'LuablaDB'
-      - DB_USER= ${DATABASE_USER} # Set to 'postgres' user to use your 'by-default' PostgreSQL user.
-      - DB_PASSWORD= ${DATABASE_PASSWORD} 
-      - DB_HOST= ${DATABASE_HOST} # Luabla Database Container
-      - DB_PORT= ${DATABASE_PORT} # Set to 5432 to use the 'by-default' port
+      - DEBUG= True # Show console and template errors for debugging (Set to 0/False of you´re a user, to 1/True if you´re a developer or tester).
+      - DB_NAME= LuablaDB # Recommended to be called 'LuablaDB'
+      - DB_USER= defaultuser # Set to 'postgres' user to use your 'by-default' PostgreSQL user.
+      - DB_PASSWORD= defaultpassword 
+      - DB_HOST= luabla_db # Luabla Database Container
+      - DB_PORT= 5432 # Set to 5432 to use the 'by-default' port
     networks:
       - luabla-network
 

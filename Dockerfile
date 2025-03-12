@@ -29,5 +29,22 @@ RUN python manage.py collectstatic --noinput
 # Make port 8700 available to the world outside this container
 EXPOSE 8700
 
+# Connect to PostgreSQL as the default user
+CMD ["psql -U postgres"]
+
+# Create Database
+CMD ["CREATE DATABASE LuablaDB;"]
+
+# Create new Postgresql user and grant all privileges to this new user for the taget database.
+CMD ["CREATE USER defaultuser WITH PASSWORD defaultpassword;"]
+CMD ["GRANT ALL PRIVILEGES ON DATABASE LuablaDB TO defaultuser ;"]
+CMD ["\q"]
+CMD ["psql -U defaultuser -d LuablaDB"]
+
+# Migrate Django models to the database using the default created user.
+CMD ["python", "manage.py", "makemigrations", "Authentication"]
+CMD ["python", "manage.py", "makemigrations"]
+CMD ["python", "manage.py", "migrate", "Authentication"]
+CMD ["python", "manage.py", "migrate"]
 # Run Django Server
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8700"]
