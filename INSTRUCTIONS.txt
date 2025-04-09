@@ -1,0 +1,15 @@
+# Run this commands to execute luabla in your local machine
+(Python is neccesary to be installed in your computer)
+
+1. Move to the desired directory to work (Desktop is recommended for simplicity)
+2. Clone repository with: git clone https://github.com/MarcoA-Pozol/LuablaPublic.git
+3. Open a terminal (cmd/console) move to "LuablaPublic": cd LuablaPublic/
+4. Create venv: python -m venv venv
+5. Install dependencies: pip install -r requirements.txt
+6. Makemigrations Authentication: python manage.py makemigrations Authentication
+7. Migrate Authentication: python manage.py migrate
+8. Makemigrations all modules: python manage.py makemigrations
+9. Migrate all remaining modules: python manage.py migrate
+10. Run server on port 10200: python manage.py runserver 10200
+11. Go to your browser on the browse bar type: localhost:10200
+12. ENJOY!

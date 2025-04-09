@@ -106,13 +106,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
+        # 'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': env('DATABASE_NAME'),
+        # 'USER': env('DATABASE_USER'),
+        # 'PASSWORD': env('DATABASE_PASSWORD'),
         # 'HOST': env('DATABASE_HOST'), # DB into a Docker container.
-        'HOST': 'localhost', # Testing host, local for debug with ease and only for developing and testing 
-        'PORT': env('DATABASE_PORT'),
+        # 'HOST': 'localhost', # Testing host, local for debug with ease and only for developing and testing 
+        # 'PORT': env('DATABASE_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'luabladb.sqlite3'
     }
 }
 
