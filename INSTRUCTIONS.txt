@@ -5,11 +5,12 @@
 2. Clone repository with: git clone https://github.com/MarcoA-Pozol/LuablaPublic.git
 3. Open a terminal (cmd/console) move to "LuablaPublic": cd LuablaPublic/
 4. Create venv: python -m venv venv
-5. Install dependencies: pip install -r requirements.txt
-6. Makemigrations Authentication: python manage.py makemigrations Authentication
-7. Migrate Authentication: python manage.py migrate
-8. Makemigrations all modules: python manage.py makemigrations
-9. Migrate all remaining modules: python manage.py migrate
-10. Run server on port 10200: python manage.py runserver 10200
-11. Go to your browser on the browse bar type: localhost:10200
-12. ENJOY!
+5. Activate venv: venv\scripts\activate
+6. Install dependencies: pip install -r requirements.txt
+7. Makemigrations Authentication: python manage.py makemigrations Authentication
+8. Migrate Authentication: python manage.py migrate
+9. Makemigrations all modules: python manage.py makemigrations
+10. Migrate all remaining modules: python manage.py migrate
+11. Run server on port 10200: python manage.py runserver 10200
+12. Go to your browser on the browse bar type: localhost:10200
+13. ENJOY!
