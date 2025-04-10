@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-SECRET_KEY = env('DJANGO_SECRET_KEY')
+SECRET_KEY = "your-unique-django-secret-key-instructions-in-readme-file"
 
 DEBUG = True
 
