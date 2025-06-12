@@ -25,13 +25,18 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://*.ngrok-free.app",
-    "https://*"
+    'http://localhost:3000',
+    'https://*.ngrok-free.app',
+    'https://*'
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True # Allow all origins (not recommended for production)
+CORS_ALLOW_CREDENTIALS = True  # Allow cookies if needed
 
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,6 +73,7 @@ SIMPLE_JWT = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
