@@ -43,18 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Internal REST API Dependencies
+    # REST API Dependencies
     'rest_framework',
     'rest_framework_simplejwt',
-    # App workflow apps
-    'Authentication',
-    'Community',
-    'Profile',
-    'Welcome',
-    # App
-    'Application',
-    # Internal API
-    'API',
+    # Api 
+    'api',
 ]
 
 # API Settings
