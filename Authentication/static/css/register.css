@@ -1,0 +1,125 @@
+body {
+    background: linear-gradient(to right, #312363, #050036);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-top: 0;
+    padding-bottom: 120px;
+}
+
+.register-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.register-container {
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 80%;
+    max-width: 900px;
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+
+.register-image {
+    width: 50%;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.register-image img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.register-image p {
+    font-size: 1.2rem;
+    text-align: center;
+    color: #444;
+    margin-top: 10px;
+}
+
+.register-form {
+    width: 50%;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-form h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.register-form label {
+    margin-bottom: 4px;
+    font-weight: bold;
+    color: #555;
+}
+
+.register-form input,
+.register-form select,
+.register-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+}
+
+.register-form textarea{
+    height: 20px;
+}
+
+.register-form input:focus,
+.register-form select:focus,
+.register-form textarea:focus {
+    box-shadow: 0 0 8px rgba(90, 70, 250, 0.5);
+    outline: none;
+}
+
+.register-form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #5a46fa;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.register-form button:hover {
+    background: #4834d4;
+}
+
+.extra-options {
+    margin-top: 12px;
+    text-align: center;
+}
+
+.extra-options a {
+    color: #5a46fa;
+    text-decoration: none;
+    font-size: 0.8rem;
+}
+
+.extra-options a:hover {
+    text-decoration: underline;
+}

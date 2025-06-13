@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     # Api 
     'api',
+    'ConnectivityTests',
+    'Authentication'
 ]
 
 # API Settings
@@ -64,7 +66,7 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(hours=6),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=1),
 }
 
 MIDDLEWARE = [

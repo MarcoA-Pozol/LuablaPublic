@@ -1,0 +1,112 @@
+body {
+    background: linear-gradient(to right, #312363, #050036);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-container {
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 80%;
+    max-width: 900px;
+}
+
+.login-image {
+    width: 50%;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-image img {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.login-image p {
+    font-size: 1.2rem;
+    text-align: center;
+    color: #444;
+    margin-top: 10px;
+}
+
+.login-form {
+    width: 50%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+}
+
+.login-form input:focus {
+    box-shadow: 0 0 8px rgba(90, 70, 250, 0.5);
+    outline: none;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #5a46fa;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-form button:hover {
+    background: #4834d4;
+}
+
+.extra-options {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.extra-options a {
+    color: #5a46fa;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.extra-options a:hover {
+    text-decoration: underline;
+}
