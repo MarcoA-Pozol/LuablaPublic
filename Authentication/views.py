@@ -4,6 +4,18 @@ from rest_framework.response import Response
 from rest_framework import status
 from Authentication.models import User
 
+class UsersListView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        users_list = User.objects.all().values('id', 'username', 'email', 'profile_picture')
+        print(users_list)
+
+        if not users_list:
+            return Response({'error':'Not users found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        return Response({'message':'Users list is here', 'users':users_list})
+
 class SignUpView(APIView):
     permission_classes = [AllowAny]
 
