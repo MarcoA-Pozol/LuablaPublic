@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-SECRET_KEY = "your-unique-django-secret-key-instructions-in-readme-file"
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 DEBUG = True
 
@@ -30,9 +30,10 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*'
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True # Allow all origins (not recommended for production)
 CORS_ALLOW_CREDENTIALS = True  # Allow cookies if needed
-
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000'
+] 
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,7 +48,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     # Api 
     'api',
-    'ConnectivityTests',
     'Authentication'
 ]
 
