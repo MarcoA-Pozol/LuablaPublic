@@ -3,6 +3,10 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from Authentication.models import User
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from django.contrib.auth import authenticate
 
 class UsersListView(APIView):
     permission_classes = [AllowAny]
@@ -36,6 +40,52 @@ class SignUpView(APIView):
         user = User.objects.create_user(username=username, email=email, password=password, country=country)
         user.save()
         return Response({'message': 'User created'}, status=status.HTTP_201_CREATED)
+
+class SignInView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        inputCredential = request.data.get('input')
+        password = request.data.get('password')
+
+        try:
+            validate_email(inputCredential)
+            user = User.objects.filter(email=inputCredential).first()
+            username = user.username if user else None
+        except ValidationError: 
+            username = inputCredential
+
+        user = User.objects.filter(username=username).first()
+
+        if not user:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        user = authenticate(request, username=username, password=password)
+        if user is None:
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        # Generate JWT tokens
+        token = TokenObtainPairSerializer.get_token(user)
+        access = str(token.access_token)
+        refresh = str(token)
+
+        response = Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+        # Set tokens in HTTP-only cookies
+        response.set_cookie(
+            key='access_token',
+            value=access,
+            httponly=True,
+            secure=False,
+            samesite='Lax'
+        )
+        response.set_cookie(
+            key='refresh_token',
+            value=refresh,
+            httponly=True,
+            secure=False,
+            samesite='Lax'
+        )
+        return response
 
 # from django.shortcuts import render, redirect, HttpResponse
 # from . forms import UserRegisterForm, LoginForm
