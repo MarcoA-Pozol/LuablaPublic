@@ -7,6 +7,8 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
+from django.core.mail import send_mail
+from Luabla.settings import EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
 
 class UsersListView(APIView):
     permission_classes = [AllowAny]
@@ -39,6 +41,15 @@ class SignUpView(APIView):
             return Response({'error': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
         user = User.objects.create_user(username=username, email=email, password=password, country=country)
         user.save()
+
+        send_mail(
+            subject=f"Welcome to Luabla",
+            message=f"You´re already on the right way to start learning a new Language, we are really glad that you joined to our community of learners around the world. Keep going, learn, practice and enjoy!. \nIf you have any doubt or question, don´t wait to send us an emal for all your doubts clarification.",
+            from_email=EMAIL_HOST_USER, 
+            recipient_list=[user.email],
+            fail_silently=True, 
+        )
+
         return Response({'message': 'User created'}, status=status.HTTP_201_CREATED)
 
 class SignInView(APIView):
