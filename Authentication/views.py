@@ -1,5 +1,5 @@
 from rest_framework.views import APIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from Authentication.models import User
@@ -9,6 +9,22 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
 from django.core.mail import send_mail
 from Luabla.settings import EMAIL_HOST_USER, EMAIL_HOST_PASSWORD
+
+class ProtectedCardsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        cards_list = [
+            {'word':'Dog', 'meaning':'Perro', 'example_phrase':'The dog is eating dog food', 'deck_id':'1'},
+            {'word':'Car', 'meaning':'Coche', 'example_phrase':'Did you see my car keys? I have to attend to a meeting now', 'deck_id':'2'},
+            {'word':'Sugar', 'meaning':'Azucar', 'example_phrase':'Would you like your coffee with sugar?', 'deck_id':'3'},
+        ]
+
+        if not cards_list:
+            return Response({'error':'Not cards found'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({'message':'Users list is here', 'users':cards_list})
+
 
 class UsersListView(APIView):
     permission_classes = [AllowAny]
