@@ -57,7 +57,7 @@ REST_FRAMEWORK = {
         "rest_framework.renderers.JSONRenderer",  # Only JSON responses
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'Authentication.utils.CookieJWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
