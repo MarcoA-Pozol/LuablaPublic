@@ -113,3 +113,18 @@ class SignInView(APIView):
             samesite='Lax'
         )
         return response
+    
+class CheckAuthView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            user = request.user
+            user = User.objects.filter(username=user.username).first()
+            return Response({
+                'username':user.username, 
+                'email':user.email, 
+                'country':user.country
+            }, status=status.HTTP_200_OK)
+        except:
+            return Response({'error':'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
