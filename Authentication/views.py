@@ -114,6 +114,20 @@ class SignInView(APIView):
         )
         return response
     
+class SignOutView(APIView):
+    def post(self, request):
+        response = Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
+        
+        # Clear the HTTP-only JWT cookies
+        response.delete_cookie(
+            key='access_token' 
+        )
+        response.delete_cookie(
+            key='refresh_token'
+        )
+        
+        return response
+    
 class CheckAuthView(APIView):
     permission_classes = [IsAuthenticated]
 
