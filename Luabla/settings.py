@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     # Api 
     'api',
-    'Authentication'
+    'Authentication',
+    'Application'
 ]
 
 # API Settings
