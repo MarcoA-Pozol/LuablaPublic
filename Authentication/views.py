@@ -140,7 +140,15 @@ class CheckAuthView(APIView):
             return Response({
                 'username':user.username, 
                 'email':user.email, 
-                'country':user.country
+                'personal_description':user.personal_description,
+                'age':user.age,
+                'genre':user.genre,
+                'country':user.country,
+                'learning_goals':user.learning_goals,
+                'profile_picture':user.profile_picture.url,
+                'score':user.score,
+                'has_picked_language':user.has_picked_language,
+                'description':user.description
             }, status=status.HTTP_200_OK)
         except:
             return Response({'error':'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)

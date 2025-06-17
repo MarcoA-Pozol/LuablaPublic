@@ -13,8 +13,10 @@ class User(AbstractUser):
     score = models.IntegerField(null=False, default=0)
     friends = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='friends_with')
     # App flow fields
-    language_picked = models.BooleanField(null=True, default=False)
+    has_picked_language = models.BooleanField(null=True, default=False)
+    has_valid_email = models.BooleanField(null=True, default=False)
     description = models.TextField(null=True, default="Hi! I am using Luabla...")
+
 
     def __str__(self):
         return self.username
