@@ -115,6 +115,8 @@ class SignInView(APIView):
         return response
     
 class SignOutView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request):
         response = Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
         
@@ -127,7 +129,7 @@ class SignOutView(APIView):
         )
         
         return response
-    
+
 class CheckAuthView(APIView):
     permission_classes = [IsAuthenticated]
 
