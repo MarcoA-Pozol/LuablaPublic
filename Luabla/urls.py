@@ -8,6 +8,7 @@ base_api_url = 'api/'
 urlpatterns = [
     path(f'{base_api_url}', include('api.urls')),
     path(f'{base_api_url}auth', include('Authentication.urls')),
+    path(f'{base_api_url}app', include('Application.urls')),
 ]
 
 # This is to enable Django to serve media files during development stage.
