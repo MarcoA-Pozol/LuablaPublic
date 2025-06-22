@@ -152,3 +152,18 @@ class CheckAuthView(APIView):
             }, status=status.HTTP_200_OK)
         except:
             return Response({'error':'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        
+class CheckUserHasPickedLanguage(APIView):
+    def get(self, request):
+        try:
+            user = request.user
+            user = User.objects.filter(username=user.username).first()
+
+            if not user:
+                return Response({'error':'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+            return Response({
+                'userHasPickedLanguage':user.has_picked_language
+            })
+        except Exception as e:
+            return Response({'error':f'Internal server error: {e}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
