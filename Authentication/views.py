@@ -96,7 +96,19 @@ class SignInView(APIView):
         access = str(token.access_token)
         refresh = str(token)
 
-        response = Response({'message': 'Login successful', 'username':user.username}, status=status.HTTP_200_OK)
+        response = Response({
+            'username':user.username, 
+            'email':user.email, 
+            'personal_description':user.personal_description,
+            'age':user.age,
+            'genre':user.genre,
+            'country':user.country,
+            'learning_goals':user.learning_goals,
+            'profile_picture':user.profile_picture.url,
+            'score':user.score,
+            'has_picked_language':user.has_picked_language,
+            'description':user.description
+        }, status=status.HTTP_200_OK)
         # Set tokens in HTTP-only cookies
         response.set_cookie(
             key='access_token',
