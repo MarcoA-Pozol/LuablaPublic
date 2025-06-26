@@ -37,14 +37,15 @@ class DeckView(APIView):
             cefr_level = request.data.get('cefrLevel') if request.data.get('cefrLevel') else 'A1' 
             language = request.data.get('language')
             is_shareable = request.data.get('isShareable') if request.data.get('isShareable') else False
-        except Exception as e:
-            pass
+            author = request.user
 
-        if not value:
-            pass
-
-        try:
-            deck = Deck.object.create(data);
-            deck.save()
+            deck = Deck.objects.create(title, description, author, cefr_level, language, is_shareable)
         except Exception as e:
-            pass
+            return Response({'error': f'Error when creating a deck ({e})'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not deck:
+            return Response({'error': 'Deck was not found after creation'}, status=status.HTTP_404_NOT_FOUND)
+
+        deck.save()
+
+        return Response(deck, status=status.HTTP_201_CREATED)
