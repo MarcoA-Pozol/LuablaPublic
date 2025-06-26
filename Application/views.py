@@ -112,24 +112,3 @@ class KoreanDeckView(APIView):
         deck.save()
 
         return Response(deck, status=status.HTTP_201_CREATED)
-
-class RussianDeckView(APIView):
-    def post(self, request):
-        try:
-            title = request.data.get('title')
-            description = request.data.get('description')
-            cefr_level = request.data.get('cefrLevel') if request.data.get('cefrLevel') else 'A1' 
-            language = request.data.get('language') if request.data.get('language') else 'RU'
-            is_shareable = request.data.get('isShareable') if request.data.get('isShareable') else False
-            author = request.user
-
-            deck = Deck.objects.create(title, description, author, cefr_level, language, is_shareable)
-        except Exception as e:
-            return Response({'error': f'Error when creating a deck ({e})'}, status=status.HTTP_400_BAD_REQUEST)
-
-        if not deck:
-            return Response({'error': 'Deck was not found after creation'}, status=status.HTTP_404_NOT_FOUND)
-
-        deck.save()
-
-        return Response(deck, status=status.HTTP_201_CREATED)
