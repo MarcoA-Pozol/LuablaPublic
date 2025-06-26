@@ -37,6 +37,12 @@ class JapaneseDeck(DeckBase):
     author = models.ForeignKey(User, related_name="japanese_deck_author", on_delete=models.CASCADE)
     owners = models.ManyToManyField(User, related_name="japanese_deck_owners")
 
+class RussianDeck(DeckBase):
+    language = models.CharField(max_length=2, null=True, default='RU')
+    author = models.ForeignKey(User, related_name="russian_deck_author", on_delete=models.CASCADE)
+    owners = models.ManyToManyField(User, related_name="russian_deck_owners")
+
+
 # Flashcards
 class FlashcardBase(models.Model):
     meaning = models.CharField(max_length=200, null=False)
@@ -54,7 +60,6 @@ class Flashcard(FlashcardBase):
     def __str__(self):
         return self.word
 
-    
 class ChineseFlashcard(FlashcardBase):
     hanzi = models.CharField(max_length=40, null=True)
     pinyin = models.CharField(max_length=120, null=True)
