@@ -2,6 +2,8 @@ from django.db import models
 from Authentication.models import User
 from . datasets import HSK_LEVELS, CEFR_LEVELS, JLPT_LEVELS, LANGUAGE_CHOICES
 
+
+# Decks
 class DeckBase(models.Model):
     title = models.CharField(max_length=50, null=False)
     description = models.TextField(null=False)
@@ -29,9 +31,54 @@ class ChineseDeck(DeckBase):
     author = models.ForeignKey(User, related_name="chinese_deck_author", on_delete=models.CASCADE)
     owners = models.ManyToManyField(User, related_name="chinese_deck_owners")
 
-
 class JapaneseDeck(DeckBase): 
     jlpt_level = models.CharField(max_length=5, null=True, choices=JLPT_LEVELS, default='N5') # N5 - N1
     language = models.CharField(max_length=2, null=True, default='JP')
     author = models.ForeignKey(User, related_name="japanese_deck_author", on_delete=models.CASCADE)
     owners = models.ManyToManyField(User, related_name="japanese_deck_owners")
+
+# Flashcards
+class FlashcardBase(models.Model):
+    meaning = models.CharField(max_length=200, null=False)
+    example_phrase = models.CharField(max_length=200, null=True)
+    author = models.ForeignKey(User, related_name="flashcard_author", on_delete=models.CASCADE)
+    deck = models.ForeignKey(Deck, related_name="deck", on_delete=models.CASCADE) 
+    creation_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        abstract = True
+    
+class Flashcard(FlashcardBase):
+    word = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.word
+
+    
+class ChineseFlashcard(FlashcardBase):
+    hanzi = models.CharField(max_length=40, null=True)
+    pinyin = models.CharField(max_length=120, null=True)
+    author = models.ForeignKey(User, related_name="chinese_flashcard_author", on_delete=models.CASCADE)
+    deck = models.ForeignKey(ChineseDeck, related_name="chinese_deck", on_delete=models.CASCADE) 
+
+    def __str__(self):
+        return self.hanzi
+    
+class JapaneseFlashcard(FlashcardBase):
+    kanji = models.CharField(max_length=50, blank=True, null=True) # Optional (e.g., 食べる)
+    kana = models.CharField(max_length=50, null=False) # (e.g., たべる)
+    romaji = models.CharField(max_length=100, null=False) # (e.g., "taberu")
+    author = models.ForeignKey(User, related_name="japanese_flashcard_author", on_delete=models.CASCADE)
+    deck = models.ForeignKey(JapaneseDeck, related_name="japanese_deck", on_delete=models.CASCADE) 
+    
+    def __str__(self):
+        return self.kana
+    
+class RussianFlashcard(FlashcardBase):
+    cyrillic = models.CharField(max_length=50, null=False) # (e.g., "говорить")
+    transliteration = models.CharField(max_length=100, null=False)
+    author = models.ForeignKey(User, related_name="russian_flashcard_author", on_delete=models.CASCADE)
+    deck = models.ForeignKey(RussianDeck, related_name="russian_deck", on_delete=models.CASCADE) 
+
+    def __str__(self):
+        return self.cyrillic
