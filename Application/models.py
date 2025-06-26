@@ -26,7 +26,12 @@ class Deck(DeckBase):
 class ChineseDeck(DeckBase):
     hsk_level = models.CharField(max_length=5, null=True, choices=HSK_LEVELS, default='HSK1') # HSK1 - HSK6
     language = models.CharField(max_length=2, null=True, default='ZH')
+    author = models.ForeignKey(User, related_name="chinese_deck_author", on_delete=models.CASCADE)
+    owners = models.ManyToManyField(User, related_name="chinese_deck_owners")
+
 
 class JapaneseDeck(DeckBase): 
     jlpt_level = models.CharField(max_length=5, null=True, choices=JLPT_LEVELS, default='N5') # N5 - N1
     language = models.CharField(max_length=2, null=True, default='JP')
+    author = models.ForeignKey(User, related_name="japanese_deck_author", on_delete=models.CASCADE)
+    owners = models.ManyToManyField(User, related_name="japanese_deck_owners")
