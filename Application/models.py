@@ -1,6 +1,6 @@
 from django.db import models
 from Authentication.models import User
-from . datasets import HSK_LEVELS, CEFR_LEVELS, JLPT_LEVELS, LANGUAGE_CHOICES
+from . datasets import HSK_LEVELS, CEFR_LEVELS, JLPT_LEVELS, LANGUAGE_CHOICES, TOPIK_LEVELS
 
 
 # Decks
@@ -37,10 +37,12 @@ class JapaneseDeck(DeckBase):
     author = models.ForeignKey(User, related_name="japanese_deck_author", on_delete=models.CASCADE)
     owners = models.ManyToManyField(User, related_name="japanese_deck_owners")
 
-class RussianDeck(DeckBase):
-    language = models.CharField(max_length=2, null=True, default='RU')
-    author = models.ForeignKey(User, related_name="russian_deck_author", on_delete=models.CASCADE)
-    owners = models.ManyToManyField(User, related_name="russian_deck_owners")
+class KoreanDeck(DeckBase): 
+    topik_level = models.CharField(max_length=15, null=True, choices=TOPIK_LEVELS, default='TOPIK I - 1') # TOPIK I - 1 - TOPIK II - 6
+    language = models.CharField(max_length=2, null=True, default='KO')
+    author = models.ForeignKey(User, related_name="korean_deck_author", on_delete=models.CASCADE)
+    owners = models.ManyToManyField(User, related_name="korean_deck_owners")
+
 
 
 # Flashcards
@@ -79,11 +81,20 @@ class JapaneseFlashcard(FlashcardBase):
     def __str__(self):
         return self.kana
     
+class KoreanFlashcard(FlashcardBase):
+    hangul = models.CharField(max_length=50, null=False) # (e.g., "먹다")
+    romaji = models.CharField(max_length=100, null=False) # (e.g., "meokda")
+    author = models.ForeignKey(User, related_name="korean_flashcard_author", on_delete=models.CASCADE)
+    deck = models.ForeignKey(KoreanDeck, related_name="korean_deck", on_delete=models.CASCADE) 
+    
+    def __str__(self):
+        return self.hangul
+    
 class RussianFlashcard(FlashcardBase):
     cyrillic = models.CharField(max_length=50, null=False) # (e.g., "говорить")
     transliteration = models.CharField(max_length=100, null=False)
     author = models.ForeignKey(User, related_name="russian_flashcard_author", on_delete=models.CASCADE)
-    deck = models.ForeignKey(RussianDeck, related_name="russian_deck", on_delete=models.CASCADE) 
+    deck = models.ForeignKey(Deck, related_name="russian_deck", on_delete=models.CASCADE) 
 
     def __str__(self):
         return self.cyrillic
