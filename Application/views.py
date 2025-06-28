@@ -97,7 +97,7 @@ class KoreanDeckView(APIView):
         try:
             title = request.data.get('title')
             description = request.data.get('description')
-            topik_level = request.data.get('topikLevel') if request.data.get('topikLevel') else 'TOPIK I - 1' 
+            topik_level = request.data.get('topikLevel') if request.data.get('topikLevel') else 'TOPIK-I-1' 
             language = request.data.get('language') if request.data.get('language') else 'KO'
             is_shareable = request.data.get('isShareable') if request.data.get('isShareable') else False
             author = request.user

@@ -35,10 +35,10 @@ JLPT_LEVELS = [
 ]
 
 TOPIK_LEVELS = [
-    ('TOPIK I - 1', 'TOPIK I - 1'),
-    ('TOPIK I - 1', 'TOPIK I - 1'),
-    ('TOPIK II - 3', 'TOPIK II - 3'),
-    ('TOPIK II - 4', 'TOPIK II - 4'),
-    ('TOPIK II - 5', 'TOPIK II - 5'),
-    ('TOPIK II - 6', 'TOPIK II - 6'),
+    ('TOPIK-I-1', 'TOPIK-I-1'),
+    ('TOPIK-I-2', 'TOPIK-I-2'),
+    ('TOPIK-II-3', 'TOPIK-II-3'),
+    ('TOPIK-II-4', 'TOPIK-II-4'),
+    ('TOPIK-II-5', 'TOPIK-II-5'),
+    ('TOPIK-II-6', 'TOPIK-II-6'),
 ]
