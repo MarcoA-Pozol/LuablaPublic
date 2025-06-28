@@ -38,7 +38,7 @@ class JapaneseDeck(DeckBase):
     owners = models.ManyToManyField(User, related_name="japanese_deck_owners")
 
 class KoreanDeck(DeckBase): 
-    topik_level = models.CharField(max_length=15, null=True, choices=TOPIK_LEVELS, default='TOPIK I - 1') # TOPIK I - 1 - TOPIK II - 6
+    topik_level = models.CharField(max_length=15, null=True, choices=TOPIK_LEVELS, default='TOPIK-I-1') # TOPIK I - 1 - TOPIK II - 6
     language = models.CharField(max_length=2, null=True, default='KO')
     author = models.ForeignKey(User, related_name="korean_deck_author", on_delete=models.CASCADE)
     owners = models.ManyToManyField(User, related_name="korean_deck_owners")
