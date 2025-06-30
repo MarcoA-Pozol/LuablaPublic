@@ -23,7 +23,6 @@ class DeckBase(models.Model):
 
 class Deck(DeckBase):
     cefr_level = models.CharField(max_length=5, null=True, choices=CEFR_LEVELS, default='A1') # A1 - C2
-    language = models.CharField(max_length=2, choices=LANGUAGE_CHOICES, null=True, default='EN')
 
 class ChineseDeck(DeckBase):
     hsk_level = models.CharField(max_length=5, null=True, choices=HSK_LEVELS, default='HSK1') # HSK1 - HSK6

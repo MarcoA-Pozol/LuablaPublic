@@ -56,22 +56,22 @@ class DeckView(APIView):
         try:
             title = request.data.get('title')
             description = request.data.get('description')
-            cefr_level = request.data.get('cefrLevel') if request.data.get('cefrLevel') else 'A1' 
-            language = request.data.get('language')
-            is_shareable = request.data.get('isShareable') if request.data.get('isShareable') else False
+            cefr_level = request.data.get('cefrLevel')
+            language = request.data.get('language') 
+            is_shareable = request.data.get('isShareable')
+            image = request.FILES.get('image')
             author = request.user
-
-            deck = Deck.objects.create(title, description, author, cefr_level, language, is_shareable)
         except Exception as e:
+            response = Response({'error': 'Error obtaining request data'}, status=status.HTTP_404_NOT_FOUND)
+            return response
+
+        try:
+            deck = Deck.objects.create(title=title, description=description, author=author, is_shareable=True if is_shareable == 'on' else False, image=image, language=language, cefr_level=cefr_level)
+            deck.save()
+            return Response({'message':'Deck was created'}, status=status.HTTP_201_CREATED)
+        except Exception as e: 
             return Response({'error': f'Error when creating a deck ({e})'}, status=status.HTTP_400_BAD_REQUEST)
 
-        if not deck:
-            return Response({'error': 'Deck was not found after creation'}, status=status.HTTP_404_NOT_FOUND)
-
-        deck.save()
-
-        return Response(deck, status=status.HTTP_201_CREATED)
-    
 class ChineseDeckView(APIView):
     def post(self, request):
         try:
