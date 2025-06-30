@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from . models import Deck, ChineseDeck, JapaneseDeck, KoreanDeck
+from . serializers import DeckSerializer
 
 class SetLanguagePicked(APIView):
     permission_classes = [IsAuthenticated]
@@ -32,23 +33,25 @@ class SetLanguagePicked(APIView):
 class DeckView(APIView):
     def get(self, request):
         deck_id = request.query_params.get('id')
+        language = request.query_params.get('language')
         user = request.user
-        language = request.data.get('language')
 
         if deck_id:
-            deck = Deck.objects.filter(id=id).first()
+            deck = Deck.objects.filter(id=deck_id).first()
+            serialized = DeckSerializer(deck)
 
             if not deck:
-                return Response({'deck':deck}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'deck':serialized.data}, status=status.HTTP_404_NOT_FOUND)
             return Response({'deck':deck}, status=status.HTTP_200_OK)
         else:
             try:
-                decks_list = Deck.objects.filter(author=user.id, language=language if language else 'EN').all()
+                decks_list = Deck.objects.filter(author=user, language=language).all()
+                serialized = DeckSerializer(decks_list, many=True)
 
                 if len(decks_list) <= 0:
                     return Response({'error':'Decks not found'}, status=status.HTTP_404_NOT_FOUND)
                 
-                return Response({'decks':decks_list}, status=status.HTTP_200_OK)
+                return Response({'decks':serialized.data}, status=status.HTTP_200_OK)
             except Exception as e:
                 return Response({'error': f'Unexpected error ocurred: {e}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
