@@ -30,6 +30,28 @@ class SetLanguagePicked(APIView):
         
 
 class DeckView(APIView):
+    def get(self, request):
+        deck_id = request.query_params.get('id')
+        user = request.user
+        language = request.data.get('language')
+
+        if deck_id:
+            deck = Deck.objects.filter(id=id).first()
+
+            if not deck:
+                return Response({'deck':deck}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'deck':deck}, status=status.HTTP_200_OK)
+        else:
+            try:
+                decks_list = Deck.objects.filter(author=user.id, language=language if language else 'EN').all()
+
+                if len(decks_list) <= 0:
+                    return Response({'error':'Decks not found'}, status=status.HTTP_404_NOT_FOUND)
+                
+                return Response({'decks':decks_list}, status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({'error': f'Unexpected error ocurred: {e}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     def post(self, request):
         try:
             title = request.data.get('title')
