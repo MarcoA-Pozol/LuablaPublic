@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from . models import Deck, ChineseDeck, JapaneseDeck, KoreanDeck
-from . serializers import DeckSerializer
+from . serializers import DeckSerializer, ChineseDeckSerializer, JapaneseDeckSerializer, KoreanDeckSerializer
 
 class SetLanguagePicked(APIView):
     permission_classes = [IsAuthenticated]
@@ -45,13 +45,18 @@ class DeckView(APIView):
             return Response({'deck':deck}, status=status.HTTP_200_OK)
         else:
             try:
+                serializer = {
+                    'ZH': ChineseDeckSerializer,
+                    'KO': KoreanDeckSerializer,
+                    'JP': JapaneseDeckSerializer
+                }.get(language, DeckSerializer)
                 deck_model = {
                     'ZH': ChineseDeck,
                     'KO': KoreanDeck,
                     'JP': JapaneseDeck
                 }.get(language, Deck)
-                decks_list = deck_model.objects.filter(author=user).all()
-                serialized = DeckSerializer(decks_list, many=True)
+                decks_list = deck_model.objects.filter(author=user, language=language).all()
+                serialized = serializer(decks_list, many=True)
 
                 if len(decks_list) <= 0:
                     return Response({'error':'Decks not found'}, status=status.HTTP_404_NOT_FOUND)
