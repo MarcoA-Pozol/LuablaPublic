@@ -45,7 +45,12 @@ class DeckView(APIView):
             return Response({'deck':deck}, status=status.HTTP_200_OK)
         else:
             try:
-                decks_list = Deck.objects.filter(author=user, language=language).all()
+                deck_model = {
+                    'ZH': ChineseDeck,
+                    'KO': KoreanDeck,
+                    'JP': JapaneseDeck
+                }.get(language, Deck)
+                decks_list = deck_model.objects.filter(author=user).all()
                 serialized = DeckSerializer(decks_list, many=True)
 
                 if len(decks_list) <= 0:
@@ -59,6 +64,9 @@ class DeckView(APIView):
         try:
             title = request.data.get('title')
             description = request.data.get('description')
+            hsk_level = request.data.get('hskLevel')
+            jlpt_level = request.data.get('jlptLevel')
+            topik_level = request.data.get('topikLevel')
             cefr_level = request.data.get('cefrLevel')
             language = request.data.get('language') 
             is_shareable = request.data.get('isShareable')
@@ -69,7 +77,15 @@ class DeckView(APIView):
             return response
 
         try:
-            deck = Deck.objects.create(title=title, description=description, author=author, is_shareable=True if is_shareable == 'on' else False, image=image, language=language, cefr_level=cefr_level)
+            if language == 'ZH':
+                deck = ChineseDeck.objects.create(title=title, description=description, author=author, is_shareable=True if is_shareable == 'on' else False, image=image, language=language, hsk_level=hsk_level)
+            if language == 'JP':
+                deck = JapaneseDeck.objects.create(title=title, description=description, author=author, is_shareable=True if is_shareable == 'on' else False, image=image, language=language, jlpt_level=jlpt_level)
+            if language == 'KO':
+                deck = KoreanDeck.objects.create(title=title, description=description, author=author, is_shareable=True if is_shareable == 'on' else False, image=image, language=language, topik_level=topik_level)
+            else:
+                deck = Deck.objects.create(title=title, description=description, author=author, is_shareable=True if is_shareable == 'on' else False, image=image, language=language, cefr_level=cefr_level)
+
             deck.save()
             return Response({'message':'Deck was created'}, status=status.HTTP_201_CREATED)
         except Exception as e: 
