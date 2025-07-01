@@ -150,6 +150,7 @@ class CheckAuthView(APIView):
             user = request.user
             user = User.objects.filter(username=user.username).first()
             return Response({
+                'id':user.id,
                 'username':user.username, 
                 'email':user.email, 
                 'personal_description':user.personal_description,
