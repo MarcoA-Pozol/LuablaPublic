@@ -56,7 +56,7 @@ class DeckView(APIView):
             image = request.FILES.get('image')
             author = request.user
         except Exception as e:
-            response = Response({'error': 'Error obtaining request data'}, status=status.HTTP_404_NOT_FOUND)
+            response = Response({'error': 'Error obtaining request data'}, status=status.HTTP_400_BAD_REQUEST)
             return response
 
         try:
@@ -72,7 +72,7 @@ class DeckView(APIView):
             deck.save()
             return Response({'message':'Deck was created'}, status=status.HTTP_201_CREATED)
         except Exception as e: 
-            return Response({'error': f'Error when creating a deck ({e})'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': f'Error during deck creation ({e})'}, status=status.HTTP_400_BAD_REQUEST)
 
 class ChineseDeckView(APIView):
     permission_classes = [IsAuthenticated]

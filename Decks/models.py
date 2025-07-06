@@ -2,8 +2,6 @@ from django.db import models
 from Authentication.models import User
 from . datasets import HSK_LEVELS, CEFR_LEVELS, JLPT_LEVELS, LANGUAGE_CHOICES, TOPIK_LEVELS
 
-
-# Decks
 class DeckBase(models.Model):
     title = models.CharField(max_length=50, null=False)
     description = models.TextField(null=False)

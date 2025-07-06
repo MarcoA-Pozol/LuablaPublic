@@ -2,7 +2,6 @@ from django.db import models
 from Authentication.models import User
 from Decks.models import Deck, ChineseDeck, JapaneseDeck, KoreanDeck
 
-# Flashcards
 class FlashcardBase(models.Model):
     meaning = models.CharField(max_length=200, null=False)
     example_phrase = models.CharField(max_length=200, null=True)
