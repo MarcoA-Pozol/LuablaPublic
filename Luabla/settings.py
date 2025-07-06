@@ -49,7 +49,9 @@ INSTALLED_APPS = [
     # Api 
     'api',
     'Authentication',
-    'Application'
+    'Application',
+    'Flashcards',
+    'Decks'
 ]
 
 # API Settings
