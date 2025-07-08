@@ -10,7 +10,8 @@ class FlashcardView(APIView):
 
     def post(self, request):
         try:
-            language = request.data.get('language')
+            deck_id = request.data.get('deckId')
+            language = request.query_params.get('language')
             word = request.data.get('word')
             hanzi = request.data.get('hanzi')
             pinyin = request.data.get('pinyin')
@@ -22,7 +23,6 @@ class FlashcardView(APIView):
             transliteration = request.data.get('transliteration')
             meaning = request.data.get('meaning')
             example_phrase = request.data.get('examplePhrase')
-            deck_id = request.data.get('deckId')
             author = request.user
         except Exception as e:
             response = Response({'error': 'Error obtaining request data'}, status=status.HTTP_400_BAD_REQUEST)
@@ -46,6 +46,11 @@ class FlashcardView(APIView):
                 flashcard = Flashcard.objects.create(word=word, meaning=meaning, example_phrase=example_phrase, author=author, deck=deck)
 
             flashcard.save()
+
+            # Increase cards quantity in deck where flashcard is added
+            deck.cards_quantity+=1
+            deck.save()
+
             return Response({'message':'Flashcard was created'}, status=status.HTTP_201_CREATED)
         
         except Deck.DoesNotExist:
