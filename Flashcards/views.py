@@ -10,7 +10,7 @@ class FlashcardView(APIView):
 
     def post(self, request):
         try:
-            deck_id = request.data.get('deckId')
+            deck_id = request.query_params.get('deckId')
             language = request.query_params.get('language')
             word = request.data.get('word')
             hanzi = request.data.get('hanzi')
