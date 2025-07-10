@@ -74,6 +74,37 @@ class DeckView(APIView):
         except Exception as e: 
             return Response({'error': f'Error during deck creation ({e})'}, status=status.HTTP_400_BAD_REQUEST)
 
+class LibraryDeckView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        language = request.query_params.get('language')
+        user = request.user
+
+        try:
+            serializer = {
+                'ZH': ChineseDeckSerializer,
+                'KO': KoreanDeckSerializer,
+                'JP': JapaneseDeckSerializer
+            }.get(language, DeckSerializer)
+            deck_model = {
+                'ZH': ChineseDeck,
+                'KO': KoreanDeck,
+                'JP': JapaneseDeck
+            }.get(language, Deck)
+            decks_list = deck_model.objects.filter(language=language).exclude(author=request.user).exclude(owners=request.user).exclude(cards_quantity=0).all()
+            serialized = serializer(decks_list, many=True)
+
+            if len(decks_list) <= 0:
+                return Response({'error':'Decks not found'}, status=status.HTTP_404_NOT_FOUND)
+            
+            return Response({'decks':serialized.data}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': f'Unexpected error ocurred: {e}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
 class ChineseDeckView(APIView):
     permission_classes = [IsAuthenticated]
 
